@@ -1,0 +1,10 @@
+{
+  "features": [
+    "Population",
+    "TEC",
+    "CEI",
+    "CO2e_lag1",
+    "CO2e_lag2",
+    "CO2e_lag4"
+  ]
+}

@@ -1,0 +1,40 @@
+2026-01-27 13:14:08 | INFO     | co2_forecast | Logging to: outputs\runs\run_20260127_1314\logs\run_20260127_1314.log
+2026-01-27 13:14:08 | INFO     | co2_forecast | ============================================================
+2026-01-27 13:14:08 | INFO     | co2_forecast | Script 01: Run Feature Selection
+2026-01-27 13:14:08 | INFO     | co2_forecast | ============================================================
+2026-01-27 13:14:08 | INFO     | co2_forecast | Loading processed data...
+2026-01-27 13:14:10 | INFO     | co2_forecast | Loaded: 101 samples, 16 features
+2026-01-27 13:14:10 | INFO     | co2_forecast | ----------------------------------------
+2026-01-27 13:14:10 | INFO     | co2_forecast | Running all feature selection methods...
+2026-01-27 13:14:10 | INFO     | co2_forecast | Running all feature selection options...
+2026-01-27 13:14:10 | INFO     | co2_forecast | ==================================================
+2026-01-27 13:14:10 | INFO     | co2_forecast | Running linear feature selection (FS_linear)...
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 0: Removed 'CEI' (VIF=130.82)
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 1: Removed 'Q3' (VIF=59.88)
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 2: Removed 'TEC' (VIF=59.26)
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 3: Removed 'CO2e_lag3' (VIF=40.88)
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 4: Removed 'CO2e_lag1' (VIF=31.89)
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 5: Removed 'Population' (VIF=22.71)
+2026-01-27 13:14:10 | INFO     | co2_forecast | Iteration 6: Removed 'CO2e_lag2' (VIF=10.19)
+2026-01-27 13:14:10 | INFO     | co2_forecast | VIF filter: 16 -> 9 features
+2026-01-27 13:14:11 | INFO     | co2_forecast | Ridge stability: Selected 3 features (stability >= 0.6)
+2026-01-27 13:14:11 | INFO     | co2_forecast | ElasticNet stability: Selected 0 features (stability >= 0.6)
+2026-01-27 13:14:11 | INFO     | co2_forecast | FS_linear final: 3 features selected
+2026-01-27 13:14:11 | INFO     | co2_forecast | ==================================================
+2026-01-27 13:14:11 | INFO     | co2_forecast | Running nonlinear feature selection (FS_nonlinear)...
+2026-01-27 13:14:40 | INFO     | co2_forecast | RF importance: Selected 6 features
+2026-01-27 13:14:48 | INFO     | co2_forecast | LightGBM importance: Selected 12 features
+2026-01-27 13:14:48 | WARNING  | co2_forecast | CatBoost not installed, skipping CatBoost importance
+2026-01-27 13:14:48 | INFO     | co2_forecast | FS_nonlinear final: 12 features selected
+2026-01-27 13:14:48 | INFO     | co2_forecast | ==================================================
+2026-01-27 13:14:48 | INFO     | co2_forecast | Running consensus feature selection (FS_consensus)...
+2026-01-27 13:14:48 | INFO     | co2_forecast | Vote-based selection: 11 features with >= 2 votes
+2026-01-27 13:14:50 | INFO     | co2_forecast | Stability-based selection: 10 features with stability >= 0.6
+2026-01-27 13:14:50 | INFO     | co2_forecast | FS_consensus final: 9 features selected
+2026-01-27 13:14:50 | INFO     | co2_forecast | ============================================================
+2026-01-27 13:14:50 | INFO     | co2_forecast | Feature Selection Complete!
+2026-01-27 13:14:50 | INFO     | co2_forecast |   fs_linear: 3 features
+2026-01-27 13:14:50 | INFO     | co2_forecast |   fs_nonlinear: 12 features
+2026-01-27 13:14:50 | INFO     | co2_forecast |   fs_consensus: 9 features
+2026-01-27 13:14:50 | INFO     | co2_forecast | Results saved to: outputs\runs\run_20260127_1314\tables
+2026-01-27 13:14:50 | INFO     | co2_forecast | ============================================================

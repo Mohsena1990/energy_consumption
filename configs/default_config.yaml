@@ -1,0 +1,96 @@
+# CO2 Forecasting Framework - Default Configuration
+# =================================================
+
+# Data Configuration
+data:
+  input_path: "data 1999-2025Q1.xlsx"
+  date_column: "Quarter"
+  target_column: "CO2e"
+  target_transform: "log"  # "log" or "delta_log"
+  sheet_name: null  # null for first sheet
+
+# Feature Engineering
+features:
+  lag_features:
+    - "CO2e"
+  lag_orders: [1, 2, 3, 4]
+  seasonality_type: "dummies"  # "dummies" or "sincos"
+  include_covid_dummy: true
+  covid_start: "2020Q1"
+  covid_end: "2021Q4"
+  include_energy_crisis: true
+  energy_crisis_start: "2022Q1"
+  energy_crisis_end: "2023Q4"
+
+# Cross-Validation Splits
+splits:
+  method: "walk_forward"
+  min_train_size: 40  # minimum quarters for training
+  test_size: 4  # quarters per test fold
+  horizons: [1, 2, 4]  # forecast horizons
+  horizon_weights:
+    1: 0.5
+    2: 0.3
+    4: 0.2
+
+# Feature Selection
+fs:
+  vif_threshold: 10.0
+  stability_threshold: 0.6  # 60% of folds
+  vote_threshold: 2  # minimum methods agreeing
+  top_k_features: 5  # for SHAP concentration
+  evaluator_model: "lightgbm"  # "lightgbm" or "catboost"
+
+# Optimization (PSO/GWO)
+optimization:
+  optimizer: "pso"  # "pso" or "gwo"
+  n_particles: 20
+  n_iterations: 30
+  annual_penalty_threshold: 0.05  # 5% MAPE threshold
+  annual_penalty_weight: 0.1
+
+# Models
+model:
+  models:
+    - "ridge"
+    - "random_forest"
+    - "catboost"
+    - "lightgbm"
+    - "lstm"
+  lstm_lookback_options: [4, 8, 12]
+  lstm_max_epochs: 200
+  lstm_patience: 20
+  lstm_dropout: 0.2
+
+# MCDA Configuration
+mcda:
+  method: "vikor"  # "vikor" or "topsis"
+  use_pareto_filter: true
+  vikor_v: 0.5  # compromise parameter
+
+  # Weights for FS evaluation criteria
+  fs_weights:
+    accuracy: 0.30
+    stability: 0.20
+    shap_concentration: 0.15
+    shap_stability: 0.20
+    parsimony: 0.15
+
+  # Weights for final model selection
+  model_weights:
+    quarterly_mae: 0.35
+    stability: 0.20
+    annual_consistency: 0.25
+    interpretability: 0.10
+    parsimony: 0.10
+
+# Output Configuration
+output:
+  base_dir: "outputs"
+  figure_dpi: 300
+  figure_format: "png"
+  save_models: true
+  save_predictions: true
+
+# Global Settings
+seed: 42

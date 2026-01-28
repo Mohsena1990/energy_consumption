@@ -1,0 +1,84 @@
+data:
+  date_column: Quarter
+  input_path: data 1999-2025Q1.xlsx
+  sheet_name: null
+  target_column: CO2e
+  target_transform: log
+features:
+  covid_end: 2021Q4
+  covid_start: 2020Q1
+  energy_crisis_end: 2023Q4
+  energy_crisis_start: 2022Q1
+  include_covid_dummy: true
+  include_energy_crisis: true
+  lag_features:
+  - CO2e
+  lag_orders:
+  - 1
+  - 2
+  - 3
+  - 4
+  seasonality_type: dummies
+fs:
+  evaluator_model: lightgbm
+  stability_threshold: 0.6
+  top_k_features: 5
+  vif_threshold: 10.0
+  vote_threshold: 2
+mcda:
+  fs_weights:
+    accuracy: 0.3
+    parsimony: 0.15
+    shap_concentration: 0.15
+    shap_stability: 0.2
+    stability: 0.2
+  method: vikor
+  model_weights:
+    annual_consistency: 0.25
+    interpretability: 0.1
+    parsimony: 0.1
+    quarterly_mae: 0.35
+    stability: 0.2
+  use_pareto_filter: true
+  vikor_v: 0.5
+model:
+  lstm_dropout: 0.2
+  lstm_lookback_options:
+  - 4
+  - 8
+  - 12
+  lstm_max_epochs: 200
+  lstm_patience: 20
+  models:
+  - ridge
+  - random_forest
+  - catboost
+  - lightgbm
+  - lstm
+optimization:
+  annual_penalty_threshold: 0.05
+  annual_penalty_weight: 0.1
+  n_iterations: 30
+  n_particles: 20
+  optimizer: pso
+  seed: 42
+output:
+  base_dir: outputs
+  figure_dpi: 300
+  figure_format: png
+  save_models: true
+  save_predictions: true
+run_id: run_20260127_0320
+seed: 42
+splits:
+  horizon_weights:
+    1: 0.5
+    2: 0.3
+    4: 0.2
+  horizons:
+  - 1
+  - 2
+  - 4
+  method: walk_forward
+  min_train_size: 40
+  test_size: 4

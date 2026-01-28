@@ -1,0 +1,11 @@
+2026-01-27 02:27:42 | INFO     | co2_forecast | Logging to: outputs\runs\run_20260127_0227\logs\run_20260127_0227.log
+2026-01-27 02:27:42 | INFO     | co2_forecast | ============================================================
+2026-01-27 02:27:42 | INFO     | co2_forecast | Script 00: Make Dataset
+2026-01-27 02:27:42 | INFO     | co2_forecast | ============================================================
+2026-01-27 02:27:42 | INFO     | co2_forecast | Run ID: run_20260127_0227
+2026-01-27 02:27:42 | INFO     | co2_forecast | Input: data 1999-2025Q1.xlsx
+2026-01-27 02:27:42 | INFO     | co2_forecast | ----------------------------------------
+2026-01-27 02:27:42 | INFO     | co2_forecast | Step 1: Loading raw data...
+2026-01-27 02:27:42 | INFO     | co2_forecast | Loading data from: data 1999-2025Q1.xlsx
+2026-01-27 02:27:43 | INFO     | co2_forecast | Loaded 98 rows, 2 columns
+2026-01-27 02:27:43 | INFO     | co2_forecast | Columns: ['Experimental estimates of total carbon dioxide (CO2 )(residence basis), quarter 1 (Jan to Mar) 1999 to quarter 1 (Jan to Mar) 2024', 'Unnamed: 1']

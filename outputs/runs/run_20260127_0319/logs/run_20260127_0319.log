@@ -1,0 +1,26 @@
+2026-01-27 03:19:12 | INFO     | co2_forecast | Logging to: outputs\runs\run_20260127_0319\logs\run_20260127_0319.log
+2026-01-27 03:19:12 | INFO     | co2_forecast | ============================================================
+2026-01-27 03:19:12 | INFO     | co2_forecast | Script 00: Make Dataset
+2026-01-27 03:19:12 | INFO     | co2_forecast | ============================================================
+2026-01-27 03:19:12 | INFO     | co2_forecast | Run ID: run_20260127_0319
+2026-01-27 03:19:12 | INFO     | co2_forecast | Input: data 1999-2025Q1.xlsx
+2026-01-27 03:19:12 | INFO     | co2_forecast | ----------------------------------------
+2026-01-27 03:19:12 | INFO     | co2_forecast | Step 1: Loading raw data...
+2026-01-27 03:19:12 | INFO     | co2_forecast | Loading data from: data 1999-2025Q1.xlsx
+2026-01-27 03:19:13 | INFO     | co2_forecast | Loaded sheet: Sheet1 (header row: 2)
+2026-01-27 03:19:13 | INFO     | co2_forecast | Loaded 105 rows, 9 columns
+2026-01-27 03:19:13 | INFO     | co2_forecast | Columns: ['Time_Period', 'CO2e', 'GDP', 'Population', 'Air_Temp', 'Rainfall', 'TEC', 'CEI', 'COVID_Deaths']
+2026-01-27 03:19:13 | WARNING  | co2_forecast | Some expected features not found: ['GDP_growth', 'Industrial_Production', 'GDP_per_capita', 'Consumption', 'Investment']...
+2026-01-27 03:19:13 | WARNING  | co2_forecast | Additional columns found: ['Air_Temp', 'Rainfall', 'TEC', 'CEI', 'COVID_Deaths']...
+2026-01-27 03:19:13 | INFO     | co2_forecast | Date range: 1999-01-01 00:00:00 to 2025-01-01 00:00:00
+2026-01-27 03:19:13 | INFO     | co2_forecast | Target column: CO2e
+2026-01-27 03:19:13 | INFO     | co2_forecast | Data prepared: 105 rows, 8 columns
+2026-01-27 03:19:13 | INFO     | co2_forecast | Loaded 105 rows, 8 columns
+2026-01-27 03:19:13 | INFO     | co2_forecast | ----------------------------------------
+2026-01-27 03:19:13 | INFO     | co2_forecast | Step 2: Data quality audit...
+2026-01-27 03:19:13 | INFO     | co2_forecast | Generating data quality report...
+2026-01-27 03:19:13 | INFO     | co2_forecast | Quality report saved to: outputs\runs\run_20260127_0319\tables
+2026-01-27 03:19:13 | INFO     | co2_forecast | Quality report saved to outputs\runs\run_20260127_0319\tables
+2026-01-27 03:19:13 | INFO     | co2_forecast | ----------------------------------------
+2026-01-27 03:19:13 | INFO     | co2_forecast | Step 3: Cleaning data...
+2026-01-27 03:19:13 | INFO     | co2_forecast | Cleaning complete. Shape: (105, 8)

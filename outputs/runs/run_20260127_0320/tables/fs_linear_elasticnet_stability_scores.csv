@@ -1,0 +1,10 @@
+feature,stability,avg_coefficient,std_coefficient,n_folds_nonzero,n_folds_total
+GDP,0.0,0.0,0.0,0,44
+Air_Temp,0.0,0.0,0.0,0,44
+Rainfall,0.0,0.0,0.0,0,44
+COVID_Deaths,0.0,0.0,0.0,0,44
+CO2e_lag4,0.0,0.0,0.0,0,44
+Q2,0.0,0.0,0.0,0,44
+Q4,0.0,0.0,0.0,0,44
+COVID,0.0,0.0,0.0,0,44
+EnergyCrisis,0.0,0.0,0.0,0,44

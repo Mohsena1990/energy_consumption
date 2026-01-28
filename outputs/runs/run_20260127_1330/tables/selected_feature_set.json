@@ -1,0 +1,17 @@
+{
+  "selected_fs_option": "fs_consensus",
+  "selected_features": [
+    "GDP",
+    "Population",
+    "Air_Temp",
+    "Rainfall",
+    "TEC",
+    "CEI",
+    "CO2e_lag1",
+    "CO2e_lag2",
+    "CO2e_lag4"
+  ],
+  "n_features": 9,
+  "mcda_method": "vikor",
+  "mcda_score": 0.334479471770066
+}

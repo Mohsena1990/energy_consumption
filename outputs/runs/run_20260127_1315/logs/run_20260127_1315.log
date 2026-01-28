@@ -1,0 +1,6 @@
+2026-01-27 13:15:21 | INFO     | co2_forecast | Logging to: outputs\runs\run_20260127_1315\logs\run_20260127_1315.log
+2026-01-27 13:15:21 | INFO     | co2_forecast | ============================================================
+2026-01-27 13:15:21 | INFO     | co2_forecast | Script 02: Evaluate FS with SHAP + MCDA
+2026-01-27 13:15:21 | INFO     | co2_forecast | ============================================================
+2026-01-27 13:15:21 | INFO     | co2_forecast | Loading data and FS results...
+2026-01-27 13:15:21 | ERROR    | co2_forecast | FS results not found. Run 01_run_fs.py first.
