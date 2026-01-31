@@ -4,7 +4,7 @@ LSTM model for CO2 forecasting.
 import numpy as np
 import pandas as pd
 from typing import Dict, Any, Optional, Tuple
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, RobustScaler
 
 from .base import BaseForecaster, ModelRegistry
 from ..core.logging_utils import get_logger
@@ -24,15 +24,24 @@ class LSTMModel(BaseForecaster):
             'batch_size': 16,
             'max_epochs': 200,
             'patience': 20,
-            'seed': 42
+            'seed': 42,
+            'scaler': 'standard'  # 'standard' or 'robust'
         }
         params = {**default_params, **(params or {})}
         # Validate batch_size - must be at least 1
         if 'batch_size' in params and params['batch_size'] < 1:
             params['batch_size'] = 8  # Use default minimum
         super().__init__('lstm', params)
-        self.scaler_X = StandardScaler()
-        self.scaler_y = StandardScaler()
+
+        # Select scaler based on params (RobustScaler better for outliers)
+        scaler_type = params.get('scaler', 'standard')
+        if scaler_type == 'robust':
+            self.scaler_X = RobustScaler()
+            self.scaler_y = RobustScaler()
+        else:
+            self.scaler_X = StandardScaler()
+            self.scaler_y = StandardScaler()
+
         self.device = None
         self.lstm_model = None
 

@@ -248,6 +248,7 @@ def engineer_features(
     metadata = {
         'feature_columns': [],
         'lag_features': [],
+        'rolling_features': [],
         'seasonality_features': [],
         'shock_features': [],
         'n_original_features': 0
@@ -289,6 +290,28 @@ def engineer_features(
             )
             X = pd.concat([X, lag_df], axis=1)
             metadata['lag_features'].extend(lag_df.columns.tolist())
+
+    # Create rolling features (if enabled)
+    if getattr(config.features, 'include_rolling_features', False):
+        rolling_cols = getattr(config.features, 'rolling_columns', ['CO2e'])
+        rolling_windows = getattr(config.features, 'rolling_windows', [4, 8])
+        rolling_funcs = getattr(config.features, 'rolling_functions', ['mean', 'std'])
+
+        # Use target column for rolling features
+        roll_df_target = df[[target_col]].copy()
+        roll_df_target.columns = ['CO2e']  # Normalize name
+
+        rolling_df = create_rolling_features(
+            roll_df_target,
+            ['CO2e'],
+            windows=rolling_windows,
+            functions=rolling_funcs
+        )
+        # Shift rolling features by 1 to avoid data leakage
+        rolling_df = rolling_df.shift(1)
+        X = pd.concat([X, rolling_df], axis=1)
+        metadata['rolling_features'] = rolling_df.columns.tolist()
+        logger.info(f"Created {len(rolling_df.columns)} rolling features (shifted by 1 to avoid leakage)")
 
     # Create seasonality features
     season_df = create_seasonality_features(df, config.features.seasonality_type)
@@ -340,6 +363,8 @@ def create_feature_dictionary(
         # Categorize feature type
         if col in metadata.get('lag_features', []):
             entry['category'] = 'lag'
+        elif col in metadata.get('rolling_features', []):
+            entry['category'] = 'rolling'
         elif col in metadata.get('seasonality_features', []):
             entry['category'] = 'seasonality'
         elif col in metadata.get('shock_features', []):

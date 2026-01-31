@@ -32,6 +32,11 @@ class FeatureConfig:
     include_energy_crisis: bool = True
     energy_crisis_start: str = "2022Q1"
     energy_crisis_end: str = "2023Q4"
+    # Rolling features configuration
+    include_rolling_features: bool = False
+    rolling_columns: List[str] = field(default_factory=lambda: ["CO2e"])
+    rolling_windows: List[int] = field(default_factory=lambda: [4, 8])
+    rolling_functions: List[str] = field(default_factory=lambda: ["mean", "std"])
 
 
 @dataclass

@@ -1,0 +1,103 @@
+# CO2 Forecasting Framework - Optimized Configuration
+# ====================================================
+# Based on data analysis recommendations
+
+# Data Configuration
+data:
+  input_path: "data 1999-2025Q1.xlsx"
+  date_column: "Quarter"
+  target_column: "CO2e"
+  target_transform: "log"  # Appropriate for near-normal, slight right-skew
+  sheet_name: null
+
+# Feature Engineering - Enhanced
+features:
+  lag_features:
+    - "CO2e"
+  lag_orders: [1, 2, 3, 4]
+  seasonality_type: "dummies"  # Q2, Q3, Q4 dummies
+  include_covid_dummy: true
+  covid_start: "2020Q1"
+  covid_end: "2021Q4"
+  include_energy_crisis: true
+  energy_crisis_start: "2022Q1"
+  energy_crisis_end: "2023Q4"
+  # NEW: Rolling features for trend capture
+  include_rolling_features: true
+  rolling_columns:
+    - "CO2e"
+  rolling_windows: [4, 8]  # 1-year and 2-year rolling windows
+  rolling_functions: ["mean", "std"]  # Mean and volatility
+
+# Cross-Validation Splits
+splits:
+  method: "walk_forward"
+  min_train_size: 40  # 10 years minimum
+  test_size: 4  # 1 year per fold
+  horizons: [1, 2, 4]  # 1Q, 2Q, 4Q ahead
+  horizon_weights:
+    1: 0.5   # Short-term more important
+    2: 0.3
+    4: 0.2
+
+# Feature Selection - Use consensus for better accuracy
+fs:
+  vif_threshold: 10.0
+  stability_threshold: 0.6
+  vote_threshold: 2
+  top_k_features: 5
+  evaluator_model: "lightgbm"
+
+# Optimization - Reduced for faster LSTM training
+optimization:
+  optimizer: "pso"
+  n_particles: 15       # Reduced from 20
+  n_iterations: 20      # Reduced from 30
+  annual_penalty_threshold: 0.05
+  annual_penalty_weight: 0.1
+
+# Models
+model:
+  models:
+    - "ridge"
+    - "random_forest"
+    - "catboost"
+    - "lightgbm"
+    - "lstm"
+  lstm_lookback_options: [4, 8]  # Simplified
+  lstm_max_epochs: 150           # Reduced from 200
+  lstm_patience: 15              # Reduced from 20
+  lstm_dropout: 0.2
+
+# MCDA Configuration
+mcda:
+  method: "vikor"
+  use_pareto_filter: true
+  vikor_v: 0.5
+
+  # Weights for FS evaluation - prioritize accuracy and stability
+  fs_weights:
+    accuracy: 0.35      # Increased importance
+    stability: 0.25     # Increased importance
+    shap_concentration: 0.10
+    shap_stability: 0.15
+    parsimony: 0.15
+
+  # Weights for final model selection
+  model_weights:
+    quarterly_mae: 0.35
+    stability: 0.20
+    annual_consistency: 0.25
+    interpretability: 0.10
+    parsimony: 0.10
+
+# Output Configuration
+output:
+  base_dir: "outputs"
+  figure_dpi: 300
+  figure_format: "png"
+  save_models: true
+  save_predictions: true
+
+# Global Settings
+seed: 42
