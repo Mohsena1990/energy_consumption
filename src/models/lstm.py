@@ -27,6 +27,9 @@ class LSTMModel(BaseForecaster):
             'seed': 42
         }
         params = {**default_params, **(params or {})}
+        # Validate batch_size - must be at least 1
+        if 'batch_size' in params and params['batch_size'] < 1:
+            params['batch_size'] = 8  # Use default minimum
         super().__init__('lstm', params)
         self.scaler_X = StandardScaler()
         self.scaler_y = StandardScaler()
@@ -138,8 +141,11 @@ class LSTMModel(BaseForecaster):
             for batch_X, batch_y in train_loader:
                 optimizer.zero_grad()
                 output = self.lstm_model(batch_X)
-                loss = criterion(output.squeeze(), batch_y)
+                # Use view(-1) instead of squeeze() to preserve batch dimension correctly
+                loss = criterion(output.view(-1), batch_y.view(-1))
                 loss.backward()
+                # Gradient clipping to prevent exploding gradients
+                torch.nn.utils.clip_grad_norm_(self.lstm_model.parameters(), max_norm=1.0)
                 optimizer.step()
                 train_loss += loss.item()
 
@@ -149,7 +155,8 @@ class LSTMModel(BaseForecaster):
             self.lstm_model.eval()
             with torch.no_grad():
                 val_output = self.lstm_model(X_val_t)
-                val_loss = criterion(val_output.squeeze(), y_val_t).item()
+                # Use view(-1) instead of squeeze() to preserve batch dimension correctly
+                val_loss = criterion(val_output.view(-1), y_val_t.view(-1)).item()
 
             # Early stopping
             if val_loss < best_val_loss:

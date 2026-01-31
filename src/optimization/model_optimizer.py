@@ -24,7 +24,8 @@ def create_objective_function(
     param_names: List[str],
     param_types: List[str],
     bounds: List[Tuple[float, float]],
-    config: Config
+    config: Config,
+    param_space: Dict[str, Any] = None
 ) -> callable:
     """
     Create objective function for optimization.
@@ -50,12 +51,26 @@ def create_objective_function(
         params = {}
         for i, (name, ptype, value) in enumerate(zip(param_names, param_types, position)):
             if ptype == 'integer':
-                params[name] = int(round(value))
+                # Check if this is actually a categorical parameter
+                if param_space and name in param_space and param_space[name].get('type') == 'categorical':
+                    # Convert index to actual choice value
+                    choices = param_space[name]['choices']
+                    idx = int(round(value))
+                    idx = max(0, min(idx, len(choices) - 1))  # Clamp to valid range
+                    params[name] = choices[idx]
+                else:
+                    params[name] = int(round(value))
             elif ptype == 'log':
                 params[name] = float(value)
             elif ptype == 'categorical':
-                # Handle categorical by index
-                params[name] = int(round(value))
+                # Handle categorical by index - convert to actual choice value
+                if param_space and name in param_space:
+                    choices = param_space[name]['choices']
+                    idx = int(round(value))
+                    idx = max(0, min(idx, len(choices) - 1))  # Clamp to valid range
+                    params[name] = choices[idx]
+                else:
+                    params[name] = int(round(value))
             else:
                 params[name] = float(value)
 
@@ -170,7 +185,8 @@ def optimize_model(
     # Create objective function
     objective = create_objective_function(
         X, y, cv_plan, model_name,
-        param_names, param_types, bounds, config
+        param_names, param_types, bounds, config,
+        param_space=param_space
     )
 
     # Get optimizer
