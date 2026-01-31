@@ -1,0 +1,12 @@
+{
+  "features": [
+    "Population",
+    "Air_Temp",
+    "TEC",
+    "CO2e_lag1",
+    "CO2e_lag2",
+    "CO2e_lag3",
+    "CO2e_lag4",
+    "CO2e_roll4_mean"
+  ]
+}

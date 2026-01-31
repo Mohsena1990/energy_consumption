@@ -1,0 +1,4 @@
+fs_option,n_features,features
+fs_linear,4,"Air_Temp, CO2e_lag1, Q2, Q4"
+fs_nonlinear,18,"GDP, Population, Air_Temp, Rainfall, TEC, CEI, COVID_Deaths, CO2e_lag1, CO2e_lag2, CO2e_lag3..."
+fs_consensus,8,"Population, Air_Temp, TEC, CO2e_lag1, CO2e_lag2, CO2e_lag3, CO2e_lag4, CO2e_roll4_mean"

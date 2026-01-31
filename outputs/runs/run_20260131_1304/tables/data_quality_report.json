@@ -1,0 +1,173 @@
+{
+  "summary": {
+    "n_rows": 105,
+    "n_columns": 8,
+    "memory_usage_mb": 0.00720977783203125,
+    "date_range": {
+      "start": "1999-01-01 00:00:00",
+      "end": "2025-01-01 00:00:00"
+    }
+  },
+  "missing_values": [
+    {
+      "column": "CO2e",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "float64"
+    },
+    {
+      "column": "GDP",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "int64"
+    },
+    {
+      "column": "Population",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "int64"
+    },
+    {
+      "column": "Air_Temp",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "float64"
+    },
+    {
+      "column": "Rainfall",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "float64"
+    },
+    {
+      "column": "TEC",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "float64"
+    },
+    {
+      "column": "CEI",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "float64"
+    },
+    {
+      "column": "COVID_Deaths",
+      "missing_count": 0,
+      "missing_pct": 0.0,
+      "dtype": "float64"
+    }
+  ],
+  "constant_columns": [],
+  "outliers": [
+    {
+      "column": "Rainfall",
+      "n_outliers": 1,
+      "pct_outliers": 0.9523809523809524,
+      "min": 141.4,
+      "max": 539.9,
+      "mean": 295.4761904761905,
+      "std": 82.18821448804323
+    },
+    {
+      "column": "COVID_Deaths",
+      "n_outliers": 15,
+      "pct_outliers": 14.285714285714285,
+      "min": 0.0,
+      "max": 60810.0,
+      "mean": 2177.371333333333,
+      "std": 8694.759196140254
+    }
+  ],
+  "temporal_gaps": {
+    "n_gaps": 0,
+    "gaps": [],
+    "date_range": {
+      "start": "1999-01-01 00:00:00",
+      "end": "2025-01-01 00:00:00",
+      "n_periods": 105
+    }
+  },
+  "numeric_statistics": {
+    "CO2e": {
+      "count": 105.0,
+      "mean": 136490.8876190476,
+      "std": 24844.92141325286,
+      "min": 86119.7,
+      "25%": 115380.5,
+      "50%": 137066.6,
+      "75%": 153694.5,
+      "max": 185503.5
+    },
+    "GDP": {
+      "count": 105.0,
+      "mean": 9228.704761904763,
+      "std": 615.4042436887994,
+      "min": 7795.0,
+      "25%": 8877.0,
+      "50%": 9195.0,
+      "75%": 9786.0,
+      "max": 10147.0
+    },
+    "Population": {
+      "count": 105.0,
+      "mean": 63553.18095238095,
+      "std": 3255.6715742890433,
+      "min": 58632.0,
+      "25%": 60517.0,
+      "50%": 63604.0,
+      "75%": 66372.0,
+      "max": 69509.0
+    },
+    "Air_Temp": {
+      "count": 105.0,
+      "mean": 9.300095238095238,
+      "std": 3.8826979357237232,
+      "min": 1.62,
+      "25%": 5.79,
+      "50%": 9.02,
+      "75%": 11.35,
+      "max": 15.8
+    },
+    "Rainfall": {
+      "count": 105.0,
+      "mean": 295.4761904761905,
+      "std": 82.18821448804323,
+      "min": 141.4,
+      "25%": 236.3,
+      "50%": 290.2,
+      "75%": 346.4,
+      "max": 539.9
+    },
+    "TEC": {
+      "count": 105.0,
+      "mean": 51412.726285714285,
+      "std": 9529.241455217469,
+      "min": 31679.98999999999,
+      "25%": 44497.130000000005,
+      "50%": 50535.81,
+      "75%": 58314.700000000004,
+      "max": 70923.94
+    },
+    "CEI": {
+      "count": 105.0,
+      "mean": 0.21362857142857145,
+      "std": 0.06033356910078799,
+      "min": 0.124,
+      "25%": 0.156,
+      "50%": 0.218,
+      "75%": 0.268,
+      "max": 0.312
+    },
+    "COVID_Deaths": {
+      "count": 105.0,
+      "mean": 2177.371333333333,
+      "std": 8694.759196140254,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.0,
+      "max": 60810.0
+    }
+  }
+}

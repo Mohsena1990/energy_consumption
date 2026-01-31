@@ -5,7 +5,7 @@ Script 00: Make Dataset
 Load raw data, perform quality checks, and create feature-engineered dataset.
 
 Usage:
-    python scripts/00_make_dataset.py [--config CONFIG_PATH] [--input INPUT_PATH]
+    python scripts/00_make_dataset.py [--config CONFIG_PATH] [--input INPUT_PATH] [--run-id RUN_ID]
 
 Outputs:
     - data/processed/df_clean.parquet
@@ -39,6 +39,8 @@ def parse_args():
                        help='Path to configuration file')
     parser.add_argument('--input', type=str, default=None,
                        help='Path to input Excel file')
+    parser.add_argument('--run-id', type=str, default=None,
+                       help='Run ID to use (for pipeline consistency)')
     return parser.parse_args()
 
 
@@ -50,6 +52,10 @@ def main():
         config = Config.load(args.config)
     else:
         config = Config()
+
+    # Override run_id if provided (for pipeline consistency)
+    if args.run_id:
+        config.run_id = args.run_id
 
     # Override input path if provided
     if args.input:
@@ -129,7 +135,7 @@ def main():
 
     # Save feature data
     save_processed_data(X, processed_dir, 'X_full')
-    y.to_frame('target').to_parquet(processed_dir / 'y.parquet')
+    save_processed_data(y.to_frame('target'), processed_dir, 'y')
 
     # Create feature dictionary
     feature_dict = create_feature_dictionary(

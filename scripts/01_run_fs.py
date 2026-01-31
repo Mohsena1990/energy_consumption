@@ -64,8 +64,8 @@ def main():
     logger.info("Loading processed data...")
     processed_dir = Path('data/processed')
 
-    X = load_processed_data(processed_dir / 'X_full.parquet')
-    y = pd.read_parquet(processed_dir / 'y.parquet')['target']
+    X = load_processed_data(processed_dir / 'X_full')
+    y = load_processed_data(processed_dir / 'y')['target']
     cv_plan = load_cv_plan(processed_dir / 'cv_plan.pkl')
 
     logger.info(f"Loaded: {len(X)} samples, {len(X.columns)} features")

@@ -230,13 +230,28 @@ def load_and_prepare_data(
     return df, metadata
 
 
+def _has_parquet_support() -> bool:
+    """Check if parquet support is available."""
+    try:
+        import pyarrow
+        return True
+    except ImportError:
+        pass
+    try:
+        import fastparquet
+        return True
+    except ImportError:
+        pass
+    return False
+
+
 def save_processed_data(
     df: pd.DataFrame,
     output_dir: Path,
     name: str = "df_processed"
 ) -> Path:
     """
-    Save processed DataFrame to parquet.
+    Save processed DataFrame to parquet (or CSV as fallback).
 
     Args:
         df: DataFrame to save
@@ -249,12 +264,51 @@ def save_processed_data(
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    output_path = output_dir / f"{name}.parquet"
-    df.to_parquet(output_path)
+    if _has_parquet_support():
+        output_path = output_dir / f"{name}.parquet"
+        df.to_parquet(output_path)
+    else:
+        # Fallback to CSV
+        output_path = output_dir / f"{name}.csv"
+        df.to_csv(output_path)
 
     return output_path
 
 
 def load_processed_data(path: str) -> pd.DataFrame:
-    """Load processed DataFrame from parquet."""
-    return pd.read_parquet(path)
+    """Load processed DataFrame from parquet or CSV."""
+    path = Path(path)
+
+    # Try parquet first
+    if path.suffix == '.parquet':
+        if _has_parquet_support():
+            return pd.read_parquet(path)
+        else:
+            # Try CSV fallback
+            csv_path = path.with_suffix('.csv')
+            if csv_path.exists():
+                df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
+                return df
+            raise ImportError(
+                f"Cannot read {path}: parquet support not available. "
+                "Install pyarrow: pip install pyarrow"
+            )
+    elif path.suffix == '.csv':
+        df = pd.read_csv(path, index_col=0, parse_dates=True)
+        return df
+    else:
+        # Try both extensions
+        parquet_path = Path(str(path) + '.parquet')
+        csv_path = Path(str(path) + '.csv')
+
+        if parquet_path.exists() and _has_parquet_support():
+            return pd.read_parquet(parquet_path)
+        elif csv_path.exists():
+            return pd.read_csv(csv_path, index_col=0, parse_dates=True)
+        elif parquet_path.exists():
+            raise ImportError(
+                f"Cannot read {parquet_path}: parquet support not available. "
+                "Install pyarrow: pip install pyarrow"
+            )
+        else:
+            raise FileNotFoundError(f"No data file found at {path}")
