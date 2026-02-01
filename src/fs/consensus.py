@@ -11,6 +11,9 @@ from ..core.config import Config
 from ..splits.walk_forward import CVPlan
 from .linear import fs_linear
 from .nonlinear import fs_nonlinear
+from .filter_methods import run_all_filter_methods
+from .wrapper_methods import run_all_wrapper_methods
+from .embedded_methods import run_all_embedded_methods
 
 
 def vote_based_selection(
@@ -249,6 +252,155 @@ def fs_consensus(
     return results
 
 
+def fs_hybrid(
+    X: pd.DataFrame,
+    y: pd.Series,
+    cv_plan: CVPlan,
+    config: Config,
+    filter_results: Dict[str, Dict] = None,
+    wrapper_results: Dict[str, Dict] = None,
+    embedded_results: Dict[str, Dict] = None
+) -> Dict[str, Any]:
+    """
+    Hybrid feature selection combining filter, wrapper, and embedded methods.
+
+    This approach combines:
+    - Filter methods: Fast statistical pre-screening
+    - Wrapper methods: Model-based iterative selection
+    - Embedded methods: Feature importance during training
+
+    Args:
+        X: Feature DataFrame
+        y: Target Series
+        cv_plan: CV plan
+        config: Configuration
+        filter_results: Pre-computed filter FS results (optional)
+        wrapper_results: Pre-computed wrapper FS results (optional)
+        embedded_results: Pre-computed embedded FS results (optional)
+
+    Returns:
+        Dictionary with selected features and scores
+    """
+    logger = get_logger()
+    logger.info("Running hybrid feature selection (filter+wrapper+embedded)...")
+
+    results = {
+        'method': 'hybrid',
+        'steps': []
+    }
+
+    # Get configuration
+    top_k = getattr(config.fs, 'top_k_features', 10)
+    min_votes = getattr(config.fs, 'hybrid_min_votes', 2)
+    min_features = getattr(config.fs, 'min_features', 3)
+
+    # Run filter methods if not provided
+    if filter_results is None:
+        logger.info("Running filter methods...")
+        filter_results = run_all_filter_methods(X, y, top_k=top_k, seed=config.seed)
+
+    # Run wrapper methods if not provided
+    if wrapper_results is None:
+        logger.info("Running wrapper methods...")
+        wrapper_results = run_all_wrapper_methods(X, y, n_features=top_k, cv=5, seed=config.seed)
+
+    # Run embedded methods if not provided
+    if embedded_results is None:
+        logger.info("Running embedded methods...")
+        embedded_results = run_all_embedded_methods(X, y, top_k=top_k, cv=5, seed=config.seed)
+
+    # Store results
+    results['filter_results'] = filter_results
+    results['wrapper_results'] = wrapper_results
+    results['embedded_results'] = embedded_results
+
+    # Collect all method selections
+    method_selections = {}
+
+    # From filter methods
+    for method_name, method_result in filter_results.items():
+        method_selections[f"filter_{method_name}"] = method_result.get('selected_features', [])
+
+    # From wrapper methods
+    for method_name, method_result in wrapper_results.items():
+        method_selections[f"wrapper_{method_name}"] = method_result.get('selected_features', [])
+
+    # From embedded methods
+    for method_name, method_result in embedded_results.items():
+        method_selections[f"embedded_{method_name}"] = method_result.get('selected_features', [])
+
+    # Step 1: Count votes across all methods
+    vote_counts = Counter()
+    for method, features in method_selections.items():
+        for f in features:
+            vote_counts[f] += 1
+
+    vote_df = pd.DataFrame([
+        {
+            'feature': f,
+            'vote_count': vote_counts.get(f, 0),
+            'method_count': len(method_selections),
+            'vote_pct': vote_counts.get(f, 0) / len(method_selections) if method_selections else 0
+        }
+        for f in X.columns
+    ]).sort_values('vote_count', ascending=False)
+
+    results['steps'].append({
+        'name': 'vote_aggregation',
+        'votes': vote_df.to_dict(orient='records'),
+        'n_methods': len(method_selections)
+    })
+
+    # Step 2: Category-wise selection (ensure diversity)
+    filter_union = set()
+    for method_result in filter_results.values():
+        filter_union.update(method_result.get('selected_features', []))
+
+    wrapper_union = set()
+    for method_result in wrapper_results.values():
+        wrapper_union.update(method_result.get('selected_features', []))
+
+    embedded_union = set()
+    for method_result in embedded_results.values():
+        embedded_union.update(method_result.get('selected_features', []))
+
+    # Features selected by at least one method from each category
+    multi_category = filter_union & wrapper_union & embedded_union
+    logger.info(f"Features selected by all three categories: {len(multi_category)}")
+
+    # Features with at least min_votes across all methods
+    high_vote = set(vote_df[vote_df['vote_count'] >= min_votes]['feature'].tolist())
+    logger.info(f"Features with >= {min_votes} votes: {len(high_vote)}")
+
+    # Final selection: union of multi-category and high-vote features
+    final_selected = list(multi_category | high_vote)
+
+    # Ensure minimum features (fallback to top-voted)
+    if len(final_selected) < min_features:
+        logger.info(f"Hybrid: Only {len(final_selected)} features, adding top-voted features")
+        remaining = vote_df[~vote_df['feature'].isin(final_selected)].head(min_features - len(final_selected))
+        final_selected.extend(remaining['feature'].tolist())
+
+    # Preserve original order
+    final_selected = [f for f in X.columns if f in final_selected]
+
+    results['steps'].append({
+        'name': 'hybrid_selection',
+        'multi_category_count': len(multi_category),
+        'high_vote_count': len(high_vote),
+        'filter_union_count': len(filter_union),
+        'wrapper_union_count': len(wrapper_union),
+        'embedded_union_count': len(embedded_union)
+    })
+
+    results['selected_features'] = final_selected
+    results['n_selected'] = len(final_selected)
+
+    logger.info(f"FS_hybrid final: {len(final_selected)} features selected")
+
+    return results
+
+
 def run_all_fs_options(
     X: pd.DataFrame,
     y: pd.Series,
@@ -256,7 +408,7 @@ def run_all_fs_options(
     config: Config
 ) -> Dict[str, Dict[str, Any]]:
     """
-    Run all three feature selection options.
+    Run all feature selection options including hybrid approach.
 
     Args:
         X: Feature DataFrame
@@ -277,6 +429,9 @@ def run_all_fs_options(
     X_clean = X_clean.loc[common_idx]
     y_clean = y_clean.loc[common_idx]
 
+    top_k = getattr(config.fs, 'top_k_features', 10)
+    run_hybrid = getattr(config.fs, 'run_hybrid_fs', True)
+
     results = {}
 
     # FS_linear
@@ -294,5 +449,70 @@ def run_all_fs_options(
         linear_results=results['fs_linear'],
         nonlinear_results=results['fs_nonlinear']
     )
+
+    # Run filter, wrapper, embedded methods for additional options and hybrid
+    if run_hybrid:
+        logger.info("=" * 50)
+        logger.info("Running filter methods...")
+        filter_results = run_all_filter_methods(X_clean, y_clean, top_k=top_k, seed=config.seed)
+
+        logger.info("=" * 50)
+        logger.info("Running wrapper methods...")
+        wrapper_results = run_all_wrapper_methods(X_clean, y_clean, n_features=top_k, cv=5, seed=config.seed)
+
+        logger.info("=" * 50)
+        logger.info("Running embedded methods...")
+        embedded_results = run_all_embedded_methods(X_clean, y_clean, top_k=top_k, cv=5, seed=config.seed)
+
+        # Add individual method results as FS options
+        results['fs_filter'] = {
+            'method': 'filter',
+            'steps': list(filter_results.values()),
+            'selected_features': list(set().union(*[
+                set(r.get('selected_features', [])) for r in filter_results.values()
+            ])),
+            'n_selected': len(set().union(*[
+                set(r.get('selected_features', [])) for r in filter_results.values()
+            ])),
+            'sub_methods': filter_results
+        }
+
+        results['fs_wrapper'] = {
+            'method': 'wrapper',
+            'steps': list(wrapper_results.values()),
+            'selected_features': list(set().union(*[
+                set(r.get('selected_features', [])) for r in wrapper_results.values()
+            ])),
+            'n_selected': len(set().union(*[
+                set(r.get('selected_features', [])) for r in wrapper_results.values()
+            ])),
+            'sub_methods': wrapper_results
+        }
+
+        results['fs_embedded'] = {
+            'method': 'embedded',
+            'steps': list(embedded_results.values()),
+            'selected_features': list(set().union(*[
+                set(r.get('selected_features', [])) for r in embedded_results.values()
+            ])),
+            'n_selected': len(set().union(*[
+                set(r.get('selected_features', [])) for r in embedded_results.values()
+            ])),
+            'sub_methods': embedded_results
+        }
+
+        # FS_hybrid (filter + wrapper + embedded)
+        logger.info("=" * 50)
+        results['fs_hybrid'] = fs_hybrid(
+            X_clean, y_clean, cv_plan, config,
+            filter_results=filter_results,
+            wrapper_results=wrapper_results,
+            embedded_results=embedded_results
+        )
+
+    logger.info("=" * 50)
+    logger.info(f"Total FS options: {len(results)}")
+    for fs_name, fs_result in results.items():
+        logger.info(f"  {fs_name}: {fs_result.get('n_selected', 0)} features")
 
     return results

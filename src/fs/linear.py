@@ -18,8 +18,9 @@ def ridge_stability_selection(
     y: pd.Series,
     cv_plan: CVPlan,
     alpha: float = 1.0,
-    threshold: float = 0.01,
-    stability_threshold: float = 0.6
+    threshold: float = 0.005,
+    stability_threshold: float = 0.5,
+    min_features: int = 3
 ) -> Tuple[List[str], pd.DataFrame]:
     """
     Select features based on Ridge coefficient stability across CV folds.
@@ -29,8 +30,9 @@ def ridge_stability_selection(
         y: Target Series
         cv_plan: CV plan
         alpha: Ridge regularization strength
-        threshold: Minimum absolute coefficient to be considered important
-        stability_threshold: Minimum fraction of folds where feature must be important
+        threshold: Minimum absolute coefficient to be considered important (lowered for small datasets)
+        stability_threshold: Minimum fraction of folds where feature must be important (lowered from 0.6)
+        min_features: Minimum number of features to select
 
     Returns:
         Tuple of (selected features, stability scores)
@@ -90,6 +92,12 @@ def ridge_stability_selection(
     # Select features above stability threshold
     selected = stability_df[stability_df['stability'] >= stability_threshold]['feature'].tolist()
 
+    # Ensure minimum features are selected (fallback to top features by average coefficient)
+    if len(selected) < min_features:
+        logger.info(f"Ridge: Only {len(selected)} features passed threshold, adding top features to reach {min_features}")
+        remaining = stability_df[~stability_df['feature'].isin(selected)].head(min_features - len(selected))
+        selected.extend(remaining['feature'].tolist())
+
     logger.info(f"Ridge stability: Selected {len(selected)} features (stability >= {stability_threshold})")
 
     return selected, stability_df
@@ -101,7 +109,9 @@ def elasticnet_stability_selection(
     cv_plan: CVPlan,
     alpha: float = 0.5,
     l1_ratio: float = 0.5,
-    stability_threshold: float = 0.6
+    stability_threshold: float = 0.5,
+    coef_threshold: float = 1e-8,
+    min_features: int = 3
 ) -> Tuple[List[str], pd.DataFrame]:
     """
     Select features based on ElasticNet coefficient stability across CV folds.
@@ -112,7 +122,9 @@ def elasticnet_stability_selection(
         cv_plan: CV plan
         alpha: Regularization strength
         l1_ratio: L1/L2 ratio (1.0 = Lasso, 0.0 = Ridge)
-        stability_threshold: Minimum fraction of folds where feature must have non-zero coefficient
+        stability_threshold: Minimum fraction of folds where feature must have non-zero coefficient (lowered from 0.6)
+        coef_threshold: Threshold for considering coefficient as non-zero (more lenient)
+        min_features: Minimum number of features to select
 
     Returns:
         Tuple of (selected features, stability scores)
@@ -147,9 +159,9 @@ def elasticnet_stability_selection(
         coef_dict = dict(zip(X.columns, model.coef_))
         fold_coefficients.append(coef_dict)
 
-        # Track non-zero coefficients
+        # Track non-zero coefficients (using configurable threshold)
         for col, coef in coef_dict.items():
-            feature_nonzero[col].append(int(np.abs(coef) > 1e-10))
+            feature_nonzero[col].append(int(np.abs(coef) > coef_threshold))
 
     # Calculate stability score
     stability_scores = []
@@ -171,6 +183,12 @@ def elasticnet_stability_selection(
 
     # Select features above stability threshold
     selected = stability_df[stability_df['stability'] >= stability_threshold]['feature'].tolist()
+
+    # Ensure minimum features are selected
+    if len(selected) < min_features:
+        logger.info(f"ElasticNet: Only {len(selected)} features passed threshold, adding top features to reach {min_features}")
+        remaining = stability_df[~stability_df['feature'].isin(selected)].head(min_features - len(selected))
+        selected.extend(remaining['feature'].tolist())
 
     logger.info(f"ElasticNet stability: Selected {len(selected)} features (stability >= {stability_threshold})")
 
@@ -198,6 +216,11 @@ def fs_linear(
     logger = get_logger()
     logger.info("Running linear feature selection (FS_linear)...")
 
+    # Get configurable thresholds
+    ridge_coef_threshold = getattr(config.fs, 'ridge_coef_threshold', 0.005)
+    elasticnet_coef_threshold = getattr(config.fs, 'elasticnet_coef_threshold', 1e-8)
+    min_features = getattr(config.fs, 'min_features', 3)
+
     results = {
         'method': 'linear',
         'steps': []
@@ -214,10 +237,12 @@ def fs_linear(
 
     X_vif = X[vif_selected]
 
-    # Step 2: Ridge stability
+    # Step 2: Ridge stability (with configurable thresholds)
     ridge_selected, ridge_scores = ridge_stability_selection(
         X_vif, y, cv_plan,
-        stability_threshold=config.fs.stability_threshold
+        threshold=ridge_coef_threshold,
+        stability_threshold=config.fs.stability_threshold,
+        min_features=min_features
     )
     results['steps'].append({
         'name': 'ridge_stability',
@@ -226,10 +251,12 @@ def fs_linear(
         'scores': ridge_scores.to_dict(orient='records')
     })
 
-    # Step 3: ElasticNet stability
+    # Step 3: ElasticNet stability (with configurable thresholds)
     enet_selected, enet_scores = elasticnet_stability_selection(
         X_vif, y, cv_plan,
-        stability_threshold=config.fs.stability_threshold
+        stability_threshold=config.fs.stability_threshold,
+        coef_threshold=elasticnet_coef_threshold,
+        min_features=min_features
     )
     results['steps'].append({
         'name': 'elasticnet_stability',
@@ -241,6 +268,12 @@ def fs_linear(
     # Final selection: union of Ridge and ElasticNet stable features
     final_selected = list(set(ridge_selected) | set(enet_selected))
     final_selected = [f for f in X_vif.columns if f in final_selected]  # Preserve order
+
+    # Ensure minimum features
+    if len(final_selected) < min_features:
+        logger.info(f"FS_linear: Only {len(final_selected)} features, adding top VIF-filtered features")
+        remaining = [f for f in X_vif.columns if f not in final_selected][:min_features - len(final_selected)]
+        final_selected.extend(remaining)
 
     results['selected_features'] = final_selected
     results['n_selected'] = len(final_selected)

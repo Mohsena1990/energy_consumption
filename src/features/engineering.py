@@ -180,6 +180,124 @@ def create_shock_features(
     return shock_df
 
 
+def create_rate_of_change_features(
+    df: pd.DataFrame,
+    columns: List[str],
+    log_transform: bool = True
+) -> pd.DataFrame:
+    """
+    Create rate-of-change (delta/growth) features.
+
+    Args:
+        df: Input DataFrame
+        columns: Columns to create rate-of-change features for
+        log_transform: If True, use log difference (growth rate); otherwise simple difference
+
+    Returns:
+        DataFrame with rate-of-change features
+    """
+    logger = get_logger()
+    roc_features = {}
+
+    for col in columns:
+        if col not in df.columns:
+            logger.warning(f"Column '{col}' not found, skipping rate-of-change creation")
+            continue
+
+        if log_transform:
+            # Log difference = growth rate (Δlog)
+            # Handle zeros/negatives by adding small constant if needed
+            series = df[col].copy()
+            if (series <= 0).any():
+                series = series + series[series > 0].min() * 0.01
+            roc_features[f'{col}_dlog'] = np.log(series).diff()
+        else:
+            # Simple first difference
+            roc_features[f'{col}_diff'] = df[col].diff()
+
+    roc_df = pd.DataFrame(roc_features, index=df.index)
+    logger.info(f"Created {len(roc_features)} rate-of-change features")
+
+    return roc_df
+
+
+def create_intensity_features(
+    df: pd.DataFrame,
+    target_col: str = 'CO2e',
+    denominator_cols: Optional[List[str]] = None
+) -> pd.DataFrame:
+    """
+    Create intensity/per-capita features.
+
+    Args:
+        df: Input DataFrame
+        target_col: Target column (numerator)
+        denominator_cols: Columns to use as denominators (e.g., Population, TEC)
+
+    Returns:
+        DataFrame with intensity features
+    """
+    logger = get_logger()
+    intensity_features = {}
+
+    if target_col not in df.columns:
+        logger.warning(f"Target column '{target_col}' not found")
+        return pd.DataFrame(index=df.index)
+
+    # Default denominator columns
+    if denominator_cols is None:
+        denominator_cols = ['Population', 'TEC']
+
+    for denom_col in denominator_cols:
+        if denom_col not in df.columns:
+            logger.warning(f"Denominator column '{denom_col}' not found, skipping")
+            continue
+
+        # Avoid division by zero
+        denom = df[denom_col].replace(0, np.nan)
+        intensity_features[f'{target_col}_per_{denom_col}'] = df[target_col] / denom
+
+    intensity_df = pd.DataFrame(intensity_features, index=df.index)
+    logger.info(f"Created {len(intensity_features)} intensity features")
+
+    return intensity_df
+
+
+def create_weather_features(
+    df: pd.DataFrame,
+    temp_col: str = 'Air_Temp',
+    base_temp: float = 18.0
+) -> pd.DataFrame:
+    """
+    Create weather-derived features like Heating Degree Days (HDD).
+
+    Args:
+        df: Input DataFrame
+        temp_col: Temperature column name
+        base_temp: Base temperature for HDD calculation (default 18°C)
+
+    Returns:
+        DataFrame with weather features
+    """
+    logger = get_logger()
+    weather_features = {}
+
+    if temp_col not in df.columns:
+        logger.warning(f"Temperature column '{temp_col}' not found, skipping weather features")
+        return pd.DataFrame(index=df.index)
+
+    # Heating Degree Days proxy: max(0, base_temp - temp)
+    weather_features['HDD_proxy'] = np.maximum(0, base_temp - df[temp_col])
+
+    # Cooling Degree Days proxy: max(0, temp - base_temp)
+    weather_features['CDD_proxy'] = np.maximum(0, df[temp_col] - base_temp)
+
+    weather_df = pd.DataFrame(weather_features, index=df.index)
+    logger.info(f"Created {len(weather_features)} weather features")
+
+    return weather_df
+
+
 def create_rolling_features(
     df: pd.DataFrame,
     columns: List[str],
@@ -312,6 +430,45 @@ def engineer_features(
         X = pd.concat([X, rolling_df], axis=1)
         metadata['rolling_features'] = rolling_df.columns.tolist()
         logger.info(f"Created {len(rolling_df.columns)} rolling features (shifted by 1 to avoid leakage)")
+
+    # Create rate-of-change features (if enabled)
+    if getattr(config.features, 'include_roc_features', False):
+        roc_cols = getattr(config.features, 'roc_columns', ['TEC', 'GDP'])
+        # Also add target column rate-of-change
+        roc_all_cols = roc_cols + [target_col]
+        roc_df = create_rate_of_change_features(
+            df[list(set(roc_all_cols) & set(df.columns))],
+            list(set(roc_all_cols) & set(df.columns)),
+            log_transform=True
+        )
+        # Shift by 1 to avoid leakage for target-related features
+        for col in roc_df.columns:
+            if target_col in col:
+                roc_df[col] = roc_df[col].shift(1)
+        X = pd.concat([X, roc_df], axis=1)
+        metadata['roc_features'] = roc_df.columns.tolist()
+        logger.info(f"Created {len(roc_df.columns)} rate-of-change features")
+
+    # Create intensity features (if enabled)
+    if getattr(config.features, 'include_intensity_features', False):
+        intensity_denominators = getattr(config.features, 'intensity_denominators', ['Population', 'TEC'])
+        intensity_df = create_intensity_features(
+            df,
+            target_col=target_col,
+            denominator_cols=intensity_denominators
+        )
+        X = pd.concat([X, intensity_df], axis=1)
+        metadata['intensity_features'] = intensity_df.columns.tolist()
+        logger.info(f"Created {len(intensity_df.columns)} intensity features")
+
+    # Create weather features (if enabled)
+    if getattr(config.features, 'include_weather_features', False):
+        temp_col = getattr(config.features, 'temperature_column', 'Air_Temp')
+        base_temp = getattr(config.features, 'hdd_base_temp', 18.0)
+        weather_df = create_weather_features(df, temp_col=temp_col, base_temp=base_temp)
+        X = pd.concat([X, weather_df], axis=1)
+        metadata['weather_features'] = weather_df.columns.tolist()
+        logger.info(f"Created {len(weather_df.columns)} weather features")
 
     # Create seasonality features
     season_df = create_seasonality_features(df, config.features.seasonality_type)

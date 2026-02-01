@@ -21,7 +21,12 @@ from .plots import (
     plot_vikor_radar,
     plot_vikor_v_sensitivity,
     plot_weight_sensitivity_heatmap,
-    plot_pareto_front_enhanced
+    plot_pareto_front_enhanced,
+    # Multi-FS comparison plots
+    plot_fs_model_comparison_heatmap,
+    plot_fs_comparison_bars,
+    plot_best_per_fs_option,
+    plot_multi_fs_summary
 )
 
 __all__ = [
@@ -43,5 +48,10 @@ __all__ = [
     'plot_vikor_radar',
     'plot_vikor_v_sensitivity',
     'plot_weight_sensitivity_heatmap',
-    'plot_pareto_front_enhanced'
+    'plot_pareto_front_enhanced',
+    # Multi-FS comparison plots
+    'plot_fs_model_comparison_heatmap',
+    'plot_fs_comparison_bars',
+    'plot_best_per_fs_option',
+    'plot_multi_fs_summary'
 ]

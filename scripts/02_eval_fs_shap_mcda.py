@@ -108,27 +108,47 @@ def main():
     logger.info("-" * 40)
     logger.info("Selecting best FS option with MCDA...")
 
-    best_fs_option, ranking_df, selection_details = select_best_fs_option(
+    top_fs_options, ranking_df, selection_details = select_best_fs_option(
         eval_matrix, config, use_pareto=config.mcda.use_pareto_filter
     )
+
+    # Handle both list and single value return (backward compatibility)
+    if isinstance(top_fs_options, list):
+        best_fs_option = top_fs_options[0]
+    else:
+        best_fs_option = top_fs_options
+        top_fs_options = [best_fs_option]
 
     # Save MCDA results
     ranking_df.to_csv(dirs['tables'] / 'fs_mcda_ranking.csv', index=False)
     save_json_numpy(selection_details, dirs['tables'] / 'fs_selection_details.json')
 
-    # Get selected features
+    # Get selected features for the best option
     selected_features = fs_results[best_fs_option]['selected_features']
+
+    # Also save info for top-2 options for comparison
+    top_options_info = []
+    for fs_opt in top_fs_options:
+        if fs_opt in fs_results:
+            top_options_info.append({
+                'fs_option': fs_opt,
+                'selected_features': fs_results[fs_opt]['selected_features'],
+                'n_features': len(fs_results[fs_opt]['selected_features'])
+            })
 
     selected_feature_set = {
         'selected_fs_option': best_fs_option,
         'selected_features': selected_features,
         'n_features': len(selected_features),
         'mcda_method': config.mcda.method,
-        'mcda_score': selection_details['best_score']
+        'mcda_score': selection_details['best_score'],
+        'top_options': top_fs_options,
+        'top_options_info': top_options_info
     }
     save_json_numpy(selected_feature_set, dirs['tables'] / 'selected_feature_set.json')
 
-    logger.info(f"Selected FS option: {best_fs_option}")
+    logger.info(f"Top FS options: {top_fs_options}")
+    logger.info(f"Best FS option: {best_fs_option}")
     logger.info(f"Selected features ({len(selected_features)}): {selected_features[:10]}...")
 
     # =========================================
@@ -201,10 +221,15 @@ def main():
     # =========================================
     logger.info("=" * 60)
     logger.info("FS Evaluation with SHAP + MCDA Complete!")
+    logger.info(f"  Top {len(top_fs_options)} FS options: {top_fs_options}")
     logger.info(f"  Best FS option: {best_fs_option}")
     logger.info(f"  Number of features: {len(selected_features)}")
     logger.info(f"  MCDA method: {config.mcda.method}")
     logger.info(f"  MCDA score: {selection_details['best_score']:.4f}")
+    if len(top_fs_options) > 1:
+        logger.info(f"  Second best option: {top_fs_options[1]}")
+        if top_fs_options[1] in fs_results:
+            logger.info(f"    Features: {len(fs_results[top_fs_options[1]]['selected_features'])}")
     logger.info(f"  Results saved to: {dirs['tables']}")
     logger.info(f"  Figures saved to: {dirs['figures']}")
     logger.info("=" * 60)

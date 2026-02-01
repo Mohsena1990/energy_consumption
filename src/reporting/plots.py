@@ -1038,3 +1038,299 @@ def create_all_plots(
         )
 
     plt.close('all')
+
+
+def plot_fs_model_comparison_heatmap(
+    metrics_df: pd.DataFrame,
+    metric: str = 'weighted_mae',
+    title: str = "Model Performance Across FS Options",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (14, 10)
+) -> plt.Figure:
+    """
+    Plot heatmap comparing model performance across FS options.
+
+    Args:
+        metrics_df: DataFrame with 'model', 'fs_option', and metric columns
+        metric: Metric to visualize
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    try:
+        import seaborn as sns
+    except ImportError:
+        print("Seaborn required. Install with: pip install seaborn")
+        return None
+
+    # Pivot to create heatmap data
+    heatmap_data = metrics_df.pivot_table(
+        index='model', columns='fs_option', values=metric, aggfunc='first'
+    )
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Determine colormap direction
+    is_lower_better = 'mae' in metric.lower() or 'error' in metric.lower() or 'mape' in metric.lower()
+    cmap = 'RdYlGn_r' if is_lower_better else 'RdYlGn'
+
+    # Create heatmap
+    sns.heatmap(heatmap_data, annot=True, fmt='.4f', cmap=cmap, ax=ax,
+                annot_kws={'size': 11, 'weight': 'bold'},
+                linewidths=0.5, linecolor='white',
+                cbar_kws={'label': metric.replace('_', ' ').title()})
+
+    ax.set_title(title, fontweight='bold', fontsize=18, pad=15)
+    ax.set_xlabel('Feature Selection Option', fontweight='bold', fontsize=14)
+    ax.set_ylabel('Model', fontweight='bold', fontsize=14)
+
+    plt.xticks(rotation=45, ha='right', fontsize=11)
+    plt.yticks(fontsize=12)
+
+    # Highlight best values
+    best_per_col = heatmap_data.idxmin() if is_lower_better else heatmap_data.idxmax()
+    for col_idx, (col, best_model) in enumerate(best_per_col.items()):
+        row_idx = list(heatmap_data.index).index(best_model)
+        ax.add_patch(plt.Rectangle((col_idx, row_idx), 1, 1,
+                                   fill=False, edgecolor='gold', lw=3))
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_fs_comparison_bars(
+    metrics_df: pd.DataFrame,
+    metric: str = 'weighted_mae',
+    title: str = "Model Comparison Across FS Options",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (14, 8)
+) -> plt.Figure:
+    """
+    Plot grouped bar chart comparing models across FS options.
+
+    Args:
+        metrics_df: DataFrame with 'model', 'fs_option', and metric columns
+        metric: Metric to visualize
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+
+    models = metrics_df['model'].unique()
+    fs_options = metrics_df['fs_option'].unique()
+
+    x = np.arange(len(fs_options))
+    width = 0.8 / len(models)
+    colors = plt.cm.Set2(np.linspace(0, 1, len(models)))
+
+    for i, model in enumerate(models):
+        model_data = metrics_df[metrics_df['model'] == model]
+        values = []
+        for fs in fs_options:
+            fs_data = model_data[model_data['fs_option'] == fs]
+            if len(fs_data) > 0:
+                values.append(fs_data[metric].values[0])
+            else:
+                values.append(np.nan)
+
+        bars = ax.bar(x + i * width, values, width, label=model, color=colors[i],
+                     edgecolor='black', linewidth=0.5)
+
+        # Add value labels on bars
+        for bar, val in zip(bars, values):
+            if not np.isnan(val):
+                ax.text(bar.get_x() + bar.get_width()/2, bar.get_height(),
+                       f'{val:.3f}', ha='center', va='bottom', fontsize=9, fontweight='bold')
+
+    ax.set_xlabel('Feature Selection Option', fontweight='bold', fontsize=14)
+    ax.set_ylabel(metric.replace('_', ' ').title(), fontweight='bold', fontsize=14)
+    ax.set_title(title, fontweight='bold', fontsize=18)
+    ax.set_xticks(x + width * (len(models) - 1) / 2)
+    ax.set_xticklabels(fs_options, rotation=45, ha='right', fontsize=11)
+    ax.legend(title='Model', bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10)
+    ax.grid(axis='y', alpha=0.3)
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_best_per_fs_option(
+    metrics_df: pd.DataFrame,
+    metric: str = 'weighted_mae',
+    title: str = "Best Model Performance per FS Option",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (12, 8)
+) -> plt.Figure:
+    """
+    Plot best model for each FS option.
+
+    Args:
+        metrics_df: DataFrame with 'model', 'fs_option', and metric columns
+        metric: Metric to visualize (lower is better assumed)
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    # Get best model per FS option
+    is_lower_better = 'mae' in metric.lower() or 'error' in metric.lower() or 'mape' in metric.lower()
+    if is_lower_better:
+        best_idx = metrics_df.groupby('fs_option')[metric].idxmin()
+    else:
+        best_idx = metrics_df.groupby('fs_option')[metric].idxmax()
+
+    best_per_fs = metrics_df.loc[best_idx]
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Color bars by model
+    unique_models = best_per_fs['model'].unique()
+    colors = plt.cm.Set2(np.linspace(0, 1, len(unique_models)))
+    model_colors = dict(zip(unique_models, colors))
+
+    bar_colors = [model_colors[m] for m in best_per_fs['model']]
+    bars = ax.bar(best_per_fs['fs_option'], best_per_fs[metric],
+                 color=bar_colors, edgecolor='black', linewidth=1)
+
+    # Annotate with model names
+    for bar, model_name, val in zip(bars, best_per_fs['model'], best_per_fs[metric]):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.001,
+               f'{model_name}\n({val:.4f})', ha='center', va='bottom',
+               fontsize=10, fontweight='bold')
+
+    ax.set_xlabel('Feature Selection Option', fontweight='bold', fontsize=14)
+    ax.set_ylabel(metric.replace('_', ' ').title(), fontweight='bold', fontsize=14)
+    ax.set_title(title, fontweight='bold', fontsize=18)
+    plt.xticks(rotation=45, ha='right', fontsize=11)
+    ax.grid(axis='y', alpha=0.3)
+
+    # Add legend for model colors
+    legend_patches = [plt.Rectangle((0, 0), 1, 1, facecolor=c, edgecolor='black')
+                     for c in model_colors.values()]
+    ax.legend(legend_patches, model_colors.keys(), title='Best Model',
+             loc='upper right', fontsize=10)
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_multi_fs_summary(
+    metrics_df: pd.DataFrame,
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (16, 12)
+) -> plt.Figure:
+    """
+    Create a comprehensive multi-panel summary of FS-model comparison.
+
+    Args:
+        metrics_df: DataFrame with 'model', 'fs_option', and metric columns
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    try:
+        import seaborn as sns
+    except ImportError:
+        print("Seaborn required. Install with: pip install seaborn")
+        return None
+
+    fig = plt.figure(figsize=figsize)
+    gs = fig.add_gridspec(2, 2, hspace=0.3, wspace=0.3)
+
+    # Panel 1: Heatmap
+    ax1 = fig.add_subplot(gs[0, 0])
+    heatmap_data = metrics_df.pivot_table(
+        index='model', columns='fs_option', values='weighted_mae', aggfunc='first'
+    )
+    sns.heatmap(heatmap_data, annot=True, fmt='.4f', cmap='RdYlGn_r', ax=ax1,
+                annot_kws={'size': 9}, linewidths=0.5)
+    ax1.set_title('Weighted MAE by Model & FS Option', fontweight='bold', fontsize=14)
+    ax1.set_xlabel('')
+    ax1.set_ylabel('')
+    plt.setp(ax1.get_xticklabels(), rotation=45, ha='right', fontsize=9)
+    plt.setp(ax1.get_yticklabels(), fontsize=10)
+
+    # Panel 2: Best model per FS
+    ax2 = fig.add_subplot(gs[0, 1])
+    best_idx = metrics_df.groupby('fs_option')['weighted_mae'].idxmin()
+    best_per_fs = metrics_df.loc[best_idx]
+    colors = plt.cm.Set2(np.linspace(0, 1, len(best_per_fs['model'].unique())))
+    model_color_map = dict(zip(best_per_fs['model'].unique(), colors))
+    bar_colors = [model_color_map[m] for m in best_per_fs['model']]
+    ax2.bar(best_per_fs['fs_option'], best_per_fs['weighted_mae'],
+           color=bar_colors, edgecolor='black')
+    for i, (fs, model, val) in enumerate(zip(best_per_fs['fs_option'],
+                                             best_per_fs['model'],
+                                             best_per_fs['weighted_mae'])):
+        ax2.text(i, val, f'{model}', ha='center', va='bottom', fontsize=9, fontweight='bold')
+    ax2.set_title('Best Model per FS Option', fontweight='bold', fontsize=14)
+    ax2.set_ylabel('Weighted MAE', fontweight='bold')
+    plt.setp(ax2.get_xticklabels(), rotation=45, ha='right', fontsize=9)
+    ax2.grid(axis='y', alpha=0.3)
+
+    # Panel 3: Model consistency across FS options (box plot)
+    ax3 = fig.add_subplot(gs[1, 0])
+    model_order = metrics_df.groupby('model')['weighted_mae'].mean().sort_values().index
+    sns.boxplot(data=metrics_df, x='model', y='weighted_mae', order=model_order, ax=ax3,
+                palette='Set2')
+    ax3.set_title('Model Consistency Across FS Options', fontweight='bold', fontsize=14)
+    ax3.set_xlabel('')
+    ax3.set_ylabel('Weighted MAE', fontweight='bold')
+    plt.setp(ax3.get_xticklabels(), rotation=45, ha='right', fontsize=10)
+    ax3.grid(axis='y', alpha=0.3)
+
+    # Panel 4: FS option summary statistics
+    ax4 = fig.add_subplot(gs[1, 1])
+    fs_summary = metrics_df.groupby('fs_option').agg({
+        'weighted_mae': ['mean', 'std', 'min'],
+        'n_features': 'first'
+    })
+    fs_summary.columns = ['Mean MAE', 'Std MAE', 'Best MAE', 'Features']
+    fs_summary = fs_summary.sort_values('Best MAE')
+
+    ax4.barh(fs_summary.index, fs_summary['Best MAE'], color='steelblue',
+            alpha=0.7, label='Best MAE')
+    ax4.barh(fs_summary.index, fs_summary['Mean MAE'], color='coral',
+            alpha=0.5, label='Mean MAE')
+    ax4.errorbar(fs_summary['Mean MAE'], fs_summary.index, xerr=fs_summary['Std MAE'],
+                fmt='none', color='black', capsize=3)
+
+    # Add feature count as text
+    for i, (fs, row) in enumerate(fs_summary.iterrows()):
+        ax4.text(row['Best MAE'] + 0.001, i, f"({int(row['Features'])} feat)",
+                va='center', fontsize=9)
+
+    ax4.set_title('FS Option Summary', fontweight='bold', fontsize=14)
+    ax4.set_xlabel('Weighted MAE', fontweight='bold')
+    ax4.legend(loc='lower right', fontsize=9)
+    ax4.grid(axis='x', alpha=0.3)
+
+    fig.suptitle('Multi-FS Model Comparison Summary', fontweight='bold', fontsize=18, y=1.02)
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig

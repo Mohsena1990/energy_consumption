@@ -23,6 +23,7 @@ from .consensus import (
     vote_based_selection,
     stability_based_selection,
     fs_consensus,
+    fs_hybrid,
     run_all_fs_options
 )
 from .evaluation import (
@@ -63,7 +64,7 @@ __all__ = [
     'boruta_selection', 'fs_nonlinear',
     # Consensus methods
     'vote_based_selection', 'stability_based_selection', 'fs_consensus',
-    'run_all_fs_options',
+    'fs_hybrid', 'run_all_fs_options',
     # Evaluation
     'evaluate_fs_option_with_shap', 'create_fs_evaluation_matrix',
     # Filter methods (NEW)

@@ -272,9 +272,9 @@ def select_best_fs_option(
     eval_matrix: pd.DataFrame,
     config: 'Config',
     use_pareto: bool = True
-) -> Tuple[str, pd.DataFrame, Dict[str, Any]]:
+) -> Tuple[List[str], pd.DataFrame, Dict[str, Any]]:
     """
-    Select best FS option using MCDA.
+    Select best FS option(s) using MCDA.
 
     Args:
         eval_matrix: FS evaluation matrix
@@ -282,10 +282,13 @@ def select_best_fs_option(
         use_pareto: Whether to apply Pareto filter first
 
     Returns:
-        Tuple of (best FS option name, ranking DataFrame, selection details)
+        Tuple of (list of top-N FS option names, ranking DataFrame, selection details)
     """
     logger = get_logger()
-    logger.info("Selecting best FS option using MCDA...")
+    logger.info("Selecting best FS option(s) using MCDA...")
+
+    # Get top_n from config
+    top_n = getattr(config.mcda, 'top_n_options', 2)
 
     # Define criteria
     criteria = ['C1_accuracy', 'C2_stability', 'C3_shap_concentration',
@@ -338,8 +341,10 @@ def select_best_fs_option(
         score_col = 'topsis_score'
         rank_col = 'topsis_rank'
 
-    # Get best option
-    best_option = ranking_df.iloc[0]['fs_option']
+    # Get top-N options
+    n_available = min(top_n, len(ranking_df))
+    top_options = ranking_df.head(n_available)['fs_option'].tolist()
+    best_option = top_options[0]
 
     selection_details = {
         'method': config.mcda.method,
@@ -348,23 +353,36 @@ def select_best_fs_option(
         'criteria_types': criteria_types,
         'n_candidates': len(eval_matrix),
         'n_pareto': len(working_df),
+        'top_n_requested': top_n,
+        'top_options': top_options,
         'best_option': best_option,
         'best_score': float(ranking_df.iloc[0][score_col]),
-        'ranking': ranking_df[['fs_option', score_col, rank_col]].to_dict(orient='records')
+        'ranking': ranking_df[['fs_option', score_col, rank_col]].to_dict(orient='records'),
+        'top_options_details': []
     }
 
-    logger.info(f"Best FS option: {best_option}")
+    # Add details for each top option
+    for i, opt in enumerate(top_options):
+        opt_row = ranking_df[ranking_df['fs_option'] == opt].iloc[0]
+        selection_details['top_options_details'].append({
+            'rank': i + 1,
+            'fs_option': opt,
+            'score': float(opt_row[score_col]),
+            'criteria_values': {c: float(opt_row[c]) for c in criteria if c in opt_row}
+        })
 
-    return best_option, ranking_df, selection_details
+    logger.info(f"Top {n_available} FS options: {top_options}")
+
+    return top_options, ranking_df, selection_details
 
 
 def select_best_model(
     model_metrics: pd.DataFrame,
     config: 'Config',
     use_pareto: bool = True
-) -> Tuple[str, pd.DataFrame, Dict[str, Any]]:
+) -> Tuple[List[str], pd.DataFrame, Dict[str, Any]]:
     """
-    Select best forecasting model using MCDA.
+    Select best forecasting model(s) using MCDA.
 
     Args:
         model_metrics: Model evaluation metrics DataFrame
@@ -372,10 +390,13 @@ def select_best_model(
         use_pareto: Whether to apply Pareto filter first
 
     Returns:
-        Tuple of (best model name, ranking DataFrame, selection details)
+        Tuple of (list of top-N model names, ranking DataFrame, selection details)
     """
     logger = get_logger()
-    logger.info("Selecting best model using MCDA...")
+    logger.info("Selecting best model(s) using MCDA...")
+
+    # Get top_n from config
+    top_n = getattr(config.mcda, 'top_n_options', 2)
 
     # Define criteria for model selection
     criteria = ['quarterly_mae', 'stability', 'annual_consistency', 'parsimony']
@@ -454,8 +475,10 @@ def select_best_model(
         score_col = 'topsis_score'
         rank_col = 'topsis_rank'
 
-    # Get best model
-    best_model = ranking_df.iloc[0][model_col]
+    # Get top-N models
+    n_available = min(top_n, len(ranking_df))
+    top_models = ranking_df.head(n_available)[model_col].tolist()
+    best_model = top_models[0]
 
     selection_details = {
         'method': config.mcda.method,
@@ -465,11 +488,24 @@ def select_best_model(
         'criteria_types': {c: criteria_types.get(c, 'benefit') for c in criteria},
         'n_candidates': len(model_metrics),
         'n_pareto': len(working_df),
+        'top_n_requested': top_n,
+        'top_models': top_models,
         'best_model': best_model,
         'best_score': float(ranking_df.iloc[0][score_col]),
-        'ranking': ranking_df[[model_col, score_col, rank_col] + criteria].to_dict(orient='records')
+        'ranking': ranking_df[[model_col, score_col, rank_col] + criteria].to_dict(orient='records'),
+        'top_models_details': []
     }
 
-    logger.info(f"Best model: {best_model}")
+    # Add details for each top model
+    for i, model in enumerate(top_models):
+        model_row = ranking_df[ranking_df[model_col] == model].iloc[0]
+        selection_details['top_models_details'].append({
+            'rank': i + 1,
+            'model': model,
+            'score': float(model_row[score_col]),
+            'criteria_values': {c: float(model_row[c]) for c in criteria if c in model_row}
+        })
 
-    return best_model, ranking_df, selection_details
+    logger.info(f"Top {n_available} models: {top_models}")
+
+    return top_models, ranking_df, selection_details

@@ -37,6 +37,16 @@ class FeatureConfig:
     rolling_columns: List[str] = field(default_factory=lambda: ["CO2e"])
     rolling_windows: List[int] = field(default_factory=lambda: [4, 8])
     rolling_functions: List[str] = field(default_factory=lambda: ["mean", "std"])
+    # Rate-of-change features (Δlog)
+    include_roc_features: bool = True
+    roc_columns: List[str] = field(default_factory=lambda: ["TEC", "GDP"])
+    # Intensity/per-capita features
+    include_intensity_features: bool = True
+    intensity_denominators: List[str] = field(default_factory=lambda: ["Population", "TEC"])
+    # Weather features (HDD/CDD proxy)
+    include_weather_features: bool = True
+    temperature_column: str = "Air_Temp"
+    hdd_base_temp: float = 18.0
 
 
 @dataclass
@@ -53,10 +63,18 @@ class SplitConfig:
 class FSConfig:
     """Feature selection configuration."""
     vif_threshold: float = 10.0
-    stability_threshold: float = 0.6  # 60% of folds
+    stability_threshold: float = 0.5  # Reduced from 0.6 for low feature counts
     vote_threshold: int = 2  # minimum methods agreeing
     top_k_features: int = 5  # for SHAP concentration
     evaluator_model: str = "lightgbm"  # or "catboost"
+    # Linear FS specific thresholds (more lenient for small datasets)
+    ridge_coef_threshold: float = 0.005  # Reduced from 0.01 for small datasets
+    elasticnet_coef_threshold: float = 1e-8  # Reduced from 1e-10, more lenient
+    # Hybrid FS settings
+    run_hybrid_fs: bool = True  # Enable filter+wrapper+embedded hybrid
+    hybrid_min_votes: int = 2  # Minimum methods agreeing in hybrid
+    # Minimum features to select (prevents over-filtering)
+    min_features: int = 3
 
 
 @dataclass
@@ -104,6 +122,8 @@ class MCDAConfig:
         "parsimony": 0.10
     })
     vikor_v: float = 0.5  # VIKOR compromise parameter
+    # Output top-N options for comparison
+    top_n_options: int = 2  # Return top 2 FS options and models for comparison
 
 
 @dataclass
