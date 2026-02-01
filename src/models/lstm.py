@@ -242,37 +242,150 @@ class LSTMModel(BaseForecaster):
     def interpretability_score(self) -> float:
         return 0.3  # Neural networks are less interpretable
 
+    def __getstate__(self):
+        """Custom pickle state for LSTM model."""
+        state = self.__dict__.copy()
+        # Convert device to string for pickling
+        if self.device is not None:
+            state['device'] = str(self.device)
+        return state
 
-class LSTMNetwork:
-    """PyTorch LSTM network."""
+    def __setstate__(self, state):
+        """Custom unpickle for LSTM model."""
+        self.__dict__.update(state)
+        # Restore device
+        if self.device is not None and isinstance(self.device, str):
+            import torch
+            self.device = torch.device(self.device)
+            # Move model to device if it exists
+            if self.lstm_model is not None:
+                self.lstm_model = self.lstm_model.to(self.device)
 
-    def __new__(cls, *args, **kwargs):
-        """Create PyTorch module dynamically."""
+
+# Lazy import for PyTorch - defined at module level for pickling support
+_torch = None
+_nn = None
+
+
+def _get_torch():
+    """Lazy import PyTorch."""
+    global _torch, _nn
+    if _torch is None:
         import torch
         import torch.nn as nn
+        _torch = torch
+        _nn = nn
+    return _torch, _nn
 
-        class _LSTMNetwork(nn.Module):
-            def __init__(self, input_size, hidden_size, num_layers, dropout):
-                super().__init__()
-                self.lstm = nn.LSTM(
-                    input_size=input_size,
-                    hidden_size=hidden_size,
-                    num_layers=num_layers,
-                    batch_first=True,
-                    dropout=dropout if num_layers > 1 else 0
-                )
-                self.dropout = nn.Dropout(dropout)
-                self.fc = nn.Linear(hidden_size, 1)
 
-            def forward(self, x):
-                lstm_out, _ = self.lstm(x)
-                # Take the last output
-                last_out = lstm_out[:, -1, :]
-                out = self.dropout(last_out)
-                out = self.fc(out)
-                return out
+class LSTMNetwork:
+    """
+    PyTorch LSTM network wrapper.
 
-        return _LSTMNetwork(*args, **kwargs)
+    This class dynamically creates an nn.Module subclass at runtime while
+    maintaining pickle compatibility by storing the configuration and
+    recreating the network on unpickle.
+    """
+
+    def __init__(self, input_size, hidden_size, num_layers, dropout):
+        """Initialize LSTM network."""
+        torch, nn = _get_torch()
+
+        # Store configuration for pickling
+        self.input_size = input_size
+        self.hidden_size = hidden_size
+        self.num_layers = num_layers
+        self.dropout = dropout
+
+        # Create the actual PyTorch module
+        self._create_network()
+
+    def _create_network(self):
+        """Create the underlying PyTorch module."""
+        torch, nn = _get_torch()
+
+        # Build the network layers
+        self.lstm = nn.LSTM(
+            input_size=self.input_size,
+            hidden_size=self.hidden_size,
+            num_layers=self.num_layers,
+            batch_first=True,
+            dropout=self.dropout if self.num_layers > 1 else 0
+        )
+        self.dropout_layer = nn.Dropout(self.dropout)
+        self.fc = nn.Linear(self.hidden_size, 1)
+
+        # Track parameters for optimizer
+        self._parameters = list(self.lstm.parameters()) + list(self.fc.parameters())
+
+    def forward(self, x):
+        """Forward pass through the network."""
+        lstm_out, _ = self.lstm(x)
+        # Take the last output
+        last_out = lstm_out[:, -1, :]
+        out = self.dropout_layer(last_out)
+        out = self.fc(out)
+        return out
+
+    def __call__(self, x):
+        """Make the network callable."""
+        return self.forward(x)
+
+    def parameters(self):
+        """Return model parameters for optimizer."""
+        return self._parameters
+
+    def to(self, device):
+        """Move network to device."""
+        self.lstm = self.lstm.to(device)
+        self.dropout_layer = self.dropout_layer.to(device)
+        self.fc = self.fc.to(device)
+        self._parameters = list(self.lstm.parameters()) + list(self.fc.parameters())
+        return self
+
+    def train(self, mode=True):
+        """Set training mode."""
+        self.lstm.train(mode)
+        self.dropout_layer.train(mode)
+        self.fc.train(mode)
+        return self
+
+    def eval(self):
+        """Set evaluation mode."""
+        return self.train(False)
+
+    def state_dict(self):
+        """Get state dictionary for saving."""
+        return {
+            'lstm': self.lstm.state_dict(),
+            'fc': self.fc.state_dict()
+        }
+
+    def load_state_dict(self, state_dict):
+        """Load state dictionary."""
+        self.lstm.load_state_dict(state_dict['lstm'])
+        self.fc.load_state_dict(state_dict['fc'])
+
+    def __getstate__(self):
+        """Custom pickle state - save config and weights."""
+        torch, nn = _get_torch()
+        state = {
+            'input_size': self.input_size,
+            'hidden_size': self.hidden_size,
+            'num_layers': self.num_layers,
+            'dropout': self.dropout,
+            'state_dict': self.state_dict()
+        }
+        return state
+
+    def __setstate__(self, state):
+        """Custom unpickle - recreate network from config and weights."""
+        self.input_size = state['input_size']
+        self.hidden_size = state['hidden_size']
+        self.num_layers = state['num_layers']
+        self.dropout = state['dropout']
+        self._create_network()
+        self.load_state_dict(state['state_dict'])
 
 
 def get_lstm_param_space() -> Dict[str, Any]:
