@@ -1,6 +1,6 @@
 """
 Reporting module for CO2 forecasting framework.
-High-resolution plotting and visualization.
+High-resolution plotting and visualization with bigger, bolder text.
 """
 from .plots import (
     set_plot_style,
@@ -14,7 +14,14 @@ from .plots import (
     plot_shap_summary,
     plot_annual_consistency,
     plot_regime_comparison,
-    create_all_plots
+    create_all_plots,
+    # New enhanced plots
+    plot_shap_beeswarm,
+    plot_model_coefficients,
+    plot_vikor_radar,
+    plot_vikor_v_sensitivity,
+    plot_weight_sensitivity_heatmap,
+    plot_pareto_front_enhanced
 )
 
 __all__ = [
@@ -29,5 +36,12 @@ __all__ = [
     'plot_shap_summary',
     'plot_annual_consistency',
     'plot_regime_comparison',
-    'create_all_plots'
+    'create_all_plots',
+    # New enhanced plots
+    'plot_shap_beeswarm',
+    'plot_model_coefficients',
+    'plot_vikor_radar',
+    'plot_vikor_v_sensitivity',
+    'plot_weight_sensitivity_heatmap',
+    'plot_pareto_front_enhanced'
 ]

@@ -8,16 +8,19 @@ import matplotlib.dates as mdates
 from typing import Dict, Any, List, Tuple, Optional
 from pathlib import Path
 
-# Set high-quality defaults
+# Set high-quality defaults with BIGGER, BOLDER text
 plt.rcParams['figure.dpi'] = 300
 plt.rcParams['savefig.dpi'] = 300
-plt.rcParams['font.size'] = 10
-plt.rcParams['axes.labelsize'] = 12
-plt.rcParams['axes.titlesize'] = 14
-plt.rcParams['legend.fontsize'] = 10
-plt.rcParams['xtick.labelsize'] = 9
-plt.rcParams['ytick.labelsize'] = 9
-plt.rcParams['figure.figsize'] = (12, 8)
+plt.rcParams['font.size'] = 14
+plt.rcParams['font.weight'] = 'bold'
+plt.rcParams['axes.labelsize'] = 16
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['axes.labelweight'] = 'bold'
+plt.rcParams['axes.titleweight'] = 'bold'
+plt.rcParams['legend.fontsize'] = 12
+plt.rcParams['xtick.labelsize'] = 12
+plt.rcParams['ytick.labelsize'] = 12
+plt.rcParams['figure.figsize'] = (14, 10)
 plt.rcParams['axes.grid'] = True
 plt.rcParams['grid.alpha'] = 0.3
 
@@ -419,9 +422,436 @@ def plot_shap_summary(
     """
     import shap
 
-    fig = plt.figure(figsize=(12, 8))
+    fig = plt.figure(figsize=(14, 10))
     shap.summary_plot(shap_values, X, max_display=max_display, show=False)
-    plt.title(title, fontweight='bold', fontsize=14)
+    plt.title(title, fontweight='bold', fontsize=20)
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_shap_beeswarm(
+    shap_values: np.ndarray,
+    X: pd.DataFrame,
+    title: str = "SHAP Beeswarm",
+    output_path: Optional[Path] = None,
+    max_display: int = 15,
+    figsize: Tuple[int, int] = (14, 10)
+):
+    """
+    Create SHAP beeswarm plot (modern replacement for summary_plot).
+
+    Args:
+        shap_values: SHAP values (numpy array or shap.Explanation object)
+        X: Feature DataFrame
+        title: Plot title
+        output_path: Path to save figure
+        max_display: Maximum features to display
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    import shap
+
+    plt.figure(figsize=figsize)
+
+    # Create Explanation object if necessary
+    if not isinstance(shap_values, shap.Explanation):
+        explanation = shap.Explanation(
+            values=shap_values,
+            base_values=np.zeros(len(shap_values)),
+            data=X.values,
+            feature_names=list(X.columns)
+        )
+    else:
+        explanation = shap_values
+
+    # Use beeswarm plot
+    shap.plots.beeswarm(explanation, max_display=max_display, show=False)
+
+    plt.title(title, fontweight='bold', fontsize=20)
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return plt.gcf()
+
+
+def plot_model_coefficients(
+    coef_df: pd.DataFrame,
+    model_name: str = "Model",
+    top_n: int = 15,
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (14, 10)
+) -> plt.Figure:
+    """
+    Plot model coefficients or feature importance with color coding.
+
+    For linear models: positive coefficients in green, negative in red.
+    For tree models: gradient blue colors for importance.
+
+    Args:
+        coef_df: DataFrame with 'feature' and coefficient/importance columns
+        model_name: Name of the model for title
+        top_n: Number of top features to show
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Determine which column to use
+    if 'coefficient' in coef_df.columns:
+        value_col = 'coefficient'
+        sort_col = 'abs_coefficient' if 'abs_coefficient' in coef_df.columns else 'coefficient'
+        df = coef_df.nlargest(top_n, sort_col).copy()
+        values = df[value_col].values
+        # Color by sign: positive=green, negative=red
+        colors = ['forestgreen' if v > 0 else 'crimson' for v in values]
+        xlabel = 'Coefficient Value'
+    elif 'importance' in coef_df.columns:
+        value_col = 'importance'
+        df = coef_df.nlargest(top_n, 'importance').copy()
+        values = df['importance'].values
+        # Gradient blue colors
+        colors = plt.cm.Blues(np.linspace(0.4, 0.9, len(df)))[::-1]
+        xlabel = 'Feature Importance'
+    else:
+        # Fallback
+        value_col = coef_df.columns[1]
+        df = coef_df.nlargest(top_n, value_col).copy()
+        values = df[value_col].values
+        colors = plt.cm.Blues(np.linspace(0.4, 0.9, len(df)))[::-1]
+        xlabel = value_col.replace('_', ' ').title()
+
+    # Create horizontal bar plot
+    bars = ax.barh(df['feature'].values[::-1], np.abs(values)[::-1] if value_col == 'coefficient' else values[::-1],
+                   color=colors[::-1] if isinstance(colors, list) else colors,
+                   edgecolor='black', alpha=0.85, linewidth=1.5)
+
+    # Add value labels
+    for bar, val in zip(bars, (values[::-1] if value_col == 'coefficient' else values[::-1])):
+        label = f'{val:+.4f}' if value_col == 'coefficient' else f'{val:.4f}'
+        ax.text(bar.get_width() + 0.005 * max(np.abs(values)), bar.get_y() + bar.get_height()/2,
+                label, ha='left', va='center', fontsize=11, fontweight='bold')
+
+    ax.set_xlabel(xlabel, fontweight='bold', fontsize=16)
+    ax.set_ylabel('Feature', fontweight='bold', fontsize=16)
+    ax.set_title(f'{model_name} - Feature Coefficients/Importance', fontweight='bold', fontsize=20)
+
+    # Add legend for coefficient plots
+    if value_col == 'coefficient':
+        from matplotlib.patches import Patch
+        legend_elements = [Patch(facecolor='forestgreen', label='Positive'),
+                          Patch(facecolor='crimson', label='Negative')]
+        ax.legend(handles=legend_elements, loc='lower right', fontsize=12)
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_vikor_radar(
+    ranking_df: pd.DataFrame,
+    criteria: List[str],
+    top_n: int = 5,
+    title: str = "VIKOR Criteria Comparison (Radar Chart)",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (12, 10)
+) -> plt.Figure:
+    """
+    Create radar/spider chart for VIKOR alternative comparison.
+
+    Args:
+        ranking_df: DataFrame with VIKOR results (must have criteria columns)
+        criteria: List of criteria column names
+        top_n: Number of top alternatives to display
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    from math import pi
+
+    # Get top N alternatives
+    df = ranking_df.head(top_n).copy()
+
+    # Get name column
+    name_col = 'model' if 'model' in df.columns else 'fs_option'
+    if name_col not in df.columns:
+        name_col = df.columns[0]
+
+    # Filter to available criteria
+    available_criteria = [c for c in criteria if c in df.columns]
+    if not available_criteria:
+        print(f"Warning: No criteria found in DataFrame. Available columns: {df.columns.tolist()}")
+        return None
+
+    # Normalize criteria values to 0-1 range for radar plot
+    norm_df = df[available_criteria].copy()
+    for col in available_criteria:
+        col_min, col_max = norm_df[col].min(), norm_df[col].max()
+        if col_max > col_min:
+            norm_df[col] = (norm_df[col] - col_min) / (col_max - col_min)
+        else:
+            norm_df[col] = 0.5
+
+    # Number of criteria
+    N = len(available_criteria)
+
+    # Angles for each axis
+    angles = [n / float(N) * 2 * pi for n in range(N)]
+    angles += angles[:1]  # Close the polygon
+
+    # Create figure
+    fig, ax = plt.subplots(figsize=figsize, subplot_kw=dict(polar=True))
+
+    # Color palette (rank-based: best = green, worst = red)
+    colors = plt.cm.RdYlGn(np.linspace(0.8, 0.2, top_n))
+
+    for idx, (_, row) in enumerate(df.iterrows()):
+        values = norm_df.iloc[idx][available_criteria].values.tolist()
+        values += values[:1]  # Close the polygon
+
+        label = f"#{idx+1}: {row[name_col]}"
+        ax.plot(angles, values, 'o-', linewidth=2.5, label=label, color=colors[idx], markersize=8)
+        ax.fill(angles, values, alpha=0.15, color=colors[idx])
+
+    # Set axis labels with better formatting
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels([c.replace('_', '\n').replace('weighted', 'wtd').title()
+                        for c in available_criteria],
+                       fontsize=12, fontweight='bold')
+
+    ax.set_title(title, fontweight='bold', fontsize=20, pad=20)
+    ax.legend(loc='upper right', bbox_to_anchor=(1.35, 1.0), fontsize=11)
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_vikor_v_sensitivity(
+    sensitivity_df: pd.DataFrame,
+    title: str = "VIKOR Ranking Sensitivity to v Parameter",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (14, 8)
+) -> plt.Figure:
+    """
+    Plot ranking changes across v parameter values.
+
+    Args:
+        sensitivity_df: DataFrame with 'v', 'alternative', 'rank' columns
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+
+    alternatives = sensitivity_df['alternative'].unique()
+    colors = plt.cm.tab10(np.linspace(0, 1, len(alternatives)))
+
+    for idx, alt in enumerate(alternatives):
+        data = sensitivity_df[sensitivity_df['alternative'] == alt]
+        ax.plot(data['v'], data['rank'], 'o-', label=alt,
+                linewidth=2.5, markersize=10, color=colors[idx])
+
+    ax.set_xlabel('VIKOR v Parameter (0=Regret Focus, 1=Utility Focus)', fontweight='bold', fontsize=16)
+    ax.set_ylabel('Rank (1=Best)', fontweight='bold', fontsize=16)
+    ax.set_title(title, fontweight='bold', fontsize=20)
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize=11)
+    ax.invert_yaxis()  # Lower rank is better
+    ax.set_yticks(range(1, len(alternatives) + 1))
+    ax.grid(True, alpha=0.3)
+
+    # Add vertical line at v=0.5
+    ax.axvline(x=0.5, color='gray', linestyle='--', alpha=0.7, linewidth=2)
+    ax.annotate('Balanced\n(v=0.5)', xy=(0.5, 1), xytext=(0.55, 1.5),
+                fontsize=11, fontweight='bold')
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_weight_sensitivity_heatmap(
+    sensitivity_df: pd.DataFrame,
+    title: str = "Rank Stability Under Weight Perturbations",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (16, 10)
+) -> plt.Figure:
+    """
+    Plot heatmap of rank changes under weight perturbations.
+
+    Args:
+        sensitivity_df: DataFrame with perturbation results
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+
+    Returns:
+        Matplotlib figure
+    """
+    try:
+        import seaborn as sns
+    except ImportError:
+        print("Seaborn required for heatmap. Install with: pip install seaborn")
+        return None
+
+    # Pivot to get rank changes
+    pivot = sensitivity_df.pivot_table(
+        index='alternative',
+        columns=['criterion', 'perturbation'],
+        values='rank_change',
+        aggfunc='mean'
+    )
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Create heatmap
+    sns.heatmap(pivot, annot=True, fmt='.0f', cmap='RdYlGn_r',
+                center=0, ax=ax, cbar_kws={'label': 'Rank Change'},
+                annot_kws={'size': 11, 'weight': 'bold'},
+                linewidths=0.5, linecolor='white')
+
+    ax.set_title(title, fontweight='bold', fontsize=20, pad=15)
+    ax.set_xlabel('Criterion & Perturbation Direction', fontweight='bold', fontsize=14)
+    ax.set_ylabel('Alternative', fontweight='bold', fontsize=14)
+
+    # Rotate x-axis labels
+    plt.xticks(rotation=45, ha='right', fontsize=11)
+    plt.yticks(fontsize=12)
+
+    plt.tight_layout()
+
+    if output_path:
+        plt.savefig(output_path, dpi=300, bbox_inches='tight', facecolor='white')
+
+    return fig
+
+
+def plot_pareto_front_enhanced(
+    pareto_df: pd.DataFrame,
+    obj1: str = 'weighted_mae',
+    obj2: str = 'n_features',
+    all_points_df: Optional[pd.DataFrame] = None,
+    title: str = "Pareto Front: Predictive Performance vs. Computational Footprint",
+    output_path: Optional[Path] = None,
+    figsize: Tuple[int, int] = (14, 10),
+    x_label: str = None,
+    y_label: str = None,
+    annotate_info: bool = True
+) -> plt.Figure:
+    """
+    Enhanced Pareto front plot with meaningful annotations.
+
+    Args:
+        pareto_df: DataFrame with Pareto-optimal solutions
+        obj1: First objective (x-axis)
+        obj2: Second objective (y-axis)
+        all_points_df: Optional DataFrame with all solutions
+        title: Plot title
+        output_path: Path to save figure
+        figsize: Figure size
+        x_label: Custom x-axis label
+        y_label: Custom y-axis label
+        annotate_info: Whether to add detailed annotations
+
+    Returns:
+        Matplotlib figure
+    """
+    fig, ax = plt.subplots(figsize=figsize)
+
+    # Determine labels
+    if x_label is None:
+        if 'mae' in obj1.lower() or 'accuracy' in obj1.lower():
+            x_label = "Predictive Performance (lower error = better)"
+        else:
+            x_label = obj1.replace('_', ' ').title()
+
+    if y_label is None:
+        if 'n_features' in obj2.lower() or 'parsimony' in obj2.lower():
+            y_label = "Model Simplicity (fewer features = lower footprint)"
+        elif 'stability' in obj2.lower():
+            y_label = "Prediction Stability (higher = more robust)"
+        else:
+            y_label = obj2.replace('_', ' ').title()
+
+    # Plot dominated points
+    if all_points_df is not None and obj1 in all_points_df.columns and obj2 in all_points_df.columns:
+        dominated = all_points_df[~all_points_df.index.isin(pareto_df.index)]
+        if len(dominated) > 0:
+            ax.scatter(dominated[obj1], dominated[obj2], c='lightgray', alpha=0.6,
+                      s=150, label='Dominated Solutions', marker='o', edgecolors='gray', linewidths=1)
+
+    # Plot Pareto front with color gradient
+    if obj1 in pareto_df.columns and obj2 in pareto_df.columns:
+        pareto_sorted = pareto_df.sort_values(obj1)
+        n_points = len(pareto_sorted)
+        colors = plt.cm.RdYlGn(np.linspace(0.8, 0.3, n_points))
+
+        ax.scatter(pareto_sorted[obj1], pareto_sorted[obj2], c=colors,
+                  s=250, label='Pareto Optimal', marker='*', edgecolors='black', linewidths=1.5)
+        ax.plot(pareto_sorted[obj1], pareto_sorted[obj2], 'k--', alpha=0.4, linewidth=2)
+
+        # Annotate points with meaningful info
+        name_col = 'model' if 'model' in pareto_df.columns else 'fs_option'
+        if name_col not in pareto_df.columns:
+            name_col = pareto_df.columns[0]
+
+        for idx, (_, row) in enumerate(pareto_sorted.iterrows()):
+            label = str(row.get(name_col, idx))
+
+            # Build annotation text
+            info_parts = [f"#{idx+1}: {label}"]
+            if annotate_info:
+                if 'n_features' in row.index:
+                    info_parts.append(f"Features: {int(row['n_features'])}")
+                if 'weighted_mae' in row.index:
+                    info_parts.append(f"MAE: {row['weighted_mae']:.4f}")
+
+            annotation = '\n'.join(info_parts)
+
+            ax.annotate(annotation, (row[obj1], row[obj2]),
+                       textcoords="offset points",
+                       xytext=(10, 10), fontsize=11, fontweight='bold',
+                       bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8, edgecolor='gray'))
+
+    ax.set_xlabel(x_label, fontweight='bold', fontsize=16)
+    ax.set_ylabel(y_label, fontweight='bold', fontsize=16)
+    ax.set_title(title, fontweight='bold', fontsize=20)
+    ax.legend(loc='upper right', fontsize=12)
+    ax.grid(True, alpha=0.3)
+
+    # Add interpretive text box
+    textstr = "Trade-off Region:\n" \
+              "Lower-left = Best (low error, low complexity)\n" \
+              "Upper-right = Worst (high error, high complexity)"
+    props = dict(boxstyle='round', facecolor='lightyellow', alpha=0.9, edgecolor='orange')
+    ax.text(0.02, 0.02, textstr, transform=ax.transAxes, fontsize=11,
+            verticalalignment='bottom', fontweight='bold', bbox=props)
+
     plt.tight_layout()
 
     if output_path:

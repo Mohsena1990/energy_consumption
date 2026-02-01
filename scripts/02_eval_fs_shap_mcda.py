@@ -33,7 +33,7 @@ from src.fs import create_fs_evaluation_matrix
 from src.decision import select_best_fs_option, pareto_filter
 from src.reporting import (
     plot_mcda_ranking, plot_pareto_front, plot_feature_importance,
-    set_plot_style
+    plot_pareto_front_enhanced, set_plot_style
 )
 
 
@@ -157,6 +157,7 @@ def main():
 
     pareto_df = pareto_filter(eval_matrix.copy(), criteria, criteria_types)
 
+    # Standard Pareto front
     plot_pareto_front(
         pareto_df,
         obj1='C1_accuracy',
@@ -165,6 +166,21 @@ def main():
         title="FS Options: Accuracy vs Stability (Pareto Front)",
         output_path=dirs['figures'] / 'fs_pareto_front.png'
     )
+
+    # Enhanced Pareto front with performance vs computational footprint
+    if 'n_features' in eval_matrix.columns or 'C5_parsimony' in eval_matrix.columns:
+        parsimony_col = 'n_features' if 'n_features' in eval_matrix.columns else 'C5_parsimony'
+        plot_pareto_front_enhanced(
+            pareto_df,
+            obj1='C1_accuracy',
+            obj2=parsimony_col,
+            all_points_df=eval_matrix,
+            title="FS Options: Predictive Performance vs. Computational Footprint",
+            output_path=dirs['figures'] / 'fs_pareto_front_enhanced.png',
+            x_label="Predictive Performance (lower MAE = better)",
+            y_label="Model Simplicity (fewer features = lower footprint)",
+            annotate_info=True
+        )
 
     # Feature importance for selected FS
     if best_fs_option in detailed_results:

@@ -248,6 +248,67 @@ def main():
     )
 
     # =========================================
+    # VIKOR Radar Chart
+    # =========================================
+    logger.info("-" * 40)
+    logger.info("Generating VIKOR radar chart...")
+
+    try:
+        from src.reporting.plots import plot_vikor_radar
+
+        plot_vikor_radar(
+            ranking_df,
+            criteria=criteria,
+            top_n=min(5, len(ranking_df)),
+            title=f"VIKOR Model Comparison (Radar Chart)",
+            output_path=dirs['figures'] / 'vikor_radar_chart.png'
+        )
+        logger.info("Generated VIKOR radar chart")
+    except Exception as e:
+        logger.warning(f"Radar chart failed: {e}")
+
+    # =========================================
+    # Sensitivity Analysis
+    # =========================================
+    logger.info("-" * 40)
+    logger.info("Running sensitivity analysis...")
+
+    try:
+        from src.decision.sensitivity import vikor_v_sensitivity, weight_sensitivity
+        from src.reporting.plots import plot_vikor_v_sensitivity, plot_weight_sensitivity_heatmap
+
+        # V parameter sensitivity (VIKOR only)
+        if config.mcda.method == 'vikor':
+            v_sensitivity = vikor_v_sensitivity(
+                pareto_df.copy(), criteria, weights, criteria_types
+            )
+            v_sensitivity.to_csv(dirs['tables'] / 'vikor_v_sensitivity.csv', index=False)
+
+            plot_vikor_v_sensitivity(
+                v_sensitivity,
+                title="VIKOR Ranking Sensitivity to v Parameter",
+                output_path=dirs['figures'] / 'sensitivity_v_parameter.png'
+            )
+            logger.info("Generated v-parameter sensitivity plot")
+
+        # Weight perturbation sensitivity
+        weight_sens = weight_sensitivity(
+            pareto_df.copy(), criteria, weights, criteria_types,
+            method=config.mcda.method, perturbation=0.2
+        )
+        weight_sens.to_csv(dirs['tables'] / 'weight_sensitivity.csv', index=False)
+
+        plot_weight_sensitivity_heatmap(
+            weight_sens,
+            title="Rank Stability Under Weight Perturbations (+/- 20%)",
+            output_path=dirs['figures'] / 'sensitivity_weights.png'
+        )
+        logger.info("Generated weight sensitivity heatmap")
+
+    except Exception as e:
+        logger.warning(f"Sensitivity analysis failed: {e}")
+
+    # =========================================
     # Summary
     # =========================================
     logger.info("=" * 60)

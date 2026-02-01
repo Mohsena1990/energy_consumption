@@ -1,6 +1,6 @@
 """
 Decision making module for CO2 forecasting framework.
-MCDA methods: VIKOR and TOPSIS.
+MCDA methods: VIKOR and TOPSIS with sensitivity analysis.
 """
 from .mcda import (
     normalize_matrix,
@@ -10,6 +10,12 @@ from .mcda import (
     select_best_fs_option,
     select_best_model
 )
+from .sensitivity import (
+    vikor_v_sensitivity,
+    weight_sensitivity,
+    criterion_removal_sensitivity,
+    compute_rank_stability_score
+)
 
 __all__ = [
     'normalize_matrix',
@@ -17,5 +23,10 @@ __all__ = [
     'topsis',
     'vikor',
     'select_best_fs_option',
-    'select_best_model'
+    'select_best_model',
+    # Sensitivity analysis
+    'vikor_v_sensitivity',
+    'weight_sensitivity',
+    'criterion_removal_sensitivity',
+    'compute_rank_stability_score'
 ]

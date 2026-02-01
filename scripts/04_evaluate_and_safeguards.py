@@ -252,24 +252,100 @@ def main():
         output_path=dirs['figures'] / 'model_comparison.png'
     )
 
-    # Predictions vs actual for best model
-    if all_model_results:
-        best_model = min(all_model_results.items(), key=lambda x: x[1].get('weighted_mae', float('inf')))[0]
+    # =========================================
+    # Predictions vs Actual for ALL Models
+    # =========================================
+    logger.info("-" * 40)
+    logger.info("Generating prediction plots for ALL models...")
 
-        if best_model in all_predictions:
-            pred_df = all_predictions[best_model]
-            # Aggregate by date
-            pred_agg = pred_df.groupby('date').agg({
+    for model_name, predictions_df in all_predictions.items():
+        try:
+            pred_agg = predictions_df.groupby('date').agg({
                 'actual': 'mean', 'predicted': 'mean'
             }).reset_index()
 
             plot_predictions_vs_actual(
                 pred_agg,
-                title=f"Predictions vs Actual ({best_model})",
-                output_path=dirs['figures'] / f'predictions_{best_model}.png'
+                title=f"Predictions vs Actual ({model_name})",
+                output_path=dirs['figures'] / f'predictions_{model_name}.png'
             )
+            logger.info(f"  Generated prediction plot: {model_name}")
+        except Exception as e:
+            logger.warning(f"  Failed to plot predictions for {model_name}: {e}")
 
-    # Annual consistency plot
+    # =========================================
+    # Coefficients/Feature Importance for ALL Models
+    # =========================================
+    logger.info("-" * 40)
+    logger.info("Generating coefficient/importance plots for ALL models...")
+
+    from src.reporting.plots import plot_model_coefficients
+
+    for model_name, model in models.items():
+        try:
+            # Get feature importance or coefficients
+            if model_name.lower() == 'ridge':
+                # Ridge coefficients
+                if hasattr(model, 'model') and hasattr(model.model, 'coef_'):
+                    coef_df = pd.DataFrame({
+                        'feature': available_features,
+                        'coefficient': model.model.coef_,
+                        'abs_coefficient': np.abs(model.model.coef_)
+                    }).sort_values('abs_coefficient', ascending=False)
+                    coef_df.to_csv(dirs['tables'] / f'{model_name}_coefficients.csv', index=False)
+                    plot_model_coefficients(
+                        coef_df, model_name,
+                        output_path=dirs['figures'] / f'coefficients_{model_name}.png'
+                    )
+                    logger.info(f"  Generated coefficients plot: {model_name}")
+            elif hasattr(model, 'get_feature_importance') and model.get_feature_importance():
+                # Tree-based importance
+                importance = model.get_feature_importance()
+                imp_df = pd.DataFrame([
+                    {'feature': k, 'importance': v}
+                    for k, v in importance.items()
+                ]).sort_values('importance', ascending=False)
+                imp_df.to_csv(dirs['tables'] / f'{model_name}_feature_importance.csv', index=False)
+                plot_model_coefficients(
+                    imp_df, model_name,
+                    output_path=dirs['figures'] / f'coefficients_{model_name}.png'
+                )
+                logger.info(f"  Generated importance plot: {model_name}")
+        except Exception as e:
+            logger.warning(f"  Failed to plot coefficients for {model_name}: {e}")
+
+    # =========================================
+    # SHAP Beeswarm Plots for ALL SHAP-Supporting Models
+    # =========================================
+    logger.info("-" * 40)
+    logger.info("Generating SHAP beeswarm plots for SHAP-supporting models...")
+
+    from src.interpretability.shap_analysis import compute_shap_values
+    from src.reporting.plots import plot_shap_beeswarm
+
+    for model_name, model in models.items():
+        if not (hasattr(model, 'supports_shap') and model.supports_shap):
+            logger.info(f"  {model_name}: Does not support SHAP, skipping")
+            continue
+
+        try:
+            # Refit model on full data for SHAP
+            model.fit(X, y)
+            shap_values, _ = compute_shap_values(model.model, X, 'tree')
+
+            plot_shap_beeswarm(
+                shap_values, X,
+                title=f"SHAP Beeswarm - {model_name}",
+                output_path=dirs['figures'] / f'shap_beeswarm_{model_name}.png'
+            )
+            logger.info(f"  Generated SHAP beeswarm: {model_name}")
+        except Exception as e:
+            logger.warning(f"  SHAP beeswarm failed for {model_name}: {e}")
+
+    # Annual consistency plot (best model)
+    if all_model_results:
+        best_model = min(all_model_results.items(), key=lambda x: x[1].get('weighted_mae', float('inf')))[0]
+
     if annual_results:
         best_annual = annual_results.get(best_model, {})
         if 'annual_data' in best_annual:
