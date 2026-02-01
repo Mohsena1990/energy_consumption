@@ -1,0 +1,12 @@
+{
+  "selected_fs_option": "fs_linear",
+  "selected_features": [
+    "Air_Temp",
+    "CO2e_lag1",
+    "Q2",
+    "Q4"
+  ],
+  "n_features": 4,
+  "mcda_method": "vikor",
+  "mcda_score": 0.5
+}

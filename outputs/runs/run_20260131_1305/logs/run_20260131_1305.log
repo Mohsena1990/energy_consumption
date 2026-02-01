@@ -1,0 +1,344 @@
+2026-01-31 13:05:05 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 13:05:05 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:05 | INFO     | co2_forecast | Script 00: Make Dataset
+2026-01-31 13:05:05 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:05 | INFO     | co2_forecast | Run ID: run_20260131_1305
+2026-01-31 13:05:05 | INFO     | co2_forecast | Input: data 1999-2025Q1.xlsx
+2026-01-31 13:05:05 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:05 | INFO     | co2_forecast | Step 1: Loading raw data...
+2026-01-31 13:05:05 | INFO     | co2_forecast | Loading data from: data 1999-2025Q1.xlsx
+2026-01-31 13:05:05 | INFO     | co2_forecast | Loaded sheet: Sheet1 (header row: 2)
+2026-01-31 13:05:05 | INFO     | co2_forecast | Loaded 105 rows, 9 columns
+2026-01-31 13:05:05 | INFO     | co2_forecast | Columns: ['Time_Period', 'CO2e', 'GDP', 'Population', 'Air_Temp', 'Rainfall', 'TEC', 'CEI', 'COVID_Deaths']
+2026-01-31 13:05:05 | WARNING  | co2_forecast | Some expected features not found: ['GDP_growth', 'Industrial_Production', 'GDP_per_capita', 'Consumption', 'Investment']...
+2026-01-31 13:05:05 | WARNING  | co2_forecast | Additional columns found: ['Air_Temp', 'Rainfall', 'TEC', 'CEI', 'COVID_Deaths']...
+2026-01-31 13:05:05 | INFO     | co2_forecast | Date range: 1999-01-01 00:00:00 to 2025-01-01 00:00:00
+2026-01-31 13:05:05 | INFO     | co2_forecast | Target column: CO2e
+2026-01-31 13:05:05 | INFO     | co2_forecast | Data prepared: 105 rows, 8 columns
+2026-01-31 13:05:05 | INFO     | co2_forecast | Loaded 105 rows, 8 columns
+2026-01-31 13:05:05 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:05 | INFO     | co2_forecast | Step 2: Data quality audit...
+2026-01-31 13:05:05 | INFO     | co2_forecast | Generating data quality report...
+2026-01-31 13:05:05 | INFO     | co2_forecast | Quality report saved to: outputs/runs/run_20260131_1305/tables
+2026-01-31 13:05:05 | INFO     | co2_forecast | Quality report saved to outputs/runs/run_20260131_1305/tables
+2026-01-31 13:05:05 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:05 | INFO     | co2_forecast | Step 3: Cleaning data...
+2026-01-31 13:05:05 | INFO     | co2_forecast | Cleaning complete. Shape: (105, 8)
+2026-01-31 13:05:06 | INFO     | co2_forecast | Cleaned data: 105 rows, 8 columns
+2026-01-31 13:05:06 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:06 | INFO     | co2_forecast | Step 4: Feature engineering...
+2026-01-31 13:05:06 | INFO     | co2_forecast | Starting feature engineering...
+2026-01-31 13:05:06 | INFO     | co2_forecast | Applied log transform to target. Range: 11.3635 to 12.1308
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created 4 lag features
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created 4 rolling features
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created 4 rolling features (shifted by 1 to avoid leakage)
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created quarter dummy features (Q2, Q3, Q4)
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created COVID dummy (2020Q1 to 2021Q4)
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created Energy Crisis dummy (2022Q1 to 2023Q4)
+2026-01-31 13:05:06 | INFO     | co2_forecast | Feature engineering complete. Total features: 20
+2026-01-31 13:05:06 | INFO     | co2_forecast | Features: 20 columns, 101 valid rows
+2026-01-31 13:05:06 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:06 | INFO     | co2_forecast | Step 5: Creating walk-forward CV splits...
+2026-01-31 13:05:06 | INFO     | co2_forecast | Creating walk-forward splits for 101 valid samples
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created 44 CV folds across horizons [1, 2, 4]
+2026-01-31 13:05:06 | INFO     | co2_forecast | Created 44 CV folds
+2026-01-31 13:05:06 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:06 | INFO     | co2_forecast | Dataset creation complete!
+2026-01-31 13:05:06 | INFO     | co2_forecast |   Raw data: 105 rows
+2026-01-31 13:05:06 | INFO     | co2_forecast |   Clean data: 105 rows
+2026-01-31 13:05:06 | INFO     | co2_forecast |   Features: 20 columns
+2026-01-31 13:05:06 | INFO     | co2_forecast |   Valid samples: 101
+2026-01-31 13:05:06 | INFO     | co2_forecast |   CV folds: 44
+2026-01-31 13:05:06 | INFO     | co2_forecast |   Outputs saved to: outputs/runs/run_20260131_1305
+2026-01-31 13:05:06 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:10 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 13:05:10 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:10 | INFO     | co2_forecast | Script 01: Run Feature Selection
+2026-01-31 13:05:10 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:10 | INFO     | co2_forecast | Loading processed data...
+2026-01-31 13:05:10 | INFO     | co2_forecast | Loaded: 101 samples, 20 features
+2026-01-31 13:05:10 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:10 | INFO     | co2_forecast | Running all feature selection methods...
+2026-01-31 13:05:10 | INFO     | co2_forecast | Running all feature selection options...
+2026-01-31 13:05:10 | INFO     | co2_forecast | ==================================================
+2026-01-31 13:05:10 | INFO     | co2_forecast | Running linear feature selection (FS_linear)...
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 0: Removed 'CO2e_lag2' (VIF=inf)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 1: Removed 'CO2e_roll4_mean' (VIF=644.60)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 2: Removed 'CO2e_roll8_mean' (VIF=138.45)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 3: Removed 'CEI' (VIF=131.73)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 4: Removed 'Q3' (VIF=64.41)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 5: Removed 'TEC' (VIF=52.73)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 6: Removed 'Population' (VIF=27.76)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 7: Removed 'CO2e_lag4' (VIF=22.37)
+2026-01-31 13:05:10 | INFO     | co2_forecast | Iteration 8: Removed 'CO2e_lag3' (VIF=15.78)
+2026-01-31 13:05:10 | INFO     | co2_forecast | VIF filter: 20 -> 11 features
+2026-01-31 13:05:10 | INFO     | co2_forecast | Ridge stability: Selected 4 features (stability >= 0.6)
+2026-01-31 13:05:10 | INFO     | co2_forecast | ElasticNet stability: Selected 0 features (stability >= 0.6)
+2026-01-31 13:05:10 | INFO     | co2_forecast | FS_linear final: 4 features selected
+2026-01-31 13:05:10 | INFO     | co2_forecast | ==================================================
+2026-01-31 13:05:10 | INFO     | co2_forecast | Running nonlinear feature selection (FS_nonlinear)...
+2026-01-31 13:05:20 | INFO     | co2_forecast | RF importance: Selected 5 features
+2026-01-31 13:05:23 | INFO     | co2_forecast | LightGBM importance: Selected 15 features
+2026-01-31 13:05:29 | INFO     | co2_forecast | CatBoost importance: Selected 18 features
+2026-01-31 13:05:29 | INFO     | co2_forecast | FS_nonlinear final: 18 features selected
+2026-01-31 13:05:29 | INFO     | co2_forecast | ==================================================
+2026-01-31 13:05:29 | INFO     | co2_forecast | Running consensus feature selection (FS_consensus)...
+2026-01-31 13:05:29 | INFO     | co2_forecast | Vote-based selection: 17 features with >= 2 votes
+2026-01-31 13:05:31 | INFO     | co2_forecast | Stability-based selection: 8 features with stability >= 0.6
+2026-01-31 13:05:31 | INFO     | co2_forecast | FS_consensus final: 8 features selected
+2026-01-31 13:05:31 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:31 | INFO     | co2_forecast | Feature Selection Complete!
+2026-01-31 13:05:31 | INFO     | co2_forecast |   fs_linear: 4 features
+2026-01-31 13:05:31 | INFO     | co2_forecast |   fs_nonlinear: 18 features
+2026-01-31 13:05:31 | INFO     | co2_forecast |   fs_consensus: 8 features
+2026-01-31 13:05:31 | INFO     | co2_forecast | Results saved to: outputs/runs/run_20260131_1305/tables
+2026-01-31 13:05:31 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:36 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 13:05:36 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:36 | INFO     | co2_forecast | Script 02: Evaluate FS with SHAP + MCDA
+2026-01-31 13:05:36 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:36 | INFO     | co2_forecast | Loading data and FS results...
+2026-01-31 13:05:36 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:36 | INFO     | co2_forecast | Evaluating FS options with SHAP...
+2026-01-31 13:05:36 | INFO     | co2_forecast | Creating FS evaluation matrix...
+2026-01-31 13:05:36 | INFO     | co2_forecast | Evaluating FS option: fs_linear (4 features)
+2026-01-31 13:05:39 | INFO     | co2_forecast |   Weighted MAE: 0.1258
+2026-01-31 13:05:39 | INFO     | co2_forecast |   Stability: 0.9588
+2026-01-31 13:05:39 | INFO     | co2_forecast |   SHAP concentration: 1.0000
+2026-01-31 13:05:39 | INFO     | co2_forecast |   SHAP stability: 0.9344
+2026-01-31 13:05:39 | INFO     | co2_forecast |   Parsimony: 4 features
+2026-01-31 13:05:39 | INFO     | co2_forecast | Evaluating FS option: fs_nonlinear (18 features)
+2026-01-31 13:05:41 | INFO     | co2_forecast |   Weighted MAE: 0.0608
+2026-01-31 13:05:41 | INFO     | co2_forecast |   Stability: 0.9695
+2026-01-31 13:05:41 | INFO     | co2_forecast |   SHAP concentration: 0.7676
+2026-01-31 13:05:41 | INFO     | co2_forecast |   SHAP stability: 0.7189
+2026-01-31 13:05:41 | INFO     | co2_forecast |   Parsimony: 18 features
+2026-01-31 13:05:41 | INFO     | co2_forecast | Evaluating FS option: fs_consensus (8 features)
+2026-01-31 13:05:44 | INFO     | co2_forecast |   Weighted MAE: 0.0580
+2026-01-31 13:05:44 | INFO     | co2_forecast |   Stability: 0.9715
+2026-01-31 13:05:44 | INFO     | co2_forecast |   SHAP concentration: 0.8498
+2026-01-31 13:05:44 | INFO     | co2_forecast |   SHAP stability: 0.7364
+2026-01-31 13:05:44 | INFO     | co2_forecast |   Parsimony: 8 features
+2026-01-31 13:05:44 | INFO     | co2_forecast | Evaluation matrix created with 3 FS options
+2026-01-31 13:05:44 | INFO     | co2_forecast | Evaluation matrix:
+      fs_option  n_features  C1_accuracy  C2_stability  C3_shap_concentration  C4_shap_stability  C5_parsimony    mae_h1    mae_h2    mae_h4  error_std
+0     fs_linear           4     0.125773      0.958823               1.000000           0.934385           0.8  0.119779  0.124806  0.142210   0.042945
+1  fs_nonlinear          18     0.060783      0.969545               0.767642           0.718867           0.1  0.057507  0.058747  0.072029   0.031412
+2  fs_consensus           8     0.057986      0.971528               0.849828           0.736395           0.6  0.054975  0.056149  0.068267   0.029306
+2026-01-31 13:05:44 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:44 | INFO     | co2_forecast | Selecting best FS option with MCDA...
+2026-01-31 13:05:44 | INFO     | co2_forecast | Selecting best FS option using MCDA...
+2026-01-31 13:05:44 | INFO     | co2_forecast | Pareto filter: 3 -> 2 alternatives
+2026-01-31 13:05:44 | INFO     | co2_forecast | VIKOR ranking complete. Best: 0
+2026-01-31 13:05:44 | INFO     | co2_forecast |   Acceptable advantage: False
+2026-01-31 13:05:44 | INFO     | co2_forecast |   Acceptable stability: True
+2026-01-31 13:05:44 | INFO     | co2_forecast | Best FS option: fs_linear
+2026-01-31 13:05:44 | INFO     | co2_forecast | Selected FS option: fs_linear
+2026-01-31 13:05:44 | INFO     | co2_forecast | Selected features (4): ['Air_Temp', 'CO2e_lag1', 'Q2', 'Q4']...
+2026-01-31 13:05:44 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:44 | INFO     | co2_forecast | Generating plots...
+2026-01-31 13:05:44 | INFO     | co2_forecast | Pareto filter: 3 -> 1 alternatives
+2026-01-31 13:05:45 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:45 | INFO     | co2_forecast | FS Evaluation with SHAP + MCDA Complete!
+2026-01-31 13:05:45 | INFO     | co2_forecast |   Best FS option: fs_linear
+2026-01-31 13:05:45 | INFO     | co2_forecast |   Number of features: 4
+2026-01-31 13:05:45 | INFO     | co2_forecast |   MCDA method: vikor
+2026-01-31 13:05:45 | INFO     | co2_forecast |   MCDA score: 0.5000
+2026-01-31 13:05:45 | INFO     | co2_forecast |   Results saved to: outputs/runs/run_20260131_1305/tables
+2026-01-31 13:05:45 | INFO     | co2_forecast |   Figures saved to: outputs/runs/run_20260131_1305/figures
+2026-01-31 13:05:45 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:50 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 13:05:50 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:50 | INFO     | co2_forecast | Script 03: Optimize Models
+2026-01-31 13:05:50 | INFO     | co2_forecast | ============================================================
+2026-01-31 13:05:50 | INFO     | co2_forecast | Models to optimize: ['ridge', 'random_forest', 'catboost', 'lightgbm', 'lstm']
+2026-01-31 13:05:50 | INFO     | co2_forecast | Optimizer: pso
+2026-01-31 13:05:50 | INFO     | co2_forecast | Loading data...
+2026-01-31 13:05:50 | INFO     | co2_forecast | Using 4 features from fs_linear
+2026-01-31 13:05:50 | INFO     | co2_forecast | Training data: 101 samples, 4 features
+2026-01-31 13:05:50 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 13:05:50 | INFO     | co2_forecast | Running swarm optimization for all models...
+2026-01-31 13:05:50 | INFO     | co2_forecast | Optimizing all models...
+2026-01-31 13:05:50 | INFO     | co2_forecast | Optimizing ridge...
+2026-01-31 13:05:50 | INFO     | co2_forecast | Starting PSO: 15 particles, 20 iterations
+2026-01-31 13:05:51 | INFO     | co2_forecast |   Iteration 0: Best fitness = 0.040796
+2026-01-31 13:05:55 | INFO     | co2_forecast |   Iteration 5: Best fitness = 0.033462
+2026-01-31 13:06:00 | INFO     | co2_forecast |   Iteration 10: Best fitness = 0.033462
+2026-01-31 13:06:05 | INFO     | co2_forecast |   Iteration 15: Best fitness = 0.033462
+2026-01-31 13:06:08 | INFO     | co2_forecast |   Iteration 19: Best fitness = 0.033462
+2026-01-31 13:06:08 | INFO     | co2_forecast | PSO complete. Best fitness: 0.033462
+2026-01-31 13:06:08 | INFO     | co2_forecast |   Best params: {'alpha': 0.001}
+2026-01-31 13:06:08 | INFO     | co2_forecast |   Best fitness: 0.033462
+2026-01-31 13:06:08 | INFO     | co2_forecast | Optimizing random_forest...
+2026-01-31 13:06:08 | INFO     | co2_forecast | Starting PSO: 15 particles, 20 iterations
+2026-01-31 13:09:47 | INFO     | co2_forecast |   Iteration 0: Best fitness = 0.068657
+2026-01-31 13:33:15 | INFO     | co2_forecast |   Iteration 5: Best fitness = 0.059303
+2026-01-31 14:01:59 | INFO     | co2_forecast |   Iteration 10: Best fitness = 0.059188
+2026-01-31 14:30:20 | INFO     | co2_forecast |   Iteration 15: Best fitness = 0.059188
+2026-01-31 14:53:11 | INFO     | co2_forecast |   Iteration 19: Best fitness = 0.059188
+2026-01-31 14:53:11 | INFO     | co2_forecast | PSO complete. Best fitness: 0.059188
+2026-01-31 14:53:11 | INFO     | co2_forecast |   Best params: {'n_estimators': 289, 'max_depth': 20, 'min_samples_split': 2, 'min_samples_leaf': 1}
+2026-01-31 14:53:11 | INFO     | co2_forecast |   Best fitness: 0.059188
+2026-01-31 14:53:11 | INFO     | co2_forecast | Optimizing catboost...
+2026-01-31 14:53:11 | INFO     | co2_forecast | Starting PSO: 15 particles, 20 iterations
+2026-01-31 14:54:37 | INFO     | co2_forecast |   Iteration 0: Best fitness = 0.047997
+2026-01-31 14:58:47 | INFO     | co2_forecast |   Iteration 5: Best fitness = 0.044698
+2026-01-31 15:02:31 | INFO     | co2_forecast |   Iteration 10: Best fitness = 0.044698
+2026-01-31 15:06:15 | INFO     | co2_forecast |   Iteration 15: Best fitness = 0.044698
+2026-01-31 15:09:17 | INFO     | co2_forecast |   Iteration 19: Best fitness = 0.044698
+2026-01-31 15:09:17 | INFO     | co2_forecast | PSO complete. Best fitness: 0.044698
+2026-01-31 15:09:17 | INFO     | co2_forecast |   Best params: {'iterations': 184, 'learning_rate': 0.10244229817297523, 'depth': 3, 'l2_leaf_reg': 0.1}
+2026-01-31 15:09:17 | INFO     | co2_forecast |   Best fitness: 0.044698
+2026-01-31 15:09:17 | INFO     | co2_forecast | Optimizing lightgbm...
+2026-01-31 15:09:17 | INFO     | co2_forecast | Starting PSO: 15 particles, 20 iterations
+2026-01-31 15:09:44 | INFO     | co2_forecast |   Iteration 0: Best fitness = 0.124667
+2026-01-31 15:21:37 | INFO     | co2_forecast |   Iteration 5: Best fitness = 0.052515
+2026-01-31 15:35:50 | INFO     | co2_forecast |   Iteration 10: Best fitness = 0.052515
+2026-01-31 15:49:21 | INFO     | co2_forecast |   Iteration 15: Best fitness = 0.052360
+2026-01-31 16:01:21 | INFO     | co2_forecast |   Iteration 19: Best fitness = 0.052209
+2026-01-31 16:01:21 | INFO     | co2_forecast | PSO complete. Best fitness: 0.052209
+2026-01-31 16:01:21 | INFO     | co2_forecast |   Best params: {'n_estimators': 300, 'learning_rate': 0.09361527639652396, 'num_leaves': 116, 'max_depth': 3, 'min_child_samples': 5, 'reg_alpha': 0.001, 'reg_lambda': 3.373260142464082}
+2026-01-31 16:01:21 | INFO     | co2_forecast |   Best fitness: 0.052209
+2026-01-31 16:01:21 | INFO     | co2_forecast | Optimizing lstm...
+2026-01-31 16:01:21 | INFO     | co2_forecast | Starting PSO: 15 particles, 20 iterations
+2026-01-31 16:14:32 | INFO     | co2_forecast |   Iteration 0: Best fitness = 0.090999
+2026-01-31 18:00:28 | INFO     | co2_forecast |   Iteration 5: Best fitness = 0.090552
+2026-01-31 19:52:19 | INFO     | co2_forecast |   Iteration 10: Best fitness = 0.089907
+2026-01-31 21:28:00 | INFO     | co2_forecast |   Iteration 15: Best fitness = 0.089628
+2026-01-31 22:30:32 | INFO     | co2_forecast |   Iteration 19: Best fitness = 0.088924
+2026-01-31 22:30:32 | INFO     | co2_forecast | PSO complete. Best fitness: 0.088924
+2026-01-31 22:30:32 | INFO     | co2_forecast |   Best params: {'lookback': 6, 'hidden_size': 18, 'num_layers': 2, 'dropout': 0.2802434634219593, 'learning_rate': 0.001156406732954077, 'batch_size': 16}
+2026-01-31 22:30:32 | INFO     | co2_forecast |   Best fitness: 0.088924
+2026-01-31 22:30:32 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 22:30:32 | INFO     | co2_forecast | Generating optimization plots...
+2026-01-31 22:30:34 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 22:30:34 | INFO     | co2_forecast | Training final models with optimized parameters...
+2026-01-31 22:30:34 | INFO     | co2_forecast |   ridge: Trained and saved
+2026-01-31 22:30:35 | INFO     | co2_forecast |   random_forest: Trained and saved
+2026-01-31 22:30:35 | INFO     | co2_forecast |   catboost: Trained and saved
+2026-01-31 22:31:18 | INFO     | co2_forecast |   lightgbm: Trained and saved
+2026-01-31 22:31:20 | ERROR    | co2_forecast |   lstm: Training failed - Can't pickle local object 'LSTMNetwork.__new__.<locals>._LSTMNetwork'
+2026-01-31 22:31:20 | INFO     | co2_forecast | ============================================================
+2026-01-31 22:31:20 | INFO     | co2_forecast | Model Optimization Complete!
+2026-01-31 22:31:20 | INFO     | co2_forecast |   Models optimized: 4
+2026-01-31 22:31:20 | INFO     | co2_forecast |     ridge: fitness = 0.0335
+2026-01-31 22:31:20 | INFO     | co2_forecast |     random_forest: fitness = 0.0592
+2026-01-31 22:31:20 | INFO     | co2_forecast |     catboost: fitness = 0.0447
+2026-01-31 22:31:20 | INFO     | co2_forecast |     lightgbm: fitness = 0.0522
+2026-01-31 22:31:20 | INFO     | co2_forecast |     lstm: fitness = 0.0889
+2026-01-31 22:31:20 | INFO     | co2_forecast |   Results saved to: outputs/runs/run_20260131_1305/models
+2026-01-31 22:31:20 | INFO     | co2_forecast |   Figures saved to: outputs/runs/run_20260131_1305/figures
+2026-01-31 22:31:20 | INFO     | co2_forecast | ============================================================
+2026-01-31 22:31:25 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 22:31:25 | INFO     | co2_forecast | ============================================================
+2026-01-31 22:31:25 | INFO     | co2_forecast | Script 04: Evaluate Models and Apply Safeguards
+2026-01-31 22:31:25 | INFO     | co2_forecast | ============================================================
+2026-01-31 22:31:25 | INFO     | co2_forecast | Loading data...
+2026-01-31 22:31:25 | INFO     | co2_forecast | Evaluation data: 101 samples
+2026-01-31 22:31:25 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 22:31:25 | INFO     | co2_forecast | Loading trained models...
+2026-01-31 22:31:25 | WARNING  | co2_forecast |   Failed to load lstm: Ran out of input
+2026-01-31 22:31:25 | INFO     | co2_forecast |   Loaded: lightgbm
+2026-01-31 22:31:25 | INFO     | co2_forecast |   Loaded: catboost
+2026-01-31 22:31:25 | INFO     | co2_forecast |   Loaded: ridge
+2026-01-31 22:31:25 | INFO     | co2_forecast |   Loaded: random_forest
+2026-01-31 22:31:25 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 22:31:25 | INFO     | co2_forecast | Running walk-forward evaluation...
+2026-01-31 22:31:25 | INFO     | co2_forecast |   Evaluating: lightgbm
+2026-01-31 22:59:27 | INFO     | co2_forecast |     Weighted MAE: 0.0517
+2026-01-31 22:59:27 | INFO     | co2_forecast |   Evaluating: catboost
+2026-01-31 22:59:30 | INFO     | co2_forecast |     Weighted MAE: 0.0442
+2026-01-31 22:59:30 | INFO     | co2_forecast |   Evaluating: ridge
+2026-01-31 22:59:30 | INFO     | co2_forecast |     Weighted MAE: 0.0334
+2026-01-31 22:59:30 | INFO     | co2_forecast |   Evaluating: random_forest
+2026-01-31 23:00:11 | INFO     | co2_forecast |     Weighted MAE: 0.0585
+2026-01-31 23:00:11 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:11 | INFO     | co2_forecast | Checking annual consistency...
+2026-01-31 23:00:11 | INFO     | co2_forecast | Annual consistency: MAE=66451.04, MAPE=4.87%
+2026-01-31 23:00:11 | INFO     | co2_forecast |   lightgbm: Annual MAPE = 4.87%
+2026-01-31 23:00:11 | INFO     | co2_forecast | Annual consistency: MAE=47926.76, MAPE=3.55%
+2026-01-31 23:00:11 | INFO     | co2_forecast |   catboost: Annual MAPE = 3.55%
+2026-01-31 23:00:11 | INFO     | co2_forecast | Annual consistency: MAE=26411.84, MAPE=1.93%
+2026-01-31 23:00:11 | INFO     | co2_forecast |   ridge: Annual MAPE = 1.93%
+2026-01-31 23:00:11 | INFO     | co2_forecast | Annual consistency: MAE=76412.61, MAPE=5.55%
+2026-01-31 23:00:11 | INFO     | co2_forecast |   random_forest: Annual MAPE = 5.55%
+2026-01-31 23:00:11 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:11 | INFO     | co2_forecast | Comparing with annual baselines...
+2026-01-31 23:00:11 | INFO     | co2_forecast | Model MAE: 930713.63, Best baseline: naive
+2026-01-31 23:00:11 | INFO     | co2_forecast | Model MAE: 913386.75, Best baseline: naive
+2026-01-31 23:00:11 | INFO     | co2_forecast | Model MAE: 891668.66, Best baseline: naive
+2026-01-31 23:00:11 | INFO     | co2_forecast | Model MAE: 944886.61, Best baseline: naive
+2026-01-31 23:00:11 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:11 | INFO     | co2_forecast | Generating plots...
+2026-01-31 23:00:16 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:16 | INFO     | co2_forecast | Evaluation and Safeguards Complete!
+2026-01-31 23:00:16 | INFO     | co2_forecast |   Models evaluated: 4
+2026-01-31 23:00:16 | INFO     | co2_forecast |   Best quarterly MAE: 0.0334
+2026-01-31 23:00:16 | INFO     | co2_forecast |   Results saved to: outputs/runs/run_20260131_1305/tables
+2026-01-31 23:00:16 | INFO     | co2_forecast |   Predictions saved to: outputs/runs/run_20260131_1305/predictions
+2026-01-31 23:00:16 | INFO     | co2_forecast |   Figures saved to: outputs/runs/run_20260131_1305/figures
+2026-01-31 23:00:16 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:20 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 23:00:20 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:20 | INFO     | co2_forecast | Script 05: Select Best Model with Pareto + MCDA
+2026-01-31 23:00:20 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:20 | INFO     | co2_forecast | Loading evaluation results...
+2026-01-31 23:00:20 | INFO     | co2_forecast | Loaded metrics for 4 models
+2026-01-31 23:00:20 | INFO     | co2_forecast | Available metrics: ['model', 'weighted_mae', 'stability_score', 'error_std', 'worst_fold_error', 'mae_h1', 'rmse_h1', 'mape_h1', 'r2_h1', 'mae_h2', 'rmse_h2', 'mape_h2', 'r2_h2', 'mae_h4', 'rmse_h4', 'mape_h4', 'r2_h4', 'annual_mae_x', 'annual_mape_x', 'annual_consistency', 'annual_mae_y', 'annual_mape_y', 'annual_bias', 'consistency_score']
+2026-01-31 23:00:20 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:20 | INFO     | co2_forecast | Preparing criteria for MCDA...
+2026-01-31 23:00:20 | INFO     | co2_forecast | Criteria: ['weighted_mae', 'stability_score', 'annual_consistency']
+2026-01-31 23:00:20 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:20 | INFO     | co2_forecast | Applying Pareto filter...
+2026-01-31 23:00:20 | INFO     | co2_forecast | Pareto filter: 4 -> 1 alternatives
+2026-01-31 23:00:20 | INFO     | co2_forecast | Pareto front: 1 models (from 4)
+2026-01-31 23:00:20 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:20 | INFO     | co2_forecast | Applying VIKOR ranking...
+2026-01-31 23:00:20 | INFO     | co2_forecast | Weights: {'weighted_mae': 0.43749999999999994, 'stability_score': 0.25, 'annual_consistency': 0.3125}
+2026-01-31 23:00:20 | INFO     | co2_forecast | VIKOR ranking complete. Best: 0
+2026-01-31 23:00:20 | INFO     | co2_forecast |   Acceptable advantage: True
+2026-01-31 23:00:20 | INFO     | co2_forecast |   Acceptable stability: True
+2026-01-31 23:00:20 | INFO     | co2_forecast | Champion model: ridge (score: 0.0000)
+2026-01-31 23:00:20 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:20 | INFO     | co2_forecast | Creating champion pipeline record...
+2026-01-31 23:00:20 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:20 | INFO     | co2_forecast | Generating plots...
+2026-01-31 23:00:21 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:21 | INFO     | co2_forecast | Model Selection Complete!
+2026-01-31 23:00:21 | INFO     | co2_forecast |   Champion model: ridge
+2026-01-31 23:00:21 | INFO     | co2_forecast |   MCDA method: vikor
+2026-01-31 23:00:21 | INFO     | co2_forecast |   MCDA score: 0.0000
+2026-01-31 23:00:21 | INFO     | co2_forecast |   Pareto front size: 1
+2026-01-31 23:00:21 | INFO     | co2_forecast |   Results saved to: outputs/runs/run_20260131_1305/tables
+2026-01-31 23:00:21 | INFO     | co2_forecast |   Figures saved to: outputs/runs/run_20260131_1305/figures
+2026-01-31 23:00:21 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:25 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260131_1305/logs/run_20260131_1305.log
+2026-01-31 23:00:25 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:25 | INFO     | co2_forecast | Script 06: Interpret Champion Model
+2026-01-31 23:00:25 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:25 | INFO     | co2_forecast | Champion model: ridge
+2026-01-31 23:00:25 | INFO     | co2_forecast | Loading data...
+2026-01-31 23:00:26 | INFO     | co2_forecast | Data: 101 samples, 4 features
+2026-01-31 23:00:26 | INFO     | co2_forecast | Loaded model: ridge
+2026-01-31 23:00:26 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:26 | INFO     | co2_forecast | Computing feature importance...
+2026-01-31 23:00:26 | INFO     | co2_forecast | Using Ridge coefficients...
+2026-01-31 23:00:26 | INFO     | co2_forecast | Top feature by permutation importance: CO2e_lag1
+2026-01-31 23:00:26 | INFO     | co2_forecast | ----------------------------------------
+2026-01-31 23:00:26 | INFO     | co2_forecast | Analyzing seasonal patterns...
+2026-01-31 23:00:27 | INFO     | co2_forecast | Computing SHAP values using tree explainer
+2026-01-31 23:00:27 | WARNING  | co2_forecast | SHAP analysis failed for Q1: Model type not yet supported by TreeExplainer: <class 'sklearn.linear_model._ridge.Ridge'>
+2026-01-31 23:00:27 | INFO     | co2_forecast | Computing SHAP values using tree explainer
+2026-01-31 23:00:27 | WARNING  | co2_forecast | SHAP analysis failed for Q2: Model type not yet supported by TreeExplainer: <class 'sklearn.linear_model._ridge.Ridge'>
+2026-01-31 23:00:27 | INFO     | co2_forecast | Computing SHAP values using tree explainer
+2026-01-31 23:00:27 | WARNING  | co2_forecast | SHAP analysis failed for Q3: Model type not yet supported by TreeExplainer: <class 'sklearn.linear_model._ridge.Ridge'>
+2026-01-31 23:00:27 | INFO     | co2_forecast | Computing SHAP values using tree explainer
+2026-01-31 23:00:27 | WARNING  | co2_forecast | SHAP analysis failed for Q4: Model type not yet supported by TreeExplainer: <class 'sklearn.linear_model._ridge.Ridge'>
+2026-01-31 23:00:27 | INFO     | co2_forecast | ============================================================
+2026-01-31 23:00:27 | INFO     | co2_forecast | Champion Model Interpretation Complete!
+2026-01-31 23:00:27 | INFO     | co2_forecast |   Model: ridge
+2026-01-31 23:00:27 | INFO     | co2_forecast |   Method: coefficients
+2026-01-31 23:00:27 | INFO     | co2_forecast |   Top feature: CO2e_lag1
+2026-01-31 23:00:27 | INFO     | co2_forecast |   Results saved to: outputs/runs/run_20260131_1305/tables
+2026-01-31 23:00:27 | INFO     | co2_forecast |   Figures saved to: outputs/runs/run_20260131_1305/figures
+2026-01-31 23:00:27 | INFO     | co2_forecast | ============================================================

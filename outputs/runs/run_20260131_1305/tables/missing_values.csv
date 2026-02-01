@@ -1,0 +1,9 @@
+column,missing_count,missing_pct,dtype
+CO2e,0,0.0,float64
+GDP,0,0.0,int64
+Population,0,0.0,int64
+Air_Temp,0,0.0,float64
+Rainfall,0,0.0,float64
+TEC,0,0.0,float64
+CEI,0,0.0,float64
+COVID_Deaths,0,0.0,float64

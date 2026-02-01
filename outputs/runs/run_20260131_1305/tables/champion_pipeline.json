@@ -1,0 +1,58 @@
+{
+  "champion_model": "ridge",
+  "mcda_method": "vikor",
+  "mcda_score": 0.0,
+  "best_params": {
+    "alpha": 0.001
+  },
+  "selected_features": [
+    "Air_Temp",
+    "CO2e_lag1",
+    "Q2",
+    "Q4"
+  ],
+  "n_features": 4,
+  "metrics": {
+    "weighted_mae": 0.0334311577298115,
+    "stability_score": 0.982596755620478,
+    "error_std": 0.0177114816225223,
+    "worst_fold_error": 0.0811503765963488,
+    "mae_h1": 0.0332827433421865,
+    "rmse_h1": 0.0454825948570416,
+    "mape_h1": 0.2854757289385679,
+    "r2_h1": 0.9088305206071698,
+    "mae_h2": 0.0333273637019896,
+    "rmse_h2": 0.0457000679147209,
+    "mape_h2": 0.2859387151150039,
+    "r2_h2": 0.9018282448431808,
+    "mae_h4": 0.0339578847406071,
+    "rmse_h4": 0.0463748780099043,
+    "mape_h4": 0.2913506948458526,
+    "r2_h4": 0.9037408892858396,
+    "annual_mae_x": 26411.836404671267,
+    "annual_mape_x": 1.9300022181407563,
+    "annual_consistency": 0.9806999778185924,
+    "annual_mae_y": 26411.836404671267,
+    "annual_mape_y": 1.9300022181407563,
+    "annual_bias": 23019.653882132217,
+    "consistency_score": 0.9806999778185924,
+    "is_compromise": true
+  },
+  "ranking": [
+    {
+      "model": "ridge",
+      "vikor_Q": 0.0,
+      "vikor_rank": 1
+    }
+  ],
+  "criteria": [
+    "weighted_mae",
+    "stability_score",
+    "annual_consistency"
+  ],
+  "weights": {
+    "weighted_mae": 0.43749999999999994,
+    "stability_score": 0.25,
+    "annual_consistency": 0.3125
+  }
+}
