@@ -1,0 +1,8 @@
+2026-02-01 15:08:00 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260201_1507/logs/run_20260201_1507.log
+2026-02-01 15:08:00 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:08:00 | INFO     | co2_forecast | Script 00: Make Dataset
+2026-02-01 15:08:00 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:08:00 | INFO     | co2_forecast | Run ID: run_20260201_1507
+2026-02-01 15:08:00 | INFO     | co2_forecast | Input: data/raw/data_1999-2025Q1.xlsx
+2026-02-01 15:08:00 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:08:00 | INFO     | co2_forecast | Step 1: Loading raw data...

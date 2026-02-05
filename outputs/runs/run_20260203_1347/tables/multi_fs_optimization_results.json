@@ -1,0 +1,58 @@
+{
+  "top_options": [
+    "fs_wrapper",
+    "fs_linear"
+  ],
+  "fs_results": {
+    "fs_wrapper": {
+      "fs_option": "fs_wrapper",
+      "n_features": 13,
+      "features": [
+        "CO2e_lag4",
+        "EnergyCrisis",
+        "CEI",
+        "CO2e_per_Population",
+        "Q2",
+        "TEC",
+        "CO2e_lag3",
+        "COVID_Deaths",
+        "CO2e_dlog",
+        "HDD_proxy",
+        "TEC_dlog",
+        "COVID",
+        "CO2e_lag1"
+      ],
+      "trained_models": [
+        "ridge",
+        "random_forest",
+        "catboost",
+        "lightgbm",
+        "lstm"
+      ],
+      "output_dir": "outputs/runs/run_20260203_1347/models/fs_wrapper"
+    },
+    "fs_linear": {
+      "fs_option": "fs_linear",
+      "n_features": 9,
+      "features": [
+        "GDP",
+        "Rainfall",
+        "COVID_Deaths",
+        "CO2e_lag4",
+        "GDP_dlog",
+        "CO2e_dlog",
+        "CO2e_per_TEC",
+        "Q2",
+        "Q4"
+      ],
+      "trained_models": [
+        "ridge",
+        "random_forest",
+        "catboost",
+        "lightgbm",
+        "lstm"
+      ],
+      "output_dir": "outputs/runs/run_20260203_1347/models/fs_linear"
+    }
+  }
+}

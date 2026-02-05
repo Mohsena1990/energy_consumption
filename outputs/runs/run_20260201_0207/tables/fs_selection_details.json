@@ -1,0 +1,34 @@
+{
+  "method": "vikor",
+  "use_pareto": true,
+  "weights": {
+    "C1_accuracy": 0.35,
+    "C2_stability": 0.25,
+    "C3_shap_concentration": 0.1,
+    "C4_shap_stability": 0.15,
+    "C5_parsimony": 0.15
+  },
+  "criteria_types": {
+    "C1_accuracy": "cost",
+    "C2_stability": "benefit",
+    "C3_shap_concentration": "benefit",
+    "C4_shap_stability": "benefit",
+    "C5_parsimony": "benefit"
+  },
+  "n_candidates": 3,
+  "n_pareto": 2,
+  "best_option": "fs_linear",
+  "best_score": 0.5,
+  "ranking": [
+    {
+      "fs_option": "fs_linear",
+      "vikor_Q": 0.5,
+      "vikor_rank": 1
+    },
+    {
+      "fs_option": "fs_consensus",
+      "vikor_Q": 0.5,
+      "vikor_rank": 1
+    }
+  ]
+}

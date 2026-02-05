@@ -88,16 +88,34 @@ def main():
             {'features': results['selected_features']},
             dirs['tables'] / f'{fs_name}.json'
         )
-
-        # Save detailed scores
+        
         if 'steps' in results:
-            for step in results['steps']:
+            for i, step in enumerate(results['steps']):
                 if 'scores' in step and step['scores']:
                     scores_df = pd.DataFrame(step['scores'])
+
+                    step_name = (
+                        step.get('name')
+                        or step.get('method')
+                        or step.get('type')
+                        or f"step_{i}"
+                    )
+
                     scores_df.to_csv(
-                        dirs['tables'] / f"{fs_name}_{step['name']}_scores.csv",
+                        dirs['tables'] / f"{fs_name}_{step_name}_scores.csv",
                         index=False
                     )
+
+
+        # # Save detailed scores
+        # if 'steps' in results:
+        #     for step in results['steps']:
+        #         if 'scores' in step and step['scores']:
+        #             scores_df = pd.DataFrame(step['scores'])
+        #             scores_df.to_csv(
+        #                 dirs['tables'] / f"{fs_name}_{step['name']}_scores.csv",
+        #                 index=False
+        #             )
 
     # Summary table
     summary_rows = []

@@ -396,7 +396,7 @@ def select_best_model(
     logger.info("Selecting best model(s) using MCDA...")
 
     # Get top_n from config
-    top_n = getattr(config.mcda, 'top_n_options', 2)
+    top_n = getattr(config.mcda, 'top_n_options', 3)
 
     # Define criteria for model selection
     criteria = ['quarterly_mae', 'stability', 'annual_consistency', 'parsimony']

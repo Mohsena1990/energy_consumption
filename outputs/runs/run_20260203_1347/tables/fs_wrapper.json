@@ -1,0 +1,17 @@
+{
+  "features": [
+    "CO2e_lag4",
+    "EnergyCrisis",
+    "CEI",
+    "CO2e_per_Population",
+    "Q2",
+    "TEC",
+    "CO2e_lag3",
+    "COVID_Deaths",
+    "CO2e_dlog",
+    "HDD_proxy",
+    "TEC_dlog",
+    "COVID",
+    "CO2e_lag1"
+  ]
+}

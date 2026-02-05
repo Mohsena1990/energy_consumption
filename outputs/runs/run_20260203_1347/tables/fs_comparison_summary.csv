@@ -1,0 +1,3 @@
+fs_option,n_features,n_models_trained,avg_fitness,best_fitness,best_model
+fs_wrapper,13,5,0.045308119971461155,0.022917149179476976,ridge
+fs_linear,9,5,0.06472372615398414,0.04680359433904603,ridge

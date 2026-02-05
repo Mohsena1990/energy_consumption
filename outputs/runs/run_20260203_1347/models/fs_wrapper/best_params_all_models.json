@@ -1,0 +1,49 @@
+{
+  "ridge": {
+    "params": {
+      "alpha": 0.19489289780387775
+    },
+    "fitness": 0.022917149179476976
+  },
+  "random_forest": {
+    "params": {
+      "n_estimators": 250,
+      "max_depth": 6,
+      "min_samples_split": 2,
+      "min_samples_leaf": 1
+    },
+    "fitness": 0.029790615873829335
+  },
+  "catboost": {
+    "params": {
+      "iterations": 262,
+      "learning_rate": 0.1675548945671883,
+      "depth": 3,
+      "l2_leaf_reg": 9.315501413859227
+    },
+    "fitness": 0.030219598289028225
+  },
+  "lightgbm": {
+    "params": {
+      "n_estimators": 300,
+      "learning_rate": 0.07430658522589961,
+      "num_leaves": 15,
+      "max_depth": 3,
+      "min_child_samples": 5,
+      "reg_alpha": 0.001,
+      "reg_lambda": 1.4622335258197192
+    },
+    "fitness": 0.03543711839222771
+  },
+  "lstm": {
+    "params": {
+      "lookback": 6,
+      "hidden_size": 43,
+      "num_layers": 2,
+      "dropout": 0.37260599450819476,
+      "learning_rate": 0.009094400450632374,
+      "batch_size": 32
+    },
+    "fitness": 0.10817611812274357
+  }
+}

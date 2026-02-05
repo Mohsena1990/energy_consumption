@@ -1,0 +1,13 @@
+{
+  "features": [
+    "GDP",
+    "Population",
+    "TEC",
+    "CO2e_lag1",
+    "CO2e_lag2",
+    "CO2e_lag3",
+    "CO2e_lag4",
+    "TEC_dlog",
+    "CO2e_per_Population"
+  ]
+}

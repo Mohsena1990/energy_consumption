@@ -1,0 +1,25 @@
+{
+  "features": [
+    "Q2",
+    "Q4",
+    "CO2e_dlog",
+    "Population",
+    "TEC",
+    "CO2e_lag1",
+    "COVID_Deaths",
+    "CEI",
+    "Rainfall",
+    "CO2e_per_TEC",
+    "Air_Temp",
+    "COVID",
+    "TEC_dlog",
+    "CO2e_lag2",
+    "Q3",
+    "GDP",
+    "EnergyCrisis",
+    "HDD_proxy",
+    "CO2e_per_Population",
+    "CO2e_lag3",
+    "CO2e_lag4"
+  ]
+}

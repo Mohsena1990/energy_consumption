@@ -1,0 +1,3357 @@
+{
+  "fs_linear": {
+    "method": "linear",
+    "steps": [
+      {
+        "name": "vif_filter",
+        "selected": [
+          "GDP",
+          "Air_Temp",
+          "Rainfall",
+          "COVID_Deaths",
+          "CO2e_lag1",
+          "CO2e_roll4_std",
+          "CO2e_roll8_std",
+          "Q2",
+          "Q4",
+          "COVID",
+          "EnergyCrisis"
+        ],
+        "n_selected": 11,
+        "report": [
+          {
+            "feature": "CO2e_lag2",
+            "vif": Infinity,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": Infinity,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": Infinity,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": Infinity,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "vif": Infinity,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "vif": 159.82830462310727,
+            "iteration": 0
+          },
+          {
+            "feature": "CEI",
+            "vif": 135.20144064157037,
+            "iteration": 0
+          },
+          {
+            "feature": "TEC",
+            "vif": 83.20569548862413,
+            "iteration": 0
+          },
+          {
+            "feature": "Population",
+            "vif": 78.95613369095703,
+            "iteration": 0
+          },
+          {
+            "feature": "Q3",
+            "vif": 66.24108337557398,
+            "iteration": 0
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 49.157072919424095,
+            "iteration": 0
+          },
+          {
+            "feature": "Q4",
+            "vif": 24.534224391167665,
+            "iteration": 0
+          },
+          {
+            "feature": "Q2",
+            "vif": 22.61314825562688,
+            "iteration": 0
+          },
+          {
+            "feature": "GDP",
+            "vif": 13.08956171466328,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 9.258888617438288,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.816703099319122,
+            "iteration": 0
+          },
+          {
+            "feature": "COVID",
+            "vif": 3.4163958835961585,
+            "iteration": 0
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.737369629963366,
+            "iteration": 0
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 2.016328871080594,
+            "iteration": 0
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 2.003530448230011,
+            "iteration": 0
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "vif": 644.5957289516713,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "vif": 159.8283046231101,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 147.90612209029558,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 143.85532437197918,
+            "iteration": 1
+          },
+          {
+            "feature": "CEI",
+            "vif": 135.20144064157037,
+            "iteration": 1
+          },
+          {
+            "feature": "TEC",
+            "vif": 83.20569548862413,
+            "iteration": 1
+          },
+          {
+            "feature": "Population",
+            "vif": 78.95613369095634,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 77.21109020247246,
+            "iteration": 1
+          },
+          {
+            "feature": "Q3",
+            "vif": 66.24108337557398,
+            "iteration": 1
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 49.157072919424095,
+            "iteration": 1
+          },
+          {
+            "feature": "Q4",
+            "vif": 24.534224391167665,
+            "iteration": 1
+          },
+          {
+            "feature": "Q2",
+            "vif": 22.61314825562682,
+            "iteration": 1
+          },
+          {
+            "feature": "GDP",
+            "vif": 13.089561714663319,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 9.258888617438288,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.816703099319126,
+            "iteration": 1
+          },
+          {
+            "feature": "COVID",
+            "vif": 3.416395883596168,
+            "iteration": 1
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.737369629963365,
+            "iteration": 1
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 2.0163288710805958,
+            "iteration": 1
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 2.003530448230012,
+            "iteration": 1
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "vif": 138.44640833177584,
+            "iteration": 2
+          },
+          {
+            "feature": "CEI",
+            "vif": 131.78492797555748,
+            "iteration": 2
+          },
+          {
+            "feature": "Population",
+            "vif": 78.78390544794566,
+            "iteration": 2
+          },
+          {
+            "feature": "TEC",
+            "vif": 75.52642838701178,
+            "iteration": 2
+          },
+          {
+            "feature": "Q3",
+            "vif": 65.77211581308087,
+            "iteration": 2
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 56.93965140674653,
+            "iteration": 2
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 48.88972807483087,
+            "iteration": 2
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 47.62447520540014,
+            "iteration": 2
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 43.79867401155437,
+            "iteration": 2
+          },
+          {
+            "feature": "Q4",
+            "vif": 24.52769039578803,
+            "iteration": 2
+          },
+          {
+            "feature": "Q2",
+            "vif": 22.45235266450401,
+            "iteration": 2
+          },
+          {
+            "feature": "GDP",
+            "vif": 12.565848219814109,
+            "iteration": 2
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 9.250288093755916,
+            "iteration": 2
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.816529672657212,
+            "iteration": 2
+          },
+          {
+            "feature": "COVID",
+            "vif": 3.3330668924697764,
+            "iteration": 2
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.675982748415077,
+            "iteration": 2
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 2.0086004044980523,
+            "iteration": 2
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.9942343049911977,
+            "iteration": 2
+          },
+          {
+            "feature": "CEI",
+            "vif": 131.72603934495558,
+            "iteration": 3
+          },
+          {
+            "feature": "Population",
+            "vif": 73.57080363974981,
+            "iteration": 3
+          },
+          {
+            "feature": "TEC",
+            "vif": 72.36802938345949,
+            "iteration": 3
+          },
+          {
+            "feature": "Q3",
+            "vif": 64.46099857886277,
+            "iteration": 3
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 48.51776383243589,
+            "iteration": 3
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 43.48002768998274,
+            "iteration": 3
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 37.69535243295721,
+            "iteration": 3
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 28.505392581568238,
+            "iteration": 3
+          },
+          {
+            "feature": "Q4",
+            "vif": 24.527529228015183,
+            "iteration": 3
+          },
+          {
+            "feature": "Q2",
+            "vif": 21.29410722258965,
+            "iteration": 3
+          },
+          {
+            "feature": "GDP",
+            "vif": 12.56504913481544,
+            "iteration": 3
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 7.184627147784918,
+            "iteration": 3
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.672363156738515,
+            "iteration": 3
+          },
+          {
+            "feature": "COVID",
+            "vif": 3.1212336741195177,
+            "iteration": 3
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.6722732794935773,
+            "iteration": 3
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.9454654110578347,
+            "iteration": 3
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.7704235426354757,
+            "iteration": 3
+          },
+          {
+            "feature": "Q3",
+            "vif": 64.40942982192402,
+            "iteration": 4
+          },
+          {
+            "feature": "TEC",
+            "vif": 53.17326736001713,
+            "iteration": 4
+          },
+          {
+            "feature": "Population",
+            "vif": 43.6168893527253,
+            "iteration": 4
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 43.30305147092663,
+            "iteration": 4
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 34.06161957106465,
+            "iteration": 4
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 26.656794873018438,
+            "iteration": 4
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 26.626557600274104,
+            "iteration": 4
+          },
+          {
+            "feature": "Q4",
+            "vif": 24.415702681052526,
+            "iteration": 4
+          },
+          {
+            "feature": "Q2",
+            "vif": 21.275045167327402,
+            "iteration": 4
+          },
+          {
+            "feature": "GDP",
+            "vif": 7.339877696978546,
+            "iteration": 4
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 7.014982151243789,
+            "iteration": 4
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.623693112262209,
+            "iteration": 4
+          },
+          {
+            "feature": "COVID",
+            "vif": 2.9770455544426646,
+            "iteration": 4
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.6570562237201414,
+            "iteration": 4
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.8692820043727258,
+            "iteration": 4
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.7204466550442359,
+            "iteration": 4
+          },
+          {
+            "feature": "TEC",
+            "vif": 52.725521739908125,
+            "iteration": 5
+          },
+          {
+            "feature": "Population",
+            "vif": 43.51799694086249,
+            "iteration": 5
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 26.6497113768698,
+            "iteration": 5
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 26.619664551615763,
+            "iteration": 5
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 23.27257829881206,
+            "iteration": 5
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 23.001745818181696,
+            "iteration": 5
+          },
+          {
+            "feature": "Q2",
+            "vif": 8.683627995566722,
+            "iteration": 5
+          },
+          {
+            "feature": "Q4",
+            "vif": 7.110319166049438,
+            "iteration": 5
+          },
+          {
+            "feature": "GDP",
+            "vif": 7.0638980208243956,
+            "iteration": 5
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 6.5138281145798445,
+            "iteration": 5
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.611178651464444,
+            "iteration": 5
+          },
+          {
+            "feature": "COVID",
+            "vif": 2.909154885515352,
+            "iteration": 5
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.650412391757812,
+            "iteration": 5
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.8466174222978948,
+            "iteration": 5
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.710091191785157,
+            "iteration": 5
+          },
+          {
+            "feature": "Population",
+            "vif": 27.762870723033334,
+            "iteration": 6
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 26.63277587664208,
+            "iteration": 6
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 23.20841759653491,
+            "iteration": 6
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 22.38710430003716,
+            "iteration": 6
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 8.137307343964475,
+            "iteration": 6
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 6.490905642816836,
+            "iteration": 6
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.610235085601981,
+            "iteration": 6
+          },
+          {
+            "feature": "GDP",
+            "vif": 5.382334771488732,
+            "iteration": 6
+          },
+          {
+            "feature": "Q2",
+            "vif": 4.787783845520638,
+            "iteration": 6
+          },
+          {
+            "feature": "Q4",
+            "vif": 4.393124847766539,
+            "iteration": 6
+          },
+          {
+            "feature": "COVID",
+            "vif": 2.9074052383413433,
+            "iteration": 6
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.504950306147251,
+            "iteration": 6
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.8165649362522873,
+            "iteration": 6
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.6804013065473788,
+            "iteration": 6
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vif": 22.371106277250973,
+            "iteration": 7
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 19.62692826801678,
+            "iteration": 7
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 16.8072441899711,
+            "iteration": 7
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 7.997017356920182,
+            "iteration": 7
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 6.451745301289377,
+            "iteration": 7
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.5793911032565475,
+            "iteration": 7
+          },
+          {
+            "feature": "Q2",
+            "vif": 4.698261797368547,
+            "iteration": 7
+          },
+          {
+            "feature": "Q4",
+            "vif": 4.358808269849074,
+            "iteration": 7
+          },
+          {
+            "feature": "GDP",
+            "vif": 3.7975332276715097,
+            "iteration": 7
+          },
+          {
+            "feature": "COVID",
+            "vif": 2.655545652942223,
+            "iteration": 7
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.43729184441078,
+            "iteration": 7
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.8156092672412214,
+            "iteration": 7
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.5650544591513411,
+            "iteration": 7
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vif": 15.781246282583396,
+            "iteration": 8
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 12.51745084393996,
+            "iteration": 8
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 6.4503893452082535,
+            "iteration": 8
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.420468799057978,
+            "iteration": 8
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 4.533267141882863,
+            "iteration": 8
+          },
+          {
+            "feature": "Q4",
+            "vif": 3.84150551309672,
+            "iteration": 8
+          },
+          {
+            "feature": "GDP",
+            "vif": 3.7675199728609083,
+            "iteration": 8
+          },
+          {
+            "feature": "Q2",
+            "vif": 3.6290981805094833,
+            "iteration": 8
+          },
+          {
+            "feature": "COVID",
+            "vif": 2.6260147776797456,
+            "iteration": 8
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.4247665433142753,
+            "iteration": 8
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.74308134985925,
+            "iteration": 8
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.562062064360948,
+            "iteration": 8
+          },
+          {
+            "feature": "CO2e_lag1",
+            "vif": 8.202402610176186,
+            "iteration": 9
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vif": 6.16161878019849,
+            "iteration": 9
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vif": 5.349820479109191,
+            "iteration": 9
+          },
+          {
+            "feature": "GDP",
+            "vif": 2.888335525701674,
+            "iteration": 9
+          },
+          {
+            "feature": "COVID",
+            "vif": 2.547283531562212,
+            "iteration": 9
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vif": 2.264840845583181,
+            "iteration": 9
+          },
+          {
+            "feature": "Q2",
+            "vif": 2.055539394493414,
+            "iteration": 9
+          },
+          {
+            "feature": "Air_Temp",
+            "vif": 1.8776960147626478,
+            "iteration": 9
+          },
+          {
+            "feature": "Q4",
+            "vif": 1.7664385295888339,
+            "iteration": 9
+          },
+          {
+            "feature": "Rainfall",
+            "vif": 1.7430796267992992,
+            "iteration": 9
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vif": 1.562060458987889,
+            "iteration": 9
+          }
+        ]
+      },
+      {
+        "name": "ridge_stability",
+        "selected": [
+          "Air_Temp",
+          "Q2",
+          "CO2e_lag1",
+          "Q4"
+        ],
+        "n_selected": 4,
+        "scores": [
+          {
+            "feature": "Air_Temp",
+            "stability": 1.0,
+            "avg_coefficient": 0.03993967708257114,
+            "std_coefficient": 0.0037325380999867876,
+            "n_folds_important": 44,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Q2",
+            "stability": 1.0,
+            "avg_coefficient": 0.07293800760793759,
+            "std_coefficient": 0.0021700077743707935,
+            "n_folds_important": 44,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "CO2e_lag1",
+            "stability": 1.0,
+            "avg_coefficient": 0.10841496643631454,
+            "std_coefficient": 0.015778886831655667,
+            "n_folds_important": 44,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Q4",
+            "stability": 1.0,
+            "avg_coefficient": 0.0681813919857729,
+            "std_coefficient": 0.0037332630678424132,
+            "n_folds_important": 44,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "GDP",
+            "stability": 0.45454545454545453,
+            "avg_coefficient": 0.00824807154657141,
+            "std_coefficient": 0.0050119231112695515,
+            "n_folds_important": 20,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "stability": 0.38636363636363635,
+            "avg_coefficient": 0.009566321652210512,
+            "std_coefficient": 0.005067673393959254,
+            "n_folds_important": 17,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "COVID_Deaths",
+            "stability": 0.25,
+            "avg_coefficient": 0.0054193624663310775,
+            "std_coefficient": 0.009407266853443187,
+            "n_folds_important": 11,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "COVID",
+            "stability": 0.045454545454545456,
+            "avg_coefficient": 0.0021223429638863676,
+            "std_coefficient": 0.003744070017767004,
+            "n_folds_important": 2,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Rainfall",
+            "stability": 0.0,
+            "avg_coefficient": 0.002940298900903267,
+            "std_coefficient": 0.0011272159155157218,
+            "n_folds_important": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "stability": 0.0,
+            "avg_coefficient": 0.0022755851351573303,
+            "std_coefficient": 0.0024414689536439425,
+            "n_folds_important": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "EnergyCrisis",
+            "stability": 0.0,
+            "avg_coefficient": 0.00029112955202366847,
+            "std_coefficient": 0.0010465462957635386,
+            "n_folds_important": 0,
+            "n_folds_total": 44
+          }
+        ]
+      },
+      {
+        "name": "elasticnet_stability",
+        "selected": [],
+        "n_selected": 0,
+        "scores": [
+          {
+            "feature": "GDP",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Air_Temp",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Rainfall",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "COVID_Deaths",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "CO2e_lag1",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Q2",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "Q4",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "COVID",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          },
+          {
+            "feature": "EnergyCrisis",
+            "stability": 0.0,
+            "avg_coefficient": 0.0,
+            "std_coefficient": 0.0,
+            "n_folds_nonzero": 0,
+            "n_folds_total": 44
+          }
+        ]
+      }
+    ],
+    "selected_features": [
+      "Air_Temp",
+      "CO2e_lag1",
+      "Q2",
+      "Q4"
+    ],
+    "n_selected": 4
+  },
+  "fs_nonlinear": {
+    "method": "nonlinear",
+    "steps": [
+      {
+        "name": "random_forest",
+        "selected": [
+          "TEC",
+          "CO2e_lag4",
+          "CEI",
+          "CO2e_lag1",
+          "Population"
+        ],
+        "n_selected": 5,
+        "scores": [
+          {
+            "feature": "TEC",
+            "mean_importance": 0.5131679711436461,
+            "std_importance": 0.23531753824343488,
+            "min_importance": 0.1538302065928733,
+            "max_importance": 0.791991204406201
+          },
+          {
+            "feature": "CO2e_lag4",
+            "mean_importance": 0.40959953294936363,
+            "std_importance": 0.248751172498195,
+            "min_importance": 0.11813074381109423,
+            "max_importance": 0.8100468855248486
+          },
+          {
+            "feature": "CEI",
+            "mean_importance": 0.012797578479427169,
+            "std_importance": 0.0054896109859212915,
+            "min_importance": 0.004793939903798459,
+            "max_importance": 0.020908741604720577
+          },
+          {
+            "feature": "CO2e_lag1",
+            "mean_importance": 0.01203218827448016,
+            "std_importance": 0.004839055139874475,
+            "min_importance": 0.004999625523294859,
+            "max_importance": 0.020235984471601028
+          },
+          {
+            "feature": "Population",
+            "mean_importance": 0.010748685732068495,
+            "std_importance": 0.0039023216841162856,
+            "min_importance": 0.005062547493499535,
+            "max_importance": 0.020924740230388227
+          },
+          {
+            "feature": "CO2e_lag2",
+            "mean_importance": 0.009706992290776427,
+            "std_importance": 0.02268302292317123,
+            "min_importance": 0.0014412823466605263,
+            "max_importance": 0.09328562544110798
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "mean_importance": 0.005905548083954037,
+            "std_importance": 0.0022309721692336743,
+            "min_importance": 0.0024537625516527573,
+            "max_importance": 0.009984667063314806
+          },
+          {
+            "feature": "Air_Temp",
+            "mean_importance": 0.005841464235800704,
+            "std_importance": 0.002242864244156766,
+            "min_importance": 0.002803418723869245,
+            "max_importance": 0.010814765574074618
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "mean_importance": 0.004989940765652258,
+            "std_importance": 0.0019555650924272744,
+            "min_importance": 0.0019294250151996113,
+            "max_importance": 0.009642522108910043
+          },
+          {
+            "feature": "CO2e_lag3",
+            "mean_importance": 0.0038937541486112988,
+            "std_importance": 0.0015645176733269548,
+            "min_importance": 0.0010737053342491324,
+            "max_importance": 0.007384573451253624
+          },
+          {
+            "feature": "GDP",
+            "mean_importance": 0.00351650159749612,
+            "std_importance": 0.0018665065928828615,
+            "min_importance": 0.0011773203290584774,
+            "max_importance": 0.007336410355021446
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "mean_importance": 0.0019802786727311835,
+            "std_importance": 0.0009672872012389704,
+            "min_importance": 0.000757663207331249,
+            "max_importance": 0.0041198889045905495
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "mean_importance": 0.0018500938757057559,
+            "std_importance": 0.0013660391329779029,
+            "min_importance": 0.000729692335549976,
+            "max_importance": 0.00637363548952595
+          },
+          {
+            "feature": "Rainfall",
+            "mean_importance": 0.0017043530552848629,
+            "std_importance": 0.0005888404574651662,
+            "min_importance": 0.0011413642006216685,
+            "max_importance": 0.0029130054880648903
+          },
+          {
+            "feature": "Q3",
+            "mean_importance": 0.0007363133531514778,
+            "std_importance": 0.001004035926737536,
+            "min_importance": 0.00013468967786980752,
+            "max_importance": 0.0040438322213346475
+          },
+          {
+            "feature": "Q2",
+            "mean_importance": 0.0005443453276244156,
+            "std_importance": 0.0002545000231690732,
+            "min_importance": 0.00016674317192682235,
+            "max_importance": 0.0011277913571783064
+          },
+          {
+            "feature": "COVID_Deaths",
+            "mean_importance": 0.0003958712845418195,
+            "std_importance": 0.0007056980583719906,
+            "min_importance": 0.0,
+            "max_importance": 0.002097116002644806
+          },
+          {
+            "feature": "COVID",
+            "mean_importance": 0.0003467410289547668,
+            "std_importance": 0.000624143655203184,
+            "min_importance": 0.0,
+            "max_importance": 0.001685502452142013
+          },
+          {
+            "feature": "Q4",
+            "mean_importance": 0.00023592370508602607,
+            "std_importance": 0.00015910890320123153,
+            "min_importance": 5.00365978950179e-05,
+            "max_importance": 0.0005933282733665975
+          },
+          {
+            "feature": "EnergyCrisis",
+            "mean_importance": 5.9219956433364125e-06,
+            "std_importance": 1.7500559112301875e-05,
+            "min_importance": 0.0,
+            "max_importance": 6.59691305880849e-05
+          }
+        ]
+      },
+      {
+        "name": "lightgbm",
+        "selected": [
+          "TEC",
+          "CO2e_lag2",
+          "CO2e_lag4",
+          "CO2e_lag3",
+          "Air_Temp",
+          "CO2e_lag1",
+          "Population",
+          "CO2e_roll4_mean",
+          "Rainfall",
+          "GDP",
+          "CEI",
+          "CO2e_roll4_std",
+          "CO2e_roll8_std",
+          "CO2e_roll8_mean",
+          "Q2"
+        ],
+        "n_selected": 15,
+        "scores": [
+          {
+            "feature": "TEC",
+            "mean_importance": 29.25,
+            "std_importance": 14.337054661388313,
+            "min_importance": 0,
+            "max_importance": 49,
+            "normalized_importance": 1.0
+          },
+          {
+            "feature": "CO2e_lag2",
+            "mean_importance": 20.09090909090909,
+            "std_importance": 12.007229227386652,
+            "min_importance": 0,
+            "max_importance": 46,
+            "normalized_importance": 0.6868686868686869
+          },
+          {
+            "feature": "CO2e_lag4",
+            "mean_importance": 17.045454545454547,
+            "std_importance": 14.464619131230874,
+            "min_importance": 0,
+            "max_importance": 42,
+            "normalized_importance": 0.5827505827505828
+          },
+          {
+            "feature": "CO2e_lag3",
+            "mean_importance": 16.363636363636363,
+            "std_importance": 9.50380524051218,
+            "min_importance": 0,
+            "max_importance": 32,
+            "normalized_importance": 0.5594405594405595
+          },
+          {
+            "feature": "Air_Temp",
+            "mean_importance": 14.022727272727273,
+            "std_importance": 8.239286808179335,
+            "min_importance": 0,
+            "max_importance": 31,
+            "normalized_importance": 0.4794094794094794
+          },
+          {
+            "feature": "CO2e_lag1",
+            "mean_importance": 11.136363636363637,
+            "std_importance": 8.998966882852592,
+            "min_importance": 0,
+            "max_importance": 27,
+            "normalized_importance": 0.38073038073038074
+          },
+          {
+            "feature": "Population",
+            "mean_importance": 9.636363636363637,
+            "std_importance": 5.381326758890452,
+            "min_importance": 0,
+            "max_importance": 20,
+            "normalized_importance": 0.32944832944832947
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "mean_importance": 9.545454545454545,
+            "std_importance": 4.8825037609004065,
+            "min_importance": 0,
+            "max_importance": 18,
+            "normalized_importance": 0.32634032634032634
+          },
+          {
+            "feature": "Rainfall",
+            "mean_importance": 7.2272727272727275,
+            "std_importance": 8.722655028361586,
+            "min_importance": 0,
+            "max_importance": 26,
+            "normalized_importance": 0.2470862470862471
+          },
+          {
+            "feature": "GDP",
+            "mean_importance": 7.159090909090909,
+            "std_importance": 7.147609841498134,
+            "min_importance": 0,
+            "max_importance": 21,
+            "normalized_importance": 0.24475524475524477
+          },
+          {
+            "feature": "CEI",
+            "mean_importance": 4.840909090909091,
+            "std_importance": 3.253970873606737,
+            "min_importance": 0,
+            "max_importance": 12,
+            "normalized_importance": 0.1655011655011655
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "mean_importance": 4.681818181818182,
+            "std_importance": 4.486204749880598,
+            "min_importance": 0,
+            "max_importance": 13,
+            "normalized_importance": 0.16006216006216006
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "mean_importance": 4.318181818181818,
+            "std_importance": 4.3472704459900475,
+            "min_importance": 0,
+            "max_importance": 12,
+            "normalized_importance": 0.14763014763014765
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "mean_importance": 2.977272727272727,
+            "std_importance": 3.726371842347193,
+            "min_importance": 0,
+            "max_importance": 12,
+            "normalized_importance": 0.10178710178710178
+          },
+          {
+            "feature": "Q2",
+            "mean_importance": 1.6363636363636365,
+            "std_importance": 3.0975863704365127,
+            "min_importance": 0,
+            "max_importance": 12,
+            "normalized_importance": 0.05594405594405595
+          },
+          {
+            "feature": "Q4",
+            "mean_importance": 0.22727272727272727,
+            "std_importance": 0.5162643950727521,
+            "min_importance": 0,
+            "max_importance": 2,
+            "normalized_importance": 0.00777000777000777
+          },
+          {
+            "feature": "COVID_Deaths",
+            "mean_importance": 0.0,
+            "std_importance": 0.0,
+            "min_importance": 0,
+            "max_importance": 0,
+            "normalized_importance": 0.0
+          },
+          {
+            "feature": "Q3",
+            "mean_importance": 0.0,
+            "std_importance": 0.0,
+            "min_importance": 0,
+            "max_importance": 0,
+            "normalized_importance": 0.0
+          },
+          {
+            "feature": "COVID",
+            "mean_importance": 0.0,
+            "std_importance": 0.0,
+            "min_importance": 0,
+            "max_importance": 0,
+            "normalized_importance": 0.0
+          },
+          {
+            "feature": "EnergyCrisis",
+            "mean_importance": 0.0,
+            "std_importance": 0.0,
+            "min_importance": 0,
+            "max_importance": 0,
+            "normalized_importance": 0.0
+          }
+        ]
+      },
+      {
+        "name": "catboost",
+        "selected": [
+          "TEC",
+          "CO2e_lag4",
+          "CEI",
+          "CO2e_lag2",
+          "CO2e_roll8_mean",
+          "CO2e_roll4_mean",
+          "Population",
+          "Air_Temp",
+          "Q4",
+          "CO2e_lag3",
+          "Rainfall",
+          "CO2e_lag1",
+          "CO2e_roll4_std",
+          "CO2e_roll8_std",
+          "GDP",
+          "Q2",
+          "Q3",
+          "COVID_Deaths"
+        ],
+        "n_selected": 18,
+        "scores": [
+          {
+            "feature": "TEC",
+            "mean_importance": 37.172608603304504,
+            "std_importance": 6.5284687720004,
+            "min_importance": 22.261508417503745,
+            "max_importance": 48.403677308800354,
+            "normalized_importance": 1.0
+          },
+          {
+            "feature": "CO2e_lag4",
+            "mean_importance": 19.98406168105865,
+            "std_importance": 5.4316848124757895,
+            "min_importance": 9.469258519776922,
+            "max_importance": 27.662165391630733,
+            "normalized_importance": 0.5376018103631862
+          },
+          {
+            "feature": "CEI",
+            "mean_importance": 7.324556506158052,
+            "std_importance": 2.5864751992857222,
+            "min_importance": 2.303497638104623,
+            "max_importance": 11.76626963855712,
+            "normalized_importance": 0.19704176761775408
+          },
+          {
+            "feature": "CO2e_lag2",
+            "mean_importance": 6.266939842792805,
+            "std_importance": 4.435924018298708,
+            "min_importance": 2.342517331506804,
+            "max_importance": 20.261219256529614,
+            "normalized_importance": 0.16859026251484804
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "mean_importance": 4.589015259910542,
+            "std_importance": 1.9414360167135203,
+            "min_importance": 2.284426558238048,
+            "max_importance": 11.11244730539517,
+            "normalized_importance": 0.12345152606542108
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "mean_importance": 3.9806026942835917,
+            "std_importance": 1.3924506831545858,
+            "min_importance": 1.5351941516012328,
+            "max_importance": 7.037385723405892,
+            "normalized_importance": 0.10708429792386782
+          },
+          {
+            "feature": "Population",
+            "mean_importance": 2.833090742899329,
+            "std_importance": 1.1875691719011636,
+            "min_importance": 1.524442784031367,
+            "max_importance": 6.075629392958382,
+            "normalized_importance": 0.07621447214354168
+          },
+          {
+            "feature": "Air_Temp",
+            "mean_importance": 2.7706415029320994,
+            "std_importance": 1.6634151492945135,
+            "min_importance": 0.8053203958401356,
+            "max_importance": 6.007583527016016,
+            "normalized_importance": 0.07453449211755885
+          },
+          {
+            "feature": "Q4",
+            "mean_importance": 2.1714664173288023,
+            "std_importance": 1.1281297030041593,
+            "min_importance": 0.400694575711573,
+            "max_importance": 4.401325322974797,
+            "normalized_importance": 0.058415766310674445
+          },
+          {
+            "feature": "CO2e_lag3",
+            "mean_importance": 2.138483034732395,
+            "std_importance": 0.8456271621961661,
+            "min_importance": 1.0017782534807123,
+            "max_importance": 4.024754661785596,
+            "normalized_importance": 0.05752846289464582
+          },
+          {
+            "feature": "Rainfall",
+            "mean_importance": 2.055517904392083,
+            "std_importance": 1.7726322848690508,
+            "min_importance": 0.601819212649259,
+            "max_importance": 6.577393978415402,
+            "normalized_importance": 0.05529657405343771
+          },
+          {
+            "feature": "CO2e_lag1",
+            "mean_importance": 2.0076646441292127,
+            "std_importance": 1.0732745812008253,
+            "min_importance": 0.4820920288955536,
+            "max_importance": 5.032595472897857,
+            "normalized_importance": 0.054009248195477436
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "mean_importance": 2.005093216647279,
+            "std_importance": 0.9627952438069747,
+            "min_importance": 0.7312548248355208,
+            "max_importance": 4.118078617211534,
+            "normalized_importance": 0.05394007286507823
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "mean_importance": 1.462159772660215,
+            "std_importance": 1.0248978718703323,
+            "min_importance": 0.47772015915635585,
+            "max_importance": 4.528866229239171,
+            "normalized_importance": 0.03933433319851097
+          },
+          {
+            "feature": "GDP",
+            "mean_importance": 0.9267552515410646,
+            "std_importance": 0.492702862272461,
+            "min_importance": 0.3473336418712845,
+            "max_importance": 2.042696606238617,
+            "normalized_importance": 0.024931133067122968
+          },
+          {
+            "feature": "Q2",
+            "mean_importance": 0.8817841060432691,
+            "std_importance": 0.6134189795649694,
+            "min_importance": 0.1753264982484511,
+            "max_importance": 2.4764234321130303,
+            "normalized_importance": 0.02372134050244948
+          },
+          {
+            "feature": "Q3",
+            "mean_importance": 0.6372414902286859,
+            "std_importance": 0.5771264647366071,
+            "min_importance": 0.040710406404399324,
+            "max_importance": 2.1760992107702304,
+            "normalized_importance": 0.01714277028629187
+          },
+          {
+            "feature": "COVID_Deaths",
+            "mean_importance": 0.5519425868105446,
+            "std_importance": 1.1202869341692583,
+            "min_importance": 0.0,
+            "max_importance": 3.9136433864282116,
+            "normalized_importance": 0.014848099381475183
+          },
+          {
+            "feature": "COVID",
+            "mean_importance": 0.22757749717622816,
+            "std_importance": 0.4755231113518305,
+            "min_importance": 0.0,
+            "max_importance": 1.6641859619640083,
+            "normalized_importance": 0.006122182588929134
+          },
+          {
+            "feature": "EnergyCrisis",
+            "mean_importance": 0.012797244970649817,
+            "std_importance": 0.046074325031618305,
+            "min_importance": 0.0,
+            "max_importance": 0.1830424795102439,
+            "normalized_importance": 0.00034426545382430307
+          }
+        ]
+      }
+    ],
+    "selected_features": [
+      "GDP",
+      "Population",
+      "Air_Temp",
+      "Rainfall",
+      "TEC",
+      "CEI",
+      "COVID_Deaths",
+      "CO2e_lag1",
+      "CO2e_lag2",
+      "CO2e_lag3",
+      "CO2e_lag4",
+      "CO2e_roll4_mean",
+      "CO2e_roll4_std",
+      "CO2e_roll8_mean",
+      "CO2e_roll8_std",
+      "Q2",
+      "Q3",
+      "Q4"
+    ],
+    "n_selected": 18
+  },
+  "fs_consensus": {
+    "method": "consensus",
+    "steps": [
+      {
+        "name": "vote_selection",
+        "selected": [
+          "CO2e_lag1",
+          "Air_Temp",
+          "Q2",
+          "GDP",
+          "Rainfall",
+          "Population",
+          "CEI",
+          "TEC",
+          "Q4",
+          "CO2e_roll8_std",
+          "CO2e_roll4_std",
+          "CO2e_lag4",
+          "CO2e_roll4_mean",
+          "CO2e_lag3",
+          "CO2e_lag2",
+          "COVID_Deaths",
+          "CO2e_roll8_mean"
+        ],
+        "n_selected": 17,
+        "votes": [
+          {
+            "feature": "CO2e_lag1",
+            "vote_count": 5,
+            "selected_by": "linear_vif_filter, linear_ridge_stability, nonlinear_random_forest, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "Air_Temp",
+            "vote_count": 4,
+            "selected_by": "linear_vif_filter, linear_ridge_stability, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "Q2",
+            "vote_count": 4,
+            "selected_by": "linear_vif_filter, linear_ridge_stability, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "GDP",
+            "vote_count": 3,
+            "selected_by": "linear_vif_filter, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "Rainfall",
+            "vote_count": 3,
+            "selected_by": "linear_vif_filter, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "Population",
+            "vote_count": 3,
+            "selected_by": "nonlinear_random_forest, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "CEI",
+            "vote_count": 3,
+            "selected_by": "nonlinear_random_forest, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "TEC",
+            "vote_count": 3,
+            "selected_by": "nonlinear_random_forest, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "Q4",
+            "vote_count": 3,
+            "selected_by": "linear_vif_filter, linear_ridge_stability, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "vote_count": 3,
+            "selected_by": "linear_vif_filter, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "vote_count": 3,
+            "selected_by": "linear_vif_filter, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_lag4",
+            "vote_count": 3,
+            "selected_by": "nonlinear_random_forest, nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "vote_count": 2,
+            "selected_by": "nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_lag3",
+            "vote_count": 2,
+            "selected_by": "nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_lag2",
+            "vote_count": 2,
+            "selected_by": "nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "COVID_Deaths",
+            "vote_count": 2,
+            "selected_by": "linear_vif_filter, nonlinear_catboost"
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "vote_count": 2,
+            "selected_by": "nonlinear_lightgbm, nonlinear_catboost"
+          },
+          {
+            "feature": "Q3",
+            "vote_count": 1,
+            "selected_by": "nonlinear_catboost"
+          },
+          {
+            "feature": "COVID",
+            "vote_count": 1,
+            "selected_by": "linear_vif_filter"
+          },
+          {
+            "feature": "EnergyCrisis",
+            "vote_count": 1,
+            "selected_by": "linear_vif_filter"
+          }
+        ]
+      },
+      {
+        "name": "stability_selection",
+        "selected": [
+          "TEC",
+          "Air_Temp",
+          "CO2e_lag4",
+          "CO2e_lag3",
+          "CO2e_lag2",
+          "CO2e_lag1",
+          "Population",
+          "CO2e_roll4_mean"
+        ],
+        "n_selected": 8,
+        "stability": [
+          {
+            "feature": "TEC",
+            "top_k_count": 41,
+            "stability": 0.9318181818181818
+          },
+          {
+            "feature": "Air_Temp",
+            "top_k_count": 38,
+            "stability": 0.8636363636363636
+          },
+          {
+            "feature": "CO2e_lag4",
+            "top_k_count": 38,
+            "stability": 0.8636363636363636
+          },
+          {
+            "feature": "CO2e_lag3",
+            "top_k_count": 38,
+            "stability": 0.8636363636363636
+          },
+          {
+            "feature": "CO2e_lag2",
+            "top_k_count": 38,
+            "stability": 0.8636363636363636
+          },
+          {
+            "feature": "CO2e_lag1",
+            "top_k_count": 35,
+            "stability": 0.7954545454545454
+          },
+          {
+            "feature": "Population",
+            "top_k_count": 33,
+            "stability": 0.75
+          },
+          {
+            "feature": "CO2e_roll4_mean",
+            "top_k_count": 33,
+            "stability": 0.75
+          },
+          {
+            "feature": "CEI",
+            "top_k_count": 26,
+            "stability": 0.5909090909090909
+          },
+          {
+            "feature": "GDP",
+            "top_k_count": 23,
+            "stability": 0.5227272727272727
+          },
+          {
+            "feature": "CO2e_roll4_std",
+            "top_k_count": 23,
+            "stability": 0.5227272727272727
+          },
+          {
+            "feature": "Rainfall",
+            "top_k_count": 20,
+            "stability": 0.45454545454545453
+          },
+          {
+            "feature": "CO2e_roll8_std",
+            "top_k_count": 18,
+            "stability": 0.4090909090909091
+          },
+          {
+            "feature": "CO2e_roll8_mean",
+            "top_k_count": 15,
+            "stability": 0.3409090909090909
+          },
+          {
+            "feature": "Q4",
+            "top_k_count": 9,
+            "stability": 0.20454545454545456
+          },
+          {
+            "feature": "Q2",
+            "top_k_count": 3,
+            "stability": 0.06818181818181818
+          },
+          {
+            "feature": "COVID",
+            "top_k_count": 3,
+            "stability": 0.06818181818181818
+          },
+          {
+            "feature": "Q3",
+            "top_k_count": 3,
+            "stability": 0.06818181818181818
+          },
+          {
+            "feature": "EnergyCrisis",
+            "top_k_count": 3,
+            "stability": 0.06818181818181818
+          },
+          {
+            "feature": "COVID_Deaths",
+            "top_k_count": 0,
+            "stability": 0.0
+          }
+        ]
+      }
+    ],
+    "selected_features": [
+      "Population",
+      "Air_Temp",
+      "TEC",
+      "CO2e_lag1",
+      "CO2e_lag2",
+      "CO2e_lag3",
+      "CO2e_lag4",
+      "CO2e_roll4_mean"
+    ],
+    "n_selected": 8,
+    "linear_results": {
+      "method": "linear",
+      "steps": [
+        {
+          "name": "vif_filter",
+          "selected": [
+            "GDP",
+            "Air_Temp",
+            "Rainfall",
+            "COVID_Deaths",
+            "CO2e_lag1",
+            "CO2e_roll4_std",
+            "CO2e_roll8_std",
+            "Q2",
+            "Q4",
+            "COVID",
+            "EnergyCrisis"
+          ],
+          "n_selected": 11,
+          "report": [
+            {
+              "feature": "CO2e_lag2",
+              "vif": Infinity,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": Infinity,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": Infinity,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": Infinity,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_roll4_mean",
+              "vif": Infinity,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_roll8_mean",
+              "vif": 159.82830462310727,
+              "iteration": 0
+            },
+            {
+              "feature": "CEI",
+              "vif": 135.20144064157037,
+              "iteration": 0
+            },
+            {
+              "feature": "TEC",
+              "vif": 83.20569548862413,
+              "iteration": 0
+            },
+            {
+              "feature": "Population",
+              "vif": 78.95613369095703,
+              "iteration": 0
+            },
+            {
+              "feature": "Q3",
+              "vif": 66.24108337557398,
+              "iteration": 0
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 49.157072919424095,
+              "iteration": 0
+            },
+            {
+              "feature": "Q4",
+              "vif": 24.534224391167665,
+              "iteration": 0
+            },
+            {
+              "feature": "Q2",
+              "vif": 22.61314825562688,
+              "iteration": 0
+            },
+            {
+              "feature": "GDP",
+              "vif": 13.08956171466328,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 9.258888617438288,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.816703099319122,
+              "iteration": 0
+            },
+            {
+              "feature": "COVID",
+              "vif": 3.4163958835961585,
+              "iteration": 0
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.737369629963366,
+              "iteration": 0
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 2.016328871080594,
+              "iteration": 0
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 2.003530448230011,
+              "iteration": 0
+            },
+            {
+              "feature": "CO2e_roll4_mean",
+              "vif": 644.5957289516713,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_roll8_mean",
+              "vif": 159.8283046231101,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 147.90612209029558,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 143.85532437197918,
+              "iteration": 1
+            },
+            {
+              "feature": "CEI",
+              "vif": 135.20144064157037,
+              "iteration": 1
+            },
+            {
+              "feature": "TEC",
+              "vif": 83.20569548862413,
+              "iteration": 1
+            },
+            {
+              "feature": "Population",
+              "vif": 78.95613369095634,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 77.21109020247246,
+              "iteration": 1
+            },
+            {
+              "feature": "Q3",
+              "vif": 66.24108337557398,
+              "iteration": 1
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 49.157072919424095,
+              "iteration": 1
+            },
+            {
+              "feature": "Q4",
+              "vif": 24.534224391167665,
+              "iteration": 1
+            },
+            {
+              "feature": "Q2",
+              "vif": 22.61314825562682,
+              "iteration": 1
+            },
+            {
+              "feature": "GDP",
+              "vif": 13.089561714663319,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 9.258888617438288,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.816703099319126,
+              "iteration": 1
+            },
+            {
+              "feature": "COVID",
+              "vif": 3.416395883596168,
+              "iteration": 1
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.737369629963365,
+              "iteration": 1
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 2.0163288710805958,
+              "iteration": 1
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 2.003530448230012,
+              "iteration": 1
+            },
+            {
+              "feature": "CO2e_roll8_mean",
+              "vif": 138.44640833177584,
+              "iteration": 2
+            },
+            {
+              "feature": "CEI",
+              "vif": 131.78492797555748,
+              "iteration": 2
+            },
+            {
+              "feature": "Population",
+              "vif": 78.78390544794566,
+              "iteration": 2
+            },
+            {
+              "feature": "TEC",
+              "vif": 75.52642838701178,
+              "iteration": 2
+            },
+            {
+              "feature": "Q3",
+              "vif": 65.77211581308087,
+              "iteration": 2
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 56.93965140674653,
+              "iteration": 2
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 48.88972807483087,
+              "iteration": 2
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 47.62447520540014,
+              "iteration": 2
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 43.79867401155437,
+              "iteration": 2
+            },
+            {
+              "feature": "Q4",
+              "vif": 24.52769039578803,
+              "iteration": 2
+            },
+            {
+              "feature": "Q2",
+              "vif": 22.45235266450401,
+              "iteration": 2
+            },
+            {
+              "feature": "GDP",
+              "vif": 12.565848219814109,
+              "iteration": 2
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 9.250288093755916,
+              "iteration": 2
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.816529672657212,
+              "iteration": 2
+            },
+            {
+              "feature": "COVID",
+              "vif": 3.3330668924697764,
+              "iteration": 2
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.675982748415077,
+              "iteration": 2
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 2.0086004044980523,
+              "iteration": 2
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.9942343049911977,
+              "iteration": 2
+            },
+            {
+              "feature": "CEI",
+              "vif": 131.72603934495558,
+              "iteration": 3
+            },
+            {
+              "feature": "Population",
+              "vif": 73.57080363974981,
+              "iteration": 3
+            },
+            {
+              "feature": "TEC",
+              "vif": 72.36802938345949,
+              "iteration": 3
+            },
+            {
+              "feature": "Q3",
+              "vif": 64.46099857886277,
+              "iteration": 3
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 48.51776383243589,
+              "iteration": 3
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 43.48002768998274,
+              "iteration": 3
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 37.69535243295721,
+              "iteration": 3
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 28.505392581568238,
+              "iteration": 3
+            },
+            {
+              "feature": "Q4",
+              "vif": 24.527529228015183,
+              "iteration": 3
+            },
+            {
+              "feature": "Q2",
+              "vif": 21.29410722258965,
+              "iteration": 3
+            },
+            {
+              "feature": "GDP",
+              "vif": 12.56504913481544,
+              "iteration": 3
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 7.184627147784918,
+              "iteration": 3
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.672363156738515,
+              "iteration": 3
+            },
+            {
+              "feature": "COVID",
+              "vif": 3.1212336741195177,
+              "iteration": 3
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.6722732794935773,
+              "iteration": 3
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.9454654110578347,
+              "iteration": 3
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.7704235426354757,
+              "iteration": 3
+            },
+            {
+              "feature": "Q3",
+              "vif": 64.40942982192402,
+              "iteration": 4
+            },
+            {
+              "feature": "TEC",
+              "vif": 53.17326736001713,
+              "iteration": 4
+            },
+            {
+              "feature": "Population",
+              "vif": 43.6168893527253,
+              "iteration": 4
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 43.30305147092663,
+              "iteration": 4
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 34.06161957106465,
+              "iteration": 4
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 26.656794873018438,
+              "iteration": 4
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 26.626557600274104,
+              "iteration": 4
+            },
+            {
+              "feature": "Q4",
+              "vif": 24.415702681052526,
+              "iteration": 4
+            },
+            {
+              "feature": "Q2",
+              "vif": 21.275045167327402,
+              "iteration": 4
+            },
+            {
+              "feature": "GDP",
+              "vif": 7.339877696978546,
+              "iteration": 4
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 7.014982151243789,
+              "iteration": 4
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.623693112262209,
+              "iteration": 4
+            },
+            {
+              "feature": "COVID",
+              "vif": 2.9770455544426646,
+              "iteration": 4
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.6570562237201414,
+              "iteration": 4
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.8692820043727258,
+              "iteration": 4
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.7204466550442359,
+              "iteration": 4
+            },
+            {
+              "feature": "TEC",
+              "vif": 52.725521739908125,
+              "iteration": 5
+            },
+            {
+              "feature": "Population",
+              "vif": 43.51799694086249,
+              "iteration": 5
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 26.6497113768698,
+              "iteration": 5
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 26.619664551615763,
+              "iteration": 5
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 23.27257829881206,
+              "iteration": 5
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 23.001745818181696,
+              "iteration": 5
+            },
+            {
+              "feature": "Q2",
+              "vif": 8.683627995566722,
+              "iteration": 5
+            },
+            {
+              "feature": "Q4",
+              "vif": 7.110319166049438,
+              "iteration": 5
+            },
+            {
+              "feature": "GDP",
+              "vif": 7.0638980208243956,
+              "iteration": 5
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 6.5138281145798445,
+              "iteration": 5
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.611178651464444,
+              "iteration": 5
+            },
+            {
+              "feature": "COVID",
+              "vif": 2.909154885515352,
+              "iteration": 5
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.650412391757812,
+              "iteration": 5
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.8466174222978948,
+              "iteration": 5
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.710091191785157,
+              "iteration": 5
+            },
+            {
+              "feature": "Population",
+              "vif": 27.762870723033334,
+              "iteration": 6
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 26.63277587664208,
+              "iteration": 6
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 23.20841759653491,
+              "iteration": 6
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 22.38710430003716,
+              "iteration": 6
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 8.137307343964475,
+              "iteration": 6
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 6.490905642816836,
+              "iteration": 6
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.610235085601981,
+              "iteration": 6
+            },
+            {
+              "feature": "GDP",
+              "vif": 5.382334771488732,
+              "iteration": 6
+            },
+            {
+              "feature": "Q2",
+              "vif": 4.787783845520638,
+              "iteration": 6
+            },
+            {
+              "feature": "Q4",
+              "vif": 4.393124847766539,
+              "iteration": 6
+            },
+            {
+              "feature": "COVID",
+              "vif": 2.9074052383413433,
+              "iteration": 6
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.504950306147251,
+              "iteration": 6
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.8165649362522873,
+              "iteration": 6
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.6804013065473788,
+              "iteration": 6
+            },
+            {
+              "feature": "CO2e_lag4",
+              "vif": 22.371106277250973,
+              "iteration": 7
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 19.62692826801678,
+              "iteration": 7
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 16.8072441899711,
+              "iteration": 7
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 7.997017356920182,
+              "iteration": 7
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 6.451745301289377,
+              "iteration": 7
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.5793911032565475,
+              "iteration": 7
+            },
+            {
+              "feature": "Q2",
+              "vif": 4.698261797368547,
+              "iteration": 7
+            },
+            {
+              "feature": "Q4",
+              "vif": 4.358808269849074,
+              "iteration": 7
+            },
+            {
+              "feature": "GDP",
+              "vif": 3.7975332276715097,
+              "iteration": 7
+            },
+            {
+              "feature": "COVID",
+              "vif": 2.655545652942223,
+              "iteration": 7
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.43729184441078,
+              "iteration": 7
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.8156092672412214,
+              "iteration": 7
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.5650544591513411,
+              "iteration": 7
+            },
+            {
+              "feature": "CO2e_lag3",
+              "vif": 15.781246282583396,
+              "iteration": 8
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 12.51745084393996,
+              "iteration": 8
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 6.4503893452082535,
+              "iteration": 8
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.420468799057978,
+              "iteration": 8
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 4.533267141882863,
+              "iteration": 8
+            },
+            {
+              "feature": "Q4",
+              "vif": 3.84150551309672,
+              "iteration": 8
+            },
+            {
+              "feature": "GDP",
+              "vif": 3.7675199728609083,
+              "iteration": 8
+            },
+            {
+              "feature": "Q2",
+              "vif": 3.6290981805094833,
+              "iteration": 8
+            },
+            {
+              "feature": "COVID",
+              "vif": 2.6260147776797456,
+              "iteration": 8
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.4247665433142753,
+              "iteration": 8
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.74308134985925,
+              "iteration": 8
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.562062064360948,
+              "iteration": 8
+            },
+            {
+              "feature": "CO2e_lag1",
+              "vif": 8.202402610176186,
+              "iteration": 9
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "vif": 6.16161878019849,
+              "iteration": 9
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "vif": 5.349820479109191,
+              "iteration": 9
+            },
+            {
+              "feature": "GDP",
+              "vif": 2.888335525701674,
+              "iteration": 9
+            },
+            {
+              "feature": "COVID",
+              "vif": 2.547283531562212,
+              "iteration": 9
+            },
+            {
+              "feature": "COVID_Deaths",
+              "vif": 2.264840845583181,
+              "iteration": 9
+            },
+            {
+              "feature": "Q2",
+              "vif": 2.055539394493414,
+              "iteration": 9
+            },
+            {
+              "feature": "Air_Temp",
+              "vif": 1.8776960147626478,
+              "iteration": 9
+            },
+            {
+              "feature": "Q4",
+              "vif": 1.7664385295888339,
+              "iteration": 9
+            },
+            {
+              "feature": "Rainfall",
+              "vif": 1.7430796267992992,
+              "iteration": 9
+            },
+            {
+              "feature": "EnergyCrisis",
+              "vif": 1.562060458987889,
+              "iteration": 9
+            }
+          ]
+        },
+        {
+          "name": "ridge_stability",
+          "selected": [
+            "Air_Temp",
+            "Q2",
+            "CO2e_lag1",
+            "Q4"
+          ],
+          "n_selected": 4,
+          "scores": [
+            {
+              "feature": "Air_Temp",
+              "stability": 1.0,
+              "avg_coefficient": 0.03993967708257114,
+              "std_coefficient": 0.0037325380999867876,
+              "n_folds_important": 44,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Q2",
+              "stability": 1.0,
+              "avg_coefficient": 0.07293800760793759,
+              "std_coefficient": 0.0021700077743707935,
+              "n_folds_important": 44,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "CO2e_lag1",
+              "stability": 1.0,
+              "avg_coefficient": 0.10841496643631454,
+              "std_coefficient": 0.015778886831655667,
+              "n_folds_important": 44,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Q4",
+              "stability": 1.0,
+              "avg_coefficient": 0.0681813919857729,
+              "std_coefficient": 0.0037332630678424132,
+              "n_folds_important": 44,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "GDP",
+              "stability": 0.45454545454545453,
+              "avg_coefficient": 0.00824807154657141,
+              "std_coefficient": 0.0050119231112695515,
+              "n_folds_important": 20,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "stability": 0.38636363636363635,
+              "avg_coefficient": 0.009566321652210512,
+              "std_coefficient": 0.005067673393959254,
+              "n_folds_important": 17,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "COVID_Deaths",
+              "stability": 0.25,
+              "avg_coefficient": 0.0054193624663310775,
+              "std_coefficient": 0.009407266853443187,
+              "n_folds_important": 11,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "COVID",
+              "stability": 0.045454545454545456,
+              "avg_coefficient": 0.0021223429638863676,
+              "std_coefficient": 0.003744070017767004,
+              "n_folds_important": 2,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Rainfall",
+              "stability": 0.0,
+              "avg_coefficient": 0.002940298900903267,
+              "std_coefficient": 0.0011272159155157218,
+              "n_folds_important": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "stability": 0.0,
+              "avg_coefficient": 0.0022755851351573303,
+              "std_coefficient": 0.0024414689536439425,
+              "n_folds_important": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "EnergyCrisis",
+              "stability": 0.0,
+              "avg_coefficient": 0.00029112955202366847,
+              "std_coefficient": 0.0010465462957635386,
+              "n_folds_important": 0,
+              "n_folds_total": 44
+            }
+          ]
+        },
+        {
+          "name": "elasticnet_stability",
+          "selected": [],
+          "n_selected": 0,
+          "scores": [
+            {
+              "feature": "GDP",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Air_Temp",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Rainfall",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "COVID_Deaths",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "CO2e_lag1",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Q2",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "Q4",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "COVID",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            },
+            {
+              "feature": "EnergyCrisis",
+              "stability": 0.0,
+              "avg_coefficient": 0.0,
+              "std_coefficient": 0.0,
+              "n_folds_nonzero": 0,
+              "n_folds_total": 44
+            }
+          ]
+        }
+      ],
+      "selected_features": [
+        "Air_Temp",
+        "CO2e_lag1",
+        "Q2",
+        "Q4"
+      ],
+      "n_selected": 4
+    },
+    "nonlinear_results": {
+      "method": "nonlinear",
+      "steps": [
+        {
+          "name": "random_forest",
+          "selected": [
+            "TEC",
+            "CO2e_lag4",
+            "CEI",
+            "CO2e_lag1",
+            "Population"
+          ],
+          "n_selected": 5,
+          "scores": [
+            {
+              "feature": "TEC",
+              "mean_importance": 0.5131679711436461,
+              "std_importance": 0.23531753824343488,
+              "min_importance": 0.1538302065928733,
+              "max_importance": 0.791991204406201
+            },
+            {
+              "feature": "CO2e_lag4",
+              "mean_importance": 0.40959953294936363,
+              "std_importance": 0.248751172498195,
+              "min_importance": 0.11813074381109423,
+              "max_importance": 0.8100468855248486
+            },
+            {
+              "feature": "CEI",
+              "mean_importance": 0.012797578479427169,
+              "std_importance": 0.0054896109859212915,
+              "min_importance": 0.004793939903798459,
+              "max_importance": 0.020908741604720577
+            },
+            {
+              "feature": "CO2e_lag1",
+              "mean_importance": 0.01203218827448016,
+              "std_importance": 0.004839055139874475,
+              "min_importance": 0.004999625523294859,
+              "max_importance": 0.020235984471601028
+            },
+            {
+              "feature": "Population",
+              "mean_importance": 0.010748685732068495,
+              "std_importance": 0.0039023216841162856,
+              "min_importance": 0.005062547493499535,
+              "max_importance": 0.020924740230388227
+            },
+            {
+              "feature": "CO2e_lag2",
+              "mean_importance": 0.009706992290776427,
+              "std_importance": 0.02268302292317123,
+              "min_importance": 0.0014412823466605263,
+              "max_importance": 0.09328562544110798
+            },
+            {
+              "feature": "CO2e_roll4_mean",
+              "mean_importance": 0.005905548083954037,
+              "std_importance": 0.0022309721692336743,
+              "min_importance": 0.0024537625516527573,
+              "max_importance": 0.009984667063314806
+            },
+            {
+              "feature": "Air_Temp",
+              "mean_importance": 0.005841464235800704,
+              "std_importance": 0.002242864244156766,
+              "min_importance": 0.002803418723869245,
+              "max_importance": 0.010814765574074618
+            },
+            {
+              "feature": "CO2e_roll8_mean",
+              "mean_importance": 0.004989940765652258,
+              "std_importance": 0.0019555650924272744,
+              "min_importance": 0.0019294250151996113,
+              "max_importance": 0.009642522108910043
+            },
+            {
+              "feature": "CO2e_lag3",
+              "mean_importance": 0.0038937541486112988,
+              "std_importance": 0.0015645176733269548,
+              "min_importance": 0.0010737053342491324,
+              "max_importance": 0.007384573451253624
+            },
+            {
+              "feature": "GDP",
+              "mean_importance": 0.00351650159749612,
+              "std_importance": 0.0018665065928828615,
+              "min_importance": 0.0011773203290584774,
+              "max_importance": 0.007336410355021446
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "mean_importance": 0.0019802786727311835,
+              "std_importance": 0.0009672872012389704,
+              "min_importance": 0.000757663207331249,
+              "max_importance": 0.0041198889045905495
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "mean_importance": 0.0018500938757057559,
+              "std_importance": 0.0013660391329779029,
+              "min_importance": 0.000729692335549976,
+              "max_importance": 0.00637363548952595
+            },
+            {
+              "feature": "Rainfall",
+              "mean_importance": 0.0017043530552848629,
+              "std_importance": 0.0005888404574651662,
+              "min_importance": 0.0011413642006216685,
+              "max_importance": 0.0029130054880648903
+            },
+            {
+              "feature": "Q3",
+              "mean_importance": 0.0007363133531514778,
+              "std_importance": 0.001004035926737536,
+              "min_importance": 0.00013468967786980752,
+              "max_importance": 0.0040438322213346475
+            },
+            {
+              "feature": "Q2",
+              "mean_importance": 0.0005443453276244156,
+              "std_importance": 0.0002545000231690732,
+              "min_importance": 0.00016674317192682235,
+              "max_importance": 0.0011277913571783064
+            },
+            {
+              "feature": "COVID_Deaths",
+              "mean_importance": 0.0003958712845418195,
+              "std_importance": 0.0007056980583719906,
+              "min_importance": 0.0,
+              "max_importance": 0.002097116002644806
+            },
+            {
+              "feature": "COVID",
+              "mean_importance": 0.0003467410289547668,
+              "std_importance": 0.000624143655203184,
+              "min_importance": 0.0,
+              "max_importance": 0.001685502452142013
+            },
+            {
+              "feature": "Q4",
+              "mean_importance": 0.00023592370508602607,
+              "std_importance": 0.00015910890320123153,
+              "min_importance": 5.00365978950179e-05,
+              "max_importance": 0.0005933282733665975
+            },
+            {
+              "feature": "EnergyCrisis",
+              "mean_importance": 5.9219956433364125e-06,
+              "std_importance": 1.7500559112301875e-05,
+              "min_importance": 0.0,
+              "max_importance": 6.59691305880849e-05
+            }
+          ]
+        },
+        {
+          "name": "lightgbm",
+          "selected": [
+            "TEC",
+            "CO2e_lag2",
+            "CO2e_lag4",
+            "CO2e_lag3",
+            "Air_Temp",
+            "CO2e_lag1",
+            "Population",
+            "CO2e_roll4_mean",
+            "Rainfall",
+            "GDP",
+            "CEI",
+            "CO2e_roll4_std",
+            "CO2e_roll8_std",
+            "CO2e_roll8_mean",
+            "Q2"
+          ],
+          "n_selected": 15,
+          "scores": [
+            {
+              "feature": "TEC",
+              "mean_importance": 29.25,
+              "std_importance": 14.337054661388313,
+              "min_importance": 0,
+              "max_importance": 49,
+              "normalized_importance": 1.0
+            },
+            {
+              "feature": "CO2e_lag2",
+              "mean_importance": 20.09090909090909,
+              "std_importance": 12.007229227386652,
+              "min_importance": 0,
+              "max_importance": 46,
+              "normalized_importance": 0.6868686868686869
+            },
+            {
+              "feature": "CO2e_lag4",
+              "mean_importance": 17.045454545454547,
+              "std_importance": 14.464619131230874,
+              "min_importance": 0,
+              "max_importance": 42,
+              "normalized_importance": 0.5827505827505828
+            },
+            {
+              "feature": "CO2e_lag3",
+              "mean_importance": 16.363636363636363,
+              "std_importance": 9.50380524051218,
+              "min_importance": 0,
+              "max_importance": 32,
+              "normalized_importance": 0.5594405594405595
+            },
+            {
+              "feature": "Air_Temp",
+              "mean_importance": 14.022727272727273,
+              "std_importance": 8.239286808179335,
+              "min_importance": 0,
+              "max_importance": 31,
+              "normalized_importance": 0.4794094794094794
+            },
+            {
+              "feature": "CO2e_lag1",
+              "mean_importance": 11.136363636363637,
+              "std_importance": 8.998966882852592,
+              "min_importance": 0,
+              "max_importance": 27,
+              "normalized_importance": 0.38073038073038074
+            },
+            {
+              "feature": "Population",
+              "mean_importance": 9.636363636363637,
+              "std_importance": 5.381326758890452,
+              "min_importance": 0,
+              "max_importance": 20,
+              "normalized_importance": 0.32944832944832947
+            },
+            {
+              "feature": "CO2e_roll4_mean",
+              "mean_importance": 9.545454545454545,
+              "std_importance": 4.8825037609004065,
+              "min_importance": 0,
+              "max_importance": 18,
+              "normalized_importance": 0.32634032634032634
+            },
+            {
+              "feature": "Rainfall",
+              "mean_importance": 7.2272727272727275,
+              "std_importance": 8.722655028361586,
+              "min_importance": 0,
+              "max_importance": 26,
+              "normalized_importance": 0.2470862470862471
+            },
+            {
+              "feature": "GDP",
+              "mean_importance": 7.159090909090909,
+              "std_importance": 7.147609841498134,
+              "min_importance": 0,
+              "max_importance": 21,
+              "normalized_importance": 0.24475524475524477
+            },
+            {
+              "feature": "CEI",
+              "mean_importance": 4.840909090909091,
+              "std_importance": 3.253970873606737,
+              "min_importance": 0,
+              "max_importance": 12,
+              "normalized_importance": 0.1655011655011655
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "mean_importance": 4.681818181818182,
+              "std_importance": 4.486204749880598,
+              "min_importance": 0,
+              "max_importance": 13,
+              "normalized_importance": 0.16006216006216006
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "mean_importance": 4.318181818181818,
+              "std_importance": 4.3472704459900475,
+              "min_importance": 0,
+              "max_importance": 12,
+              "normalized_importance": 0.14763014763014765
+            },
+            {
+              "feature": "CO2e_roll8_mean",
+              "mean_importance": 2.977272727272727,
+              "std_importance": 3.726371842347193,
+              "min_importance": 0,
+              "max_importance": 12,
+              "normalized_importance": 0.10178710178710178
+            },
+            {
+              "feature": "Q2",
+              "mean_importance": 1.6363636363636365,
+              "std_importance": 3.0975863704365127,
+              "min_importance": 0,
+              "max_importance": 12,
+              "normalized_importance": 0.05594405594405595
+            },
+            {
+              "feature": "Q4",
+              "mean_importance": 0.22727272727272727,
+              "std_importance": 0.5162643950727521,
+              "min_importance": 0,
+              "max_importance": 2,
+              "normalized_importance": 0.00777000777000777
+            },
+            {
+              "feature": "COVID_Deaths",
+              "mean_importance": 0.0,
+              "std_importance": 0.0,
+              "min_importance": 0,
+              "max_importance": 0,
+              "normalized_importance": 0.0
+            },
+            {
+              "feature": "Q3",
+              "mean_importance": 0.0,
+              "std_importance": 0.0,
+              "min_importance": 0,
+              "max_importance": 0,
+              "normalized_importance": 0.0
+            },
+            {
+              "feature": "COVID",
+              "mean_importance": 0.0,
+              "std_importance": 0.0,
+              "min_importance": 0,
+              "max_importance": 0,
+              "normalized_importance": 0.0
+            },
+            {
+              "feature": "EnergyCrisis",
+              "mean_importance": 0.0,
+              "std_importance": 0.0,
+              "min_importance": 0,
+              "max_importance": 0,
+              "normalized_importance": 0.0
+            }
+          ]
+        },
+        {
+          "name": "catboost",
+          "selected": [
+            "TEC",
+            "CO2e_lag4",
+            "CEI",
+            "CO2e_lag2",
+            "CO2e_roll8_mean",
+            "CO2e_roll4_mean",
+            "Population",
+            "Air_Temp",
+            "Q4",
+            "CO2e_lag3",
+            "Rainfall",
+            "CO2e_lag1",
+            "CO2e_roll4_std",
+            "CO2e_roll8_std",
+            "GDP",
+            "Q2",
+            "Q3",
+            "COVID_Deaths"
+          ],
+          "n_selected": 18,
+          "scores": [
+            {
+              "feature": "TEC",
+              "mean_importance": 37.172608603304504,
+              "std_importance": 6.5284687720004,
+              "min_importance": 22.261508417503745,
+              "max_importance": 48.403677308800354,
+              "normalized_importance": 1.0
+            },
+            {
+              "feature": "CO2e_lag4",
+              "mean_importance": 19.98406168105865,
+              "std_importance": 5.4316848124757895,
+              "min_importance": 9.469258519776922,
+              "max_importance": 27.662165391630733,
+              "normalized_importance": 0.5376018103631862
+            },
+            {
+              "feature": "CEI",
+              "mean_importance": 7.324556506158052,
+              "std_importance": 2.5864751992857222,
+              "min_importance": 2.303497638104623,
+              "max_importance": 11.76626963855712,
+              "normalized_importance": 0.19704176761775408
+            },
+            {
+              "feature": "CO2e_lag2",
+              "mean_importance": 6.266939842792805,
+              "std_importance": 4.435924018298708,
+              "min_importance": 2.342517331506804,
+              "max_importance": 20.261219256529614,
+              "normalized_importance": 0.16859026251484804
+            },
+            {
+              "feature": "CO2e_roll8_mean",
+              "mean_importance": 4.589015259910542,
+              "std_importance": 1.9414360167135203,
+              "min_importance": 2.284426558238048,
+              "max_importance": 11.11244730539517,
+              "normalized_importance": 0.12345152606542108
+            },
+            {
+              "feature": "CO2e_roll4_mean",
+              "mean_importance": 3.9806026942835917,
+              "std_importance": 1.3924506831545858,
+              "min_importance": 1.5351941516012328,
+              "max_importance": 7.037385723405892,
+              "normalized_importance": 0.10708429792386782
+            },
+            {
+              "feature": "Population",
+              "mean_importance": 2.833090742899329,
+              "std_importance": 1.1875691719011636,
+              "min_importance": 1.524442784031367,
+              "max_importance": 6.075629392958382,
+              "normalized_importance": 0.07621447214354168
+            },
+            {
+              "feature": "Air_Temp",
+              "mean_importance": 2.7706415029320994,
+              "std_importance": 1.6634151492945135,
+              "min_importance": 0.8053203958401356,
+              "max_importance": 6.007583527016016,
+              "normalized_importance": 0.07453449211755885
+            },
+            {
+              "feature": "Q4",
+              "mean_importance": 2.1714664173288023,
+              "std_importance": 1.1281297030041593,
+              "min_importance": 0.400694575711573,
+              "max_importance": 4.401325322974797,
+              "normalized_importance": 0.058415766310674445
+            },
+            {
+              "feature": "CO2e_lag3",
+              "mean_importance": 2.138483034732395,
+              "std_importance": 0.8456271621961661,
+              "min_importance": 1.0017782534807123,
+              "max_importance": 4.024754661785596,
+              "normalized_importance": 0.05752846289464582
+            },
+            {
+              "feature": "Rainfall",
+              "mean_importance": 2.055517904392083,
+              "std_importance": 1.7726322848690508,
+              "min_importance": 0.601819212649259,
+              "max_importance": 6.577393978415402,
+              "normalized_importance": 0.05529657405343771
+            },
+            {
+              "feature": "CO2e_lag1",
+              "mean_importance": 2.0076646441292127,
+              "std_importance": 1.0732745812008253,
+              "min_importance": 0.4820920288955536,
+              "max_importance": 5.032595472897857,
+              "normalized_importance": 0.054009248195477436
+            },
+            {
+              "feature": "CO2e_roll4_std",
+              "mean_importance": 2.005093216647279,
+              "std_importance": 0.9627952438069747,
+              "min_importance": 0.7312548248355208,
+              "max_importance": 4.118078617211534,
+              "normalized_importance": 0.05394007286507823
+            },
+            {
+              "feature": "CO2e_roll8_std",
+              "mean_importance": 1.462159772660215,
+              "std_importance": 1.0248978718703323,
+              "min_importance": 0.47772015915635585,
+              "max_importance": 4.528866229239171,
+              "normalized_importance": 0.03933433319851097
+            },
+            {
+              "feature": "GDP",
+              "mean_importance": 0.9267552515410646,
+              "std_importance": 0.492702862272461,
+              "min_importance": 0.3473336418712845,
+              "max_importance": 2.042696606238617,
+              "normalized_importance": 0.024931133067122968
+            },
+            {
+              "feature": "Q2",
+              "mean_importance": 0.8817841060432691,
+              "std_importance": 0.6134189795649694,
+              "min_importance": 0.1753264982484511,
+              "max_importance": 2.4764234321130303,
+              "normalized_importance": 0.02372134050244948
+            },
+            {
+              "feature": "Q3",
+              "mean_importance": 0.6372414902286859,
+              "std_importance": 0.5771264647366071,
+              "min_importance": 0.040710406404399324,
+              "max_importance": 2.1760992107702304,
+              "normalized_importance": 0.01714277028629187
+            },
+            {
+              "feature": "COVID_Deaths",
+              "mean_importance": 0.5519425868105446,
+              "std_importance": 1.1202869341692583,
+              "min_importance": 0.0,
+              "max_importance": 3.9136433864282116,
+              "normalized_importance": 0.014848099381475183
+            },
+            {
+              "feature": "COVID",
+              "mean_importance": 0.22757749717622816,
+              "std_importance": 0.4755231113518305,
+              "min_importance": 0.0,
+              "max_importance": 1.6641859619640083,
+              "normalized_importance": 0.006122182588929134
+            },
+            {
+              "feature": "EnergyCrisis",
+              "mean_importance": 0.012797244970649817,
+              "std_importance": 0.046074325031618305,
+              "min_importance": 0.0,
+              "max_importance": 0.1830424795102439,
+              "normalized_importance": 0.00034426545382430307
+            }
+          ]
+        }
+      ],
+      "selected_features": [
+        "GDP",
+        "Population",
+        "Air_Temp",
+        "Rainfall",
+        "TEC",
+        "CEI",
+        "COVID_Deaths",
+        "CO2e_lag1",
+        "CO2e_lag2",
+        "CO2e_lag3",
+        "CO2e_lag4",
+        "CO2e_roll4_mean",
+        "CO2e_roll4_std",
+        "CO2e_roll8_mean",
+        "CO2e_roll8_std",
+        "Q2",
+        "Q3",
+        "Q4"
+      ],
+      "n_selected": 18
+    }
+  }
+}

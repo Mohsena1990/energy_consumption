@@ -1,0 +1,50 @@
+{
+  "model": "ridge",
+  "n_features": 4,
+  "n_samples": 101,
+  "method": "coefficients",
+  "coefficients": [
+    {
+      "feature": "CO2e_lag1",
+      "coefficient": 0.1827974533630089,
+      "abs_coefficient": 0.1827974533630089
+    },
+    {
+      "feature": "Q2",
+      "coefficient": -0.08323144825362325,
+      "abs_coefficient": 0.08323144825362325
+    },
+    {
+      "feature": "Q4",
+      "coefficient": 0.07454685483304307,
+      "abs_coefficient": 0.07454685483304307
+    },
+    {
+      "feature": "Air_Temp",
+      "coefficient": -0.027889541624933338,
+      "abs_coefficient": 0.027889541624933338
+    }
+  ],
+  "permutation_importance": [
+    {
+      "feature": "CO2e_lag1",
+      "importance_mean": -0.18755512948982958,
+      "importance_std": 0.007354133844380934
+    },
+    {
+      "feature": "Q2",
+      "importance_mean": -0.06217782530520396,
+      "importance_std": 0.007262876161859855
+    },
+    {
+      "feature": "Q4",
+      "importance_mean": -0.05289158870579911,
+      "importance_std": 0.004525678844918969
+    },
+    {
+      "feature": "Air_Temp",
+      "importance_mean": -0.015225530324813432,
+      "importance_std": 0.0014026281597108049
+    }
+  ]
+}

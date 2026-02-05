@@ -1,0 +1,70 @@
+{
+  "method": "vikor",
+  "use_pareto": true,
+  "weights": {
+    "C1_accuracy": 0.3,
+    "C2_stability": 0.2,
+    "C3_shap_concentration": 0.15,
+    "C4_shap_stability": 0.2,
+    "C5_parsimony": 0.15
+  },
+  "criteria_types": {
+    "C1_accuracy": "cost",
+    "C2_stability": "benefit",
+    "C3_shap_concentration": "benefit",
+    "C4_shap_stability": "benefit",
+    "C5_parsimony": "benefit"
+  },
+  "n_candidates": 7,
+  "n_pareto": 3,
+  "top_n_requested": 2,
+  "top_options": [
+    "fs_wrapper",
+    "fs_linear"
+  ],
+  "best_option": "fs_wrapper",
+  "best_score": 0.39274143078679297,
+  "ranking": [
+    {
+      "fs_option": "fs_wrapper",
+      "vikor_Q": 0.39274143078679297,
+      "vikor_rank": 1
+    },
+    {
+      "fs_option": "fs_linear",
+      "vikor_Q": 0.5,
+      "vikor_rank": 2
+    },
+    {
+      "fs_option": "fs_consensus",
+      "vikor_Q": 1.0,
+      "vikor_rank": 3
+    }
+  ],
+  "top_options_details": [
+    {
+      "rank": 1,
+      "fs_option": "fs_wrapper",
+      "score": 0.39274143078679297,
+      "criteria_values": {
+        "C1_accuracy": 0.05570975403299817,
+        "C2_stability": 0.9722720293179525,
+        "C3_shap_concentration": 0.8035769836804268,
+        "C4_shap_stability": 0.8599133950562297,
+        "C5_parsimony": 0.4347826086956522
+      }
+    },
+    {
+      "rank": 2,
+      "fs_option": "fs_linear",
+      "score": 0.5,
+      "criteria_values": {
+        "C1_accuracy": 0.0896536292275115,
+        "C2_stability": 0.9663888316512785,
+        "C3_shap_concentration": 0.9525632557947765,
+        "C4_shap_stability": 0.8131464009648817,
+        "C5_parsimony": 0.6086956521739131
+      }
+    }
+  ]
+}

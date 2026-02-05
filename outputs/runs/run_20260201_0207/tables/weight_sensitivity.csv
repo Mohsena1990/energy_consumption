@@ -1,0 +1,7 @@
+criterion,perturbation,perturbation_pct,alternative,base_rank,new_rank,rank_change
+weighted_mae,increase,+20%,ridge,1,1,0
+weighted_mae,decrease,-20%,ridge,1,1,0
+stability_score,increase,+20%,ridge,1,1,0
+stability_score,decrease,-20%,ridge,1,1,0
+annual_consistency,increase,+20%,ridge,1,1,0
+annual_consistency,decrease,-20%,ridge,1,1,0

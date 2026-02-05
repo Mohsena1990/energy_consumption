@@ -1,0 +1,153 @@
+2026-02-01 15:21:24 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260201_1521/logs/run_20260201_1521.log
+2026-02-01 15:21:24 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:21:24 | INFO     | co2_forecast | Script 00: Make Dataset
+2026-02-01 15:21:24 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:21:24 | INFO     | co2_forecast | Run ID: run_20260201_1521
+2026-02-01 15:21:24 | INFO     | co2_forecast | Input: data/raw/data_1999-2025Q1.xlsx
+2026-02-01 15:21:24 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:21:24 | INFO     | co2_forecast | Step 1: Loading raw data...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Loading data from: data/raw/data_1999-2025Q1.xlsx
+2026-02-01 15:21:24 | INFO     | co2_forecast | Loaded sheet: Sheet1 (header row: 2)
+2026-02-01 15:21:24 | INFO     | co2_forecast | Loaded 105 rows, 9 columns
+2026-02-01 15:21:24 | INFO     | co2_forecast | Columns: ['Time_Period', 'CO2e', 'GDP', 'Population', 'Air_Temp', 'Rainfall', 'TEC', 'CEI', 'COVID_Deaths']
+2026-02-01 15:21:24 | WARNING  | co2_forecast | Some expected features not found: ['GDP_growth', 'Industrial_Production', 'GDP_per_capita', 'Consumption', 'Investment']...
+2026-02-01 15:21:24 | WARNING  | co2_forecast | Additional columns found: ['Air_Temp', 'Rainfall', 'TEC', 'CEI', 'COVID_Deaths']...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Date range: 1999-01-01 00:00:00 to 2025-01-01 00:00:00
+2026-02-01 15:21:24 | INFO     | co2_forecast | Target column: CO2e
+2026-02-01 15:21:24 | INFO     | co2_forecast | Data prepared: 105 rows, 8 columns
+2026-02-01 15:21:24 | INFO     | co2_forecast | Loaded 105 rows, 8 columns
+2026-02-01 15:21:24 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:21:24 | INFO     | co2_forecast | Step 2: Data quality audit...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Generating data quality report...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Quality report saved to: outputs/runs/run_20260201_1521/tables
+2026-02-01 15:21:24 | INFO     | co2_forecast | Quality report saved to outputs/runs/run_20260201_1521/tables
+2026-02-01 15:21:24 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:21:24 | INFO     | co2_forecast | Step 3: Cleaning data...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Cleaning complete. Shape: (105, 8)
+2026-02-01 15:21:24 | INFO     | co2_forecast | Cleaned data: 105 rows, 8 columns
+2026-02-01 15:21:24 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:21:24 | INFO     | co2_forecast | Step 4: Feature engineering...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Starting feature engineering...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Applied log transform to target. Range: 11.3635 to 12.1308
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 4 lag features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 3 rate-of-change features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 3 rate-of-change features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 2 intensity features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 2 intensity features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 2 weather features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 2 weather features
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created quarter dummy features (Q2, Q3, Q4)
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created COVID dummy (2020Q1 to 2021Q4)
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created Energy Crisis dummy (2022Q1 to 2023Q4)
+2026-02-01 15:21:24 | INFO     | co2_forecast | Feature engineering complete. Total features: 23
+2026-02-01 15:21:24 | INFO     | co2_forecast | Features: 23 columns, 101 valid rows
+2026-02-01 15:21:24 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:21:24 | INFO     | co2_forecast | Step 5: Creating walk-forward CV splits...
+2026-02-01 15:21:24 | INFO     | co2_forecast | Creating walk-forward splits for 101 valid samples
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 44 CV folds across horizons [1, 2, 4]
+2026-02-01 15:21:24 | INFO     | co2_forecast | Created 44 CV folds
+2026-02-01 15:21:24 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:21:24 | INFO     | co2_forecast | Dataset creation complete!
+2026-02-01 15:21:24 | INFO     | co2_forecast |   Raw data: 105 rows
+2026-02-01 15:21:24 | INFO     | co2_forecast |   Clean data: 105 rows
+2026-02-01 15:21:24 | INFO     | co2_forecast |   Features: 23 columns
+2026-02-01 15:21:24 | INFO     | co2_forecast |   Valid samples: 101
+2026-02-01 15:21:24 | INFO     | co2_forecast |   CV folds: 44
+2026-02-01 15:21:24 | INFO     | co2_forecast |   Outputs saved to: outputs/runs/run_20260201_1521
+2026-02-01 15:21:24 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:21:28 | INFO     | co2_forecast | Logging to: outputs/runs/run_20260201_1521/logs/run_20260201_1521.log
+2026-02-01 15:21:28 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:21:28 | INFO     | co2_forecast | Script 01: Run Feature Selection
+2026-02-01 15:21:28 | INFO     | co2_forecast | ============================================================
+2026-02-01 15:21:28 | INFO     | co2_forecast | Loading processed data...
+2026-02-01 15:21:28 | INFO     | co2_forecast | Loaded: 101 samples, 23 features
+2026-02-01 15:21:28 | INFO     | co2_forecast | ----------------------------------------
+2026-02-01 15:21:28 | INFO     | co2_forecast | Running all feature selection methods...
+2026-02-01 15:21:28 | INFO     | co2_forecast | Running all feature selection options...
+2026-02-01 15:21:28 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:28 | INFO     | co2_forecast | Running linear feature selection (FS_linear)...
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 0: Removed 'Air_Temp' (VIF=inf)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 1: Removed 'CO2e_per_Population' (VIF=1751.71)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 2: Removed 'CO2e_lag1' (VIF=272.88)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 3: Removed 'CEI' (VIF=252.43)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 4: Removed 'TEC_dlog' (VIF=88.79)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 5: Removed 'Q3' (VIF=68.50)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 6: Removed 'Population' (VIF=60.40)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 7: Removed 'CO2e_lag3' (VIF=38.27)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 8: Removed 'TEC' (VIF=33.64)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 9: Removed 'HDD_proxy' (VIF=20.50)
+2026-02-01 15:21:28 | INFO     | co2_forecast | Iteration 10: Removed 'CO2e_lag2' (VIF=13.40)
+2026-02-01 15:21:28 | INFO     | co2_forecast | VIF filter: 23 -> 12 features
+2026-02-01 15:21:28 | INFO     | co2_forecast | Ridge stability: Selected 7 features (stability >= 0.5)
+2026-02-01 15:21:28 | INFO     | co2_forecast | ElasticNet: Only 0 features passed threshold, adding top features to reach 3
+2026-02-01 15:21:28 | INFO     | co2_forecast | ElasticNet stability: Selected 3 features (stability >= 0.5)
+2026-02-01 15:21:28 | INFO     | co2_forecast | FS_linear final: 9 features selected
+2026-02-01 15:21:28 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:28 | INFO     | co2_forecast | Running nonlinear feature selection (FS_nonlinear)...
+2026-02-01 15:21:36 | INFO     | co2_forecast | RF importance: Selected 3 features
+2026-02-01 15:21:37 | INFO     | co2_forecast | LightGBM importance: Selected 16 features
+2026-02-01 15:21:41 | INFO     | co2_forecast | CatBoost importance: Selected 20 features
+2026-02-01 15:21:41 | INFO     | co2_forecast | FS_nonlinear final: 20 features selected
+2026-02-01 15:21:41 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:41 | INFO     | co2_forecast | Running consensus feature selection (FS_consensus)...
+2026-02-01 15:21:41 | INFO     | co2_forecast | Vote-based selection: 19 features with >= 2 votes
+2026-02-01 15:21:42 | INFO     | co2_forecast | Stability-based selection: 9 features with stability >= 0.5
+2026-02-01 15:21:42 | INFO     | co2_forecast | FS_consensus final: 9 features selected
+2026-02-01 15:21:42 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running filter methods...
+2026-02-01 15:21:42 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running ALL filter-based feature selection methods...
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running Mutual Information feature selection...
+2026-02-01 15:21:42 | INFO     | co2_forecast | Mutual Information: Selected 5 features (max MI: 1.9503)
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running F-test feature selection...
+2026-02-01 15:21:42 | INFO     | co2_forecast | F-test: Selected 20 features (significant at p<0.05)
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running pearson correlation-based feature selection...
+2026-02-01 15:21:42 | INFO     | co2_forecast | Correlation-based: Selected 5 features (threshold=0.3)
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running variance threshold feature selection...
+2026-02-01 15:21:42 | INFO     | co2_forecast | Variance threshold: Selected 21 features (threshold=0.01)
+2026-02-01 15:21:42 | INFO     | co2_forecast | Filter methods complete: 4 methods run
+2026-02-01 15:21:42 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running wrapper methods...
+2026-02-01 15:21:42 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running ALL wrapper-based feature selection methods...
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running RFE feature selection (target: 5 features)...
+2026-02-01 15:21:42 | INFO     | co2_forecast | RFE: Selected 5 features using ridge
+2026-02-01 15:21:42 | INFO     | co2_forecast | Running RFE feature selection (target: 5 features)...
+2026-02-01 15:21:45 | INFO     | co2_forecast | RFE: Selected 5 features using random_forest
+2026-02-01 15:21:45 | INFO     | co2_forecast | Running Sequential Forward Selection (target: 5 features)...
+2026-02-01 15:22:11 | INFO     | co2_forecast | SFS: Selected 5 features using ridge
+2026-02-01 15:22:11 | INFO     | co2_forecast | Running Sequential Backward Selection (target: 5 features)...
+2026-02-01 15:22:14 | INFO     | co2_forecast | SBS: Selected 5 features using ridge
+2026-02-01 15:22:14 | INFO     | co2_forecast | Wrapper methods complete: 4 methods run
+2026-02-01 15:22:14 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:22:14 | INFO     | co2_forecast | Running embedded methods...
+2026-02-01 15:22:14 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:22:14 | INFO     | co2_forecast | Running ALL embedded feature selection methods...
+2026-02-01 15:22:14 | INFO     | co2_forecast | Running LASSO feature selection...
+2026-02-01 15:22:14 | INFO     | co2_forecast | LASSO optimal alpha via CV: 0.000183
+2026-02-01 15:22:14 | INFO     | co2_forecast | LASSO: Selected 18 features (alpha=0.000183)
+2026-02-01 15:22:14 | INFO     | co2_forecast | Running ElasticNet feature selection (l1_ratio=0.5)...
+2026-02-01 15:22:14 | INFO     | co2_forecast | ElasticNet optimal alpha: 0.000367
+2026-02-01 15:22:14 | INFO     | co2_forecast | ElasticNet: Selected 18 features
+2026-02-01 15:22:14 | INFO     | co2_forecast | Running Gradient Boosting feature selection...
+2026-02-01 15:22:30 | INFO     | co2_forecast | Using LightGBM for feature importance
+2026-02-01 15:22:30 | INFO     | co2_forecast | Gradient Boosting: Selected 5 features
+2026-02-01 15:22:30 | INFO     | co2_forecast | Running Random Forest feature selection...
+2026-02-01 15:22:30 | INFO     | co2_forecast | Random Forest: Selected 5 features
+2026-02-01 15:22:30 | INFO     | co2_forecast | Running CatBoost feature selection...
+2026-02-01 15:22:30 | INFO     | co2_forecast | CatBoost: Selected 5 features
+2026-02-01 15:22:30 | INFO     | co2_forecast | Embedded methods complete: 5 methods run
+2026-02-01 15:22:30 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:22:30 | INFO     | co2_forecast | Running hybrid feature selection (filter+wrapper+embedded)...
+2026-02-01 15:22:30 | INFO     | co2_forecast | Features selected by all three categories: 12
+2026-02-01 15:22:30 | INFO     | co2_forecast | Features with >= 2 votes: 22
+2026-02-01 15:22:30 | INFO     | co2_forecast | FS_hybrid final: 22 features selected
+2026-02-01 15:22:30 | INFO     | co2_forecast | ==================================================
+2026-02-01 15:22:30 | INFO     | co2_forecast | Total FS options: 7
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_linear: 9 features
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_nonlinear: 20 features
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_consensus: 9 features
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_filter: 21 features
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_wrapper: 13 features
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_embedded: 21 features
+2026-02-01 15:22:30 | INFO     | co2_forecast |   fs_hybrid: 22 features

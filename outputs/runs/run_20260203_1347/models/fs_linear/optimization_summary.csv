@@ -1,0 +1,6 @@
+model,best_fitness,best_params
+ridge,0.04680359433904603,{'alpha': 0.001}
+random_forest,0.055640889564149816,"{'n_estimators': 114, 'max_depth': 10, 'min_samples_split': 2, 'min_samples_leaf': 1}"
+catboost,0.05965351339803098,"{'iterations': 133, 'learning_rate': 0.22800099075614655, 'depth': 3, 'l2_leaf_reg': 10.0}"
+lightgbm,0.05785190850095708,"{'n_estimators': 284, 'learning_rate': 0.10509246229824426, 'num_leaves': 60, 'max_depth': 9, 'min_child_samples': 6, 'reg_alpha': 0.001, 'reg_lambda': 3.948093446599554}"
+lstm,0.10366872496773677,"{'lookback': 6, 'hidden_size': 35, 'num_layers': 2, 'dropout': 0.33423086769930577, 'learning_rate': 0.0082041203561085, 'batch_size': 16}"

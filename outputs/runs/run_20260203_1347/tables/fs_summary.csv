@@ -1,0 +1,8 @@
+fs_option,n_features,features
+fs_linear,9,"GDP, Rainfall, COVID_Deaths, CO2e_lag4, GDP_dlog, CO2e_dlog, CO2e_per_TEC, Q2, Q4"
+fs_nonlinear,20,"GDP, Population, Air_Temp, Rainfall, TEC, CEI, COVID_Deaths, CO2e_lag1, CO2e_lag2, CO2e_lag3..."
+fs_consensus,9,"GDP, Population, TEC, CO2e_lag1, CO2e_lag2, CO2e_lag3, CO2e_lag4, TEC_dlog, CO2e_per_Population"
+fs_filter,21,"Rainfall, COVID_Deaths, COVID, Q2, CO2e_per_Population, Q3, HDD_proxy, Air_Temp, CO2e_lag4, Population..."
+fs_wrapper,13,"CO2e_lag4, EnergyCrisis, CEI, CO2e_per_Population, Q2, TEC, CO2e_lag3, COVID_Deaths, CO2e_dlog, HDD_proxy..."
+fs_embedded,21,"CO2e_lag4, Population, EnergyCrisis, Rainfall, TEC, Q4, COVID_Deaths, CO2e_dlog, COVID, CO2e_lag1..."
+fs_hybrid,22,"GDP, Population, Air_Temp, Rainfall, TEC, CEI, COVID_Deaths, CO2e_lag1, CO2e_lag2, CO2e_lag3..."

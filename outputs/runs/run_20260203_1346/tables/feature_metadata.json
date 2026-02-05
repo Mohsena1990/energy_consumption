@@ -1,0 +1,67 @@
+{
+  "feature_columns": [
+    "GDP",
+    "Population",
+    "Air_Temp",
+    "Rainfall",
+    "TEC",
+    "CEI",
+    "COVID_Deaths",
+    "CO2e_lag1",
+    "CO2e_lag2",
+    "CO2e_lag3",
+    "CO2e_lag4",
+    "TEC_dlog",
+    "GDP_dlog",
+    "CO2e_dlog",
+    "CO2e_per_Population",
+    "CO2e_per_TEC",
+    "HDD_proxy",
+    "CDD_proxy",
+    "Q2",
+    "Q3",
+    "Q4",
+    "COVID",
+    "EnergyCrisis"
+  ],
+  "lag_features": [
+    "CO2e_lag1",
+    "CO2e_lag2",
+    "CO2e_lag3",
+    "CO2e_lag4"
+  ],
+  "rolling_features": [],
+  "seasonality_features": [
+    "Q2",
+    "Q3",
+    "Q4"
+  ],
+  "shock_features": [
+    "COVID",
+    "EnergyCrisis"
+  ],
+  "n_original_features": 7,
+  "target_transform": {
+    "original_column": "CO2e",
+    "transform": "log",
+    "original_min": 86119.7,
+    "original_max": 185503.5,
+    "original_mean": 136490.8876190476,
+    "transformed_min": 11.363493467960852,
+    "transformed_max": 12.130829028776159
+  },
+  "roc_features": [
+    "TEC_dlog",
+    "GDP_dlog",
+    "CO2e_dlog"
+  ],
+  "intensity_features": [
+    "CO2e_per_Population",
+    "CO2e_per_TEC"
+  ],
+  "weather_features": [
+    "HDD_proxy",
+    "CDD_proxy"
+  ],
+  "n_total_features": 23
+}

@@ -1,0 +1,146 @@
+{
+  "champion_model": "ridge",
+  "champion_model_id": "fs_wrapper/ridge",
+  "champion_fs_option": "fs_wrapper",
+  "mcda_method": "vikor",
+  "mcda_score": 0.0,
+  "best_params": {
+    "alpha": 0.19489289780387775
+  },
+  "selected_features": [
+    "CO2e_lag4",
+    "EnergyCrisis",
+    "CEI",
+    "CO2e_per_Population",
+    "Q2",
+    "TEC",
+    "CO2e_lag3",
+    "COVID_Deaths",
+    "CO2e_dlog",
+    "HDD_proxy",
+    "TEC_dlog",
+    "COVID",
+    "CO2e_lag1"
+  ],
+  "n_features": 13,
+  "top_configurations": [
+    "fs_wrapper/ridge",
+    "fs_wrapper/random_forest"
+  ],
+  "top_configurations_details": [
+    {
+      "model_id": "fs_wrapper/ridge",
+      "score": 0.0,
+      "metrics": {
+        "fs_option": "fs_wrapper",
+        "n_features": 13.0,
+        "weighted_mae": 0.0227466820968016,
+        "stability_score": 0.9846750572983476,
+        "error_std": 0.0155634517073069,
+        "worst_fold_error": 0.0740074455749684,
+        "mae_h1": 0.0220359022953518,
+        "rmse_h1": 0.0306029576573048,
+        "mape_h1": 0.1896547552151725,
+        "r2_h1": 0.9587251209076686,
+        "mae_h2": 0.0220048254236732,
+        "rmse_h2": 0.0294358912455187,
+        "mape_h2": 0.1894084803847211,
+        "r2_h2": 0.9592706720583268,
+        "mae_h4": 0.0256364166101187,
+        "rmse_h4": 0.033467418879072,
+        "mape_h4": 0.2209586429114032,
+        "r2_h4": 0.9498673428907042,
+        "annual_mae": 24387.00499261909,
+        "annual_mape": 1.9529134265993613,
+        "annual_bias": 20158.120603737298,
+        "consistency_score": 0.9804708657340064,
+        "is_compromise": 1.0
+      },
+      "fs_option": "fs_wrapper",
+      "model": "ridge"
+    },
+    {
+      "model_id": "fs_wrapper/random_forest",
+      "score": 1.0,
+      "metrics": {
+        "fs_option": "fs_wrapper",
+        "n_features": 13.0,
+        "weighted_mae": 0.0293309953199751,
+        "stability_score": 0.9772694558107397,
+        "error_std": 0.0232592393572796,
+        "worst_fold_error": 0.114569162682145,
+        "mae_h1": 0.0268143245399651,
+        "rmse_h1": 0.042783665130981,
+        "mape_h1": 0.2307776095077271,
+        "r2_h1": 0.9193294571000216,
+        "mae_h2": 0.0282720252387251,
+        "rmse_h2": 0.0432997716068492,
+        "mape_h2": 0.2431826607210844,
+        "r2_h2": 0.9118699379707152,
+        "mae_h4": 0.0372111273918751,
+        "rmse_h4": 0.0553375322215382,
+        "mape_h4": 0.3205867574296517,
+        "r2_h4": 0.8629383800586122,
+        "annual_mae": 23010.549895019496,
+        "annual_mape": 1.889268517961961,
+        "annual_bias": 14817.152029647616,
+        "consistency_score": 0.9811073148203804,
+        "is_compromise": 0.0
+      },
+      "fs_option": "fs_wrapper",
+      "model": "random_forest"
+    }
+  ],
+  "metrics": {
+    "fs_option": "fs_wrapper",
+    "n_features": 13.0,
+    "weighted_mae": 0.0227466820968016,
+    "stability_score": 0.9846750572983476,
+    "error_std": 0.0155634517073069,
+    "worst_fold_error": 0.0740074455749684,
+    "mae_h1": 0.0220359022953518,
+    "rmse_h1": 0.0306029576573048,
+    "mape_h1": 0.1896547552151725,
+    "r2_h1": 0.9587251209076686,
+    "mae_h2": 0.0220048254236732,
+    "rmse_h2": 0.0294358912455187,
+    "mape_h2": 0.1894084803847211,
+    "r2_h2": 0.9592706720583268,
+    "mae_h4": 0.0256364166101187,
+    "rmse_h4": 0.033467418879072,
+    "mape_h4": 0.2209586429114032,
+    "r2_h4": 0.9498673428907042,
+    "annual_mae": 24387.00499261909,
+    "annual_mape": 1.9529134265993613,
+    "annual_bias": 20158.120603737298,
+    "consistency_score": 0.9804708657340064,
+    "is_compromise": 1.0
+  },
+  "criteria": [
+    "weighted_mae",
+    "stability_score",
+    "annual_mape"
+  ],
+  "weights": {
+    "weighted_mae": 0.43749999999999994,
+    "stability_score": 0.25,
+    "annual_mape": 0.3125
+  },
+  "is_multi_fs": true,
+  "ranking": [
+    {
+      "model_id": "fs_wrapper/ridge",
+      "fs_option": "fs_wrapper",
+      "model": "ridge",
+      "vikor_Q": 0.0,
+      "vikor_rank": 1
+    },
+    {
+      "model_id": "fs_wrapper/random_forest",
+      "fs_option": "fs_wrapper",
+      "model": "random_forest",
+      "vikor_Q": 1.0,
+      "vikor_rank": 2
+    }
+  ]
+}

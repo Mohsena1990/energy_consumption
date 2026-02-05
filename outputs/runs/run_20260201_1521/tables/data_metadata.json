@@ -1,0 +1,25 @@
+{
+  "n_rows": 105,
+  "n_columns": 8,
+  "date_range": {
+    "start": "1999-01-01 00:00:00",
+    "end": "2025-01-01 00:00:00"
+  },
+  "columns": [
+    "CO2e",
+    "GDP",
+    "Population",
+    "Air_Temp",
+    "Rainfall",
+    "TEC",
+    "CEI",
+    "COVID_Deaths"
+  ],
+  "mappings": {
+    "date": "Quarter",
+    "target": "CO2e",
+    "GDP": "GDP",
+    "Population": "Population"
+  },
+  "target_column": "CO2e"
+}
